@@ -1,20 +1,21 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import MapView, { Marker, Overlay } from 'react-native-maps';
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import GymModal from './GymModal';
 
-const MapScreen = () => {
 
-  const [gymModal, setGymModal] = useState(false);
+const MapScreen = ({ gyms }) => {
+  const [gymModalVisible, setGymModalVisible] = useState(false);
+  const [selectedGym, setSelectedGymId] = useState(null);
 
-  const openGymModal = () => {
-    setGymModal(true);
-    console.log("clicked");
-  }
+  const openGymModal = (gym) => {
+    setSelectedGymId(gym); 
+    setGymModalVisible(true);
+  };
 
   const closeGymModal = () => {
-    setGymModal(false);
-  }
+    setGymModalVisible(false);
+  };
 
   const markerCoordinates = {
     latitude: 37.78825,
@@ -32,28 +33,29 @@ const MapScreen = () => {
           longitudeDelta: 0.0421,
         }}
       >
-        <Marker
-          coordinate={markerCoordinates}
-          onPress={openGymModal}
-        >
-          <Pressable style={MapStyle.gymMarker} >
-            <View>
-
-              <Text style={MapStyle.gymMarkerText}>
-                Lo de los viejos
-              </Text>
-              <Text style={MapStyle.gymMarkerPrice}>
-                UYU 1200
-              </Text>
-            </View>
-          </Pressable>
-
-        </Marker>
-
+        {gyms.map((gym) => {
+            let gymCoordinates = {
+              longitude: gym.longitude,
+              latitude: gym.latitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }
+          return (
+          
+            <Marker
+              key={gym.id}
+              coordinate={markerCoordinates}
+              onPress={() => openGymModal(gym)}
+            >
+              <View style={MapStyle.gymMarker}>
+                <Text style={MapStyle.gymMarkerText}>{gym.name}</Text>
+                <Text style={MapStyle.gymMarkerPrice}>UYU 1200</Text>
+              </View>
+            </Marker>
+          );
+        })}
       </MapView>
-      {
-        gymModal ? <GymModal closeGymModal={closeGymModal} /> : null
-      }
+      {gymModalVisible && <GymModal selectedGym={selectedGym} closeGymModal={closeGymModal} />}
     </View>
   );
 };
@@ -66,13 +68,14 @@ const MapStyle = StyleSheet.create({
     flex: 1,
   },
   gymMarker: {
-    padding: 5,
+    padding: 6,
     backgroundColor: "white",
     borderRadius: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.4,
     shadowRadius: 4,
+
   },
   gymMarkerText: {
     color: "black",

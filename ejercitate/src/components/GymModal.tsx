@@ -5,7 +5,7 @@ import { useState } from 'react';
 import styles from './../styles';
 import Instructors from './instructors';
 
-const GymModal = ({ closeGymModal }) => {
+const GymModal = ({ closeGymModal, selectedGym }) => {
 
     const [pricesModal, setPricesModal] = useState(false);
     const [instructorModal, setInstructorModal] = useState(false);
@@ -32,11 +32,22 @@ const GymModal = ({ closeGymModal }) => {
 
                 <View style={styles.modalContainer}>
                     <ScrollView horizontal={true}>
-                        <Image style={styles.modalImage} source={require('./../img/gym_image.jpg')} />
-                        <Image style={styles.modalImage} source={require('./../img/gym_image.jpg')} />
+                        <Image style={styles.modalImage} source={{ uri: selectedGym.imagen }} />
+                        {
+                            selectedGym.imagen2 ? <Image style={styles.modalImage} source={{ uri: selectedGym.imagen2 }} /> : null
+                        }
+                        {
+                            selectedGym.imagen3 ? <Image style={styles.modalImage} source={{ uri: selectedGym.imagen3 }} /> : null
+                        }
+                        {
+                            selectedGym.imagen4 ? <Image style={styles.modalImage} source={{ uri: selectedGym.imagen4 }} /> : null
+                        }
+                        {
+                            selectedGym.imagen5 ? <Image style={styles.modalImage} source={{ uri: selectedGym.imagen5 }} /> : null
+                        }
                     </ScrollView>
                     <Text style={styles.gymTitle}>
-                        Lo de los viejos
+                        {selectedGym.name}
                     </Text>
                     <View style={styles.hourContainer}>
                         <Text style={styles.directionText}>
@@ -45,7 +56,7 @@ const GymModal = ({ closeGymModal }) => {
                         <View style={styles.directionInfo}>
                             <Image style={styles.gymIcon} source={require('./../img/weightlifter.png')} />
                             <Text style={styles.directionSubText}>
-                                Av brasil esq gestido 1224
+                                {selectedGym.address}
                             </Text>
                         </View>
 
@@ -54,27 +65,39 @@ const GymModal = ({ closeGymModal }) => {
                         Actividades:
                     </Text>
                     <View style={styles.caracContainer}>
-                        <View style={styles.rowText}>
-                            <Image style={styles.gymIcon} source={require('./../img/sala.png')} />
-                            <Text style={styles.caracText}>Musculacion </Text>
-                        </View>
+                        {
+                            selectedGym.weightlifting ? <View style={styles.rowText}>
+                                <Image style={styles.gymIcon} source={require('./../img/sala.png')} />
+                                <Text style={styles.caracText}>Musculacion </Text>
+                            </View> : null
+                        }
+                        {
+                            selectedGym.weightlifting ?
+                                <View style={styles.rowText}>
+                                    <Image style={styles.gymIcon} source={require('./../img/weightlifter.png')} />
+                                    <Text style={styles.caracText}>Alterofilia </Text>
+                                </View> : null
+                        }
+                        {
+                            selectedGym.dance ? <View style={styles.rowText}>
+                                <Image style={styles.gymIcon} source={require('./../img/dancing.png')} />
+                                <Text style={styles.caracText}>Danza </Text>
+                            </View> : null
+                        }
+                        {
+                            selectedGym.yoga ? <View style={styles.rowText}>
+                                <Image style={styles.gymIcon} source={require('./../img/yoga.png')} />
+                                <Text style={styles.caracText}>Yoga </Text>
+                            </View> : null
+                        }
+                        {
+                            selectedGym.pilates ? <View style={styles.rowText}>
+                                <Image style={styles.gymIcon} source={require('./../img/pilates.png')} />
+                                <Text style={styles.caracText}>Pilates </Text>
+                            </View> : null
+                        }
 
-                        <View style={styles.rowText}>
-                            <Image style={styles.gymIcon} source={require('./../img/weightlifter.png')} />
-                            <Text style={styles.caracText}>Alterofilia </Text>
-                        </View>
-                        <View style={styles.rowText}>
-                            <Image style={styles.gymIcon} source={require('./../img/dancing.png')} />
-                            <Text style={styles.caracText}>Danza </Text>
-                        </View>
-                        <View style={styles.rowText}>
-                            <Image style={styles.gymIcon} source={require('./../img/yoga.png')} />
-                            <Text style={styles.caracText}>Yoga </Text>
-                        </View>
-                        <View style={styles.rowText}>
-                            <Image style={styles.gymIcon} source={require('./../img/pilates.png')} />
-                            <Text style={styles.caracText}>Pilates </Text>
-                        </View>
+
 
                     </View>
 
@@ -91,32 +114,41 @@ const GymModal = ({ closeGymModal }) => {
                         Servicios:
                     </Text>
                     <View style={styles.caracContainer}>
-                        <View style={styles.grayRowText}>
-                            <Image style={styles.gymIcon} source={require('./../img/ducha.png')} />
-                            <Text style={styles.caracBlackText}>Duchas </Text>
-                        </View>
-                        <View style={styles.grayRowText}>
-                            <Image style={styles.gymIcon} source={require('./../img/casilleros.png')} />
-                            <Text style={styles.caracBlackText}>Casilleros </Text>
-                        </View>
-                        <View style={styles.grayRowText}>
-                            <Image style={styles.gymIcon} source={require('./../img/cantina.png')} />
-                            <Text style={styles.caracBlackText}>Cantina </Text>
-                        </View>
-                        <View style={styles.grayRowText}>
-                            <Image style={styles.gymIcon} source={require('./../img/ping-pong.png')} />
-                            <Text style={styles.caracBlackText}>Ping pong </Text>
-                        </View>
+                        {
+                            selectedGym.showers ? <View style={styles.grayRowText}>
+                                <Image style={styles.gymIcon} source={require('./../img/ducha.png')} />
+                                <Text style={styles.caracBlackText}>Duchas </Text>
+                            </View> : null
+                        }
+                        {
+                            selectedGym.lockers ? <View style={styles.grayRowText}>
+                                <Image style={styles.gymIcon} source={require('./../img/casilleros.png')} />
+                                <Text style={styles.caracBlackText}>Casilleros </Text>
+                            </View> : null
+                        }
+                        {
+                            selectedGym.canteen ? <View style={styles.grayRowText}>
+                                <Image style={styles.gymIcon} source={require('./../img/cantina.png')} />
+                                <Text style={styles.caracBlackText}>Cantina </Text>
+                            </View> : null
+                        }
+                        {
+                            selectedGym.pingpong ? <View style={styles.grayRowText}>
+                                <Image style={styles.gymIcon} source={require('./../img/ping-pong.png')} />
+                                <Text style={styles.caracBlackText}>Ping pong </Text>
+                            </View> : null
+                        }
+
                     </View>
                     <View style={styles.hourContainer}>
                         <Text style={styles.scheduleText}>
                             Horarios
                         </Text>
                         <Text style={styles.scheduleSubText}>
-                            Lunes a viernes:
+                            {selectedGym.schedules}
                         </Text>
                         <Text style={styles.scheduleNumber}>
-                            08:00hs a 22:00hs
+                            {selectedGym.hours}
                         </Text>
                     </View>
 
@@ -174,11 +206,11 @@ const GymModal = ({ closeGymModal }) => {
                     </Pressable>
                 </View>
                 {
-                    instructorModal ? <Instructors hideInstructorModal={hideInstructorModal} /> : null 
+                    instructorModal ? <Instructors hideInstructorModal={hideInstructorModal} /> : null
                 }
 
                 {
-                    pricesModal ? <GymPrices hidePricesModal={hidePricesModal} /> : null
+                    pricesModal ? <GymPrices hidePricesModal={hidePricesModal} selectedGym={selectedGym} /> : null
                 }
 
             </ScrollView>
