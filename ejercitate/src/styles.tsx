@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderWidth: 2,
         borderColor: "white",
-        marginLeft: 35,
+        marginLeft: 45,
     },
     rowPressable: {
         display: 'flex',
@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
         height: 60,
         marginRight: 10,
         marginLeft: 10,
+        borderRadius:100,
+        borderColor:'white',
+        borderWidth:2,
     },
     upperTitle: {
         fontWeight: "bold",
@@ -542,6 +545,8 @@ const styles = StyleSheet.create({
         margin:10,
         backgroundColor:"white",
         borderRadius:100,
+        borderWidth:2,
+        borderColor:"white"
     },
     // SearchHistory Component
     searchHistoryColumn :{

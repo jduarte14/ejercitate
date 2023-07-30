@@ -6,7 +6,7 @@ import { View, Text, TouchableOpacity, Pressable, Modal } from 'react-native';
 import styles from './../styles';
 import MapScreen from './MapScreen';
 
-const MapGym = ({ hideMap, gyms }) => {
+const MapGym = ({ hideMap, gyms, instructors }) => {
 
 
     return (
@@ -14,7 +14,7 @@ const MapGym = ({ hideMap, gyms }) => {
 
         <Modal visible={true} animationType="slide">
             <SearchBox />
-            <MapScreen gyms={gyms}/>
+            <MapScreen gyms={gyms} instructors={instructors}/>
             <View style={styles.buttonsRow}>
                 <Pressable style={styles.singleButton} onPress={hideMap}>
                     <Text style={styles.buttonText} >

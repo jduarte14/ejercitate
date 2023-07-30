@@ -9,6 +9,8 @@ import SearchTrigger from './SearchTrigger';
 const HomeContent = () => {
 
     const [gyms, setGymsData] = useState('');
+    const [instructors, setInstructorsData] = useState('');
+    const [mapComponent, setMapComponent] = useState(false);
 
     const fetchGyms = async () => {
         const getUrl = `https://ejercitatebackend-production.up.railway.app/api/gyms`;
@@ -25,7 +27,21 @@ const HomeContent = () => {
         }
     }
 
-    const [mapComponent, setMapComponent] = useState(false);
+    const fetchInstructors = async ()=>{
+        const getInstructorUrl = `https://ejercitatebackend-production.up.railway.app/api/instructors/`
+        
+        try{
+            const response = await fetch(getInstructorUrl);
+            const data = await response.json();
+            if (response.ok) {
+                const instructorData = data.instructors;
+                setInstructorsData(instructorData);   
+            }
+        }
+        catch(error) {
+            throw new Error (error.message);
+        }
+    }
 
     const showMapBox = () => {
         setMapComponent(true);
@@ -37,13 +53,14 @@ const HomeContent = () => {
 
     useEffect(() => {
         fetchGyms();
+        fetchInstructors();
     }, []);
 
     return (
         <View style={styles.homeContainer}>
             <ScrollView>
                 {
-                    mapComponent ? <MapGym hideMap={hideMap} gyms={gyms} /> : null
+                    mapComponent ? <MapGym hideMap={hideMap} gyms={gyms} instructors={instructors} /> : null
                 }
                 <SearchTrigger showMapBox={showMapBox} />
                 <Categories />

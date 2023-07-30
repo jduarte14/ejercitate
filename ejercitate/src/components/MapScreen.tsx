@@ -4,9 +4,10 @@ import { StyleSheet, View, Pressable, Text } from 'react-native';
 import GymModal from './GymModal';
 
 
-const MapScreen = ({ gyms }) => {
+const MapScreen = ({ gyms, instructors }) => {
   const [gymModalVisible, setGymModalVisible] = useState(false);
   const [selectedGym, setSelectedGymId] = useState(null);
+  console.log(instructors);
 
   const openGymModal = (gym) => {
     setSelectedGymId(gym); 
@@ -55,7 +56,7 @@ const MapScreen = ({ gyms }) => {
           );
         })}
       </MapView>
-      {gymModalVisible && <GymModal selectedGym={selectedGym} closeGymModal={closeGymModal} />}
+      {gymModalVisible && <GymModal selectedGym={selectedGym} instructors={instructors} closeGymModal={closeGymModal} />}
     </View>
   );
 };

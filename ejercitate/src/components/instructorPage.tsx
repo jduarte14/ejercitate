@@ -1,14 +1,16 @@
 import { ScrollView, View, Text, Image, Modal, Pressable } from 'react-native';
 import styles from './../styles';
 
-const InstructorPage = ({ hideInstructorPage }) => {
+const InstructorPage = ({ hideInstructorPage, instructor }) => {
+    const {name,mail,phone,avatar,specialty} = instructor;
+    
     return (
         <Modal visible={true} animationType="slide">
             <ScrollView>
                 <View style={styles.instructorCard}>
                     <View style={styles.instructorAvatarRow}>
-                        <Image  style={styles.coachAvatar} source={require('./../img/entrenador-card.png')}/>
-                    <Text style={styles.whiteInstructorTitle}> Alberto morales </Text>
+                        <Image  style={styles.coachAvatar} source={{uri:avatar}}/>
+                    <Text style={styles.whiteInstructorTitle}> {name} </Text>
                     </View>
            
                     <Text style={styles.whiteSubInstructorText}>
@@ -43,11 +45,11 @@ const InstructorPage = ({ hideInstructorPage }) => {
                     <View style={styles.contactCard}>
                         <View style={styles.row}>
                             <Image style={styles.contactIcon} source={require('./../img/mail.png')} />
-                            <Text style={styles.whitePhoneText}> carlos@gmail.close </Text>
+                            <Text style={styles.whitePhoneText}> {mail}</Text>
                         </View>
                         <View style={styles.row}>
                             <Image style={styles.contactIcon} source={require('./../img/whatsapp.png')} />
-                            <Text style={styles.whitePhoneText}> 099206715 </Text>
+                            <Text style={styles.whitePhoneText}> {phone} </Text>
                         </View>
                     </View>
 

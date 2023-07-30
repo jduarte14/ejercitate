@@ -11,12 +11,14 @@ import Schedules from './gymModal/schedules';
 import Facilities from './gymModal/facilities';
 import Gallery from './gymModal/gallery';
 
-const GymModal = ({ closeGymModal, selectedGym }) => {
+const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
     const [pricesModal, setPricesModal] = useState(false);
     const [instructorModal, setInstructorModal] = useState(false);
-    const { reviews, sports, schedules, facilities, prices, imagen, imagen2,imagen3,imagen4,imagen5 } = selectedGym;
+    const { reviews, sports, schedules, facilities, prices, imagen, imagen2,imagen3,imagen4,imagen5, _id } = selectedGym;
 
+    const selectedInstructors = instructors.filter(instructor => instructor.gym === _id);
 
+    
     const showInstructorModal = () => {
         setInstructorModal(true);
     }
@@ -95,7 +97,7 @@ const GymModal = ({ closeGymModal, selectedGym }) => {
                     </Pressable>
                 </View>
                 {
-                    instructorModal ? <Instructors hideInstructorModal={hideInstructorModal} /> : null
+                    instructorModal ? <Instructors hideInstructorModal={hideInstructorModal} instructors={selectedInstructors}  /> : null
                 }
 
                 {
