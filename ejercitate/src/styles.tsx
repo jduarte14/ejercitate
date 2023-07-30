@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
         color: "black",
         fontWeight: "bold",
         fontSize: 16,
+        paddingBottom:10,
     },
     gymContainer: {
         height: 200,

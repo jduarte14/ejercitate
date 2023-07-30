@@ -17,7 +17,7 @@ const HomeContent = () => {
             const data = await response.json();
             if (response.ok) {
                 const gymsData = data.gyms;
-                setGymsData(gymsData);
+                setGymsData(gymsData); 
             }
         }
         catch(error) {
