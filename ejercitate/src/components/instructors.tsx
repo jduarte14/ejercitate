@@ -26,12 +26,13 @@ const Instructors = ({ hideInstructorModal, instructors }) => {
                         const { _id, name, phone, avatar } = instructor;
                         return (
                             <View style={styles.singleInstructorContainer} key={index}>
+                                <View style={styles.instructorRowContainer}>
                                 <Image style={styles.trainerAvatar} source={{uri:avatar}} />
                                 <View>
                                     <Text style={styles.whiteText}>{name} </Text>
                                     <Text style={styles.whitePhoneText}>{phone}</Text>
                                 </View>
-
+                                </View>
                                 <View>
                                     <Pressable style={styles.instructorBtn} onPress={() => showInstructorPage(_id)}>
                                         <Text style={styles.whitePhoneText}> Ver mas </Text>

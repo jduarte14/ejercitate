@@ -7,8 +7,7 @@ import GymModal from './GymModal';
 const MapScreen = ({ gyms, instructors }) => {
   const [gymModalVisible, setGymModalVisible] = useState(false);
   const [selectedGym, setSelectedGymId] = useState(null);
-  console.log(instructors);
-
+  
   const openGymModal = (gym) => {
     setSelectedGymId(gym); 
     setGymModalVisible(true);

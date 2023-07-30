@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderWidth: 2,
         borderColor: "white",
-        marginLeft: 45,
+        marginLeft:30,
     },
     rowPressable: {
         display: 'flex',
@@ -412,6 +412,7 @@ const styles = StyleSheet.create({
         backgroundColor: slate,
         borderRadius: 15,
         alignItems: "center",
+        justifyContent:"space-around",
         padding: 3,
         margin: 5,
         shadowColor: '#000',
@@ -419,6 +420,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.4,
         shadowRadius: 4,
         height: 90,
+    },
+    instructorRowContainer:{
+        display: "flex",
+        paddingRight: 5,
+        flexDirection: "row",
+        width:200,
     },
     instructorText: {
         display: "flex",
