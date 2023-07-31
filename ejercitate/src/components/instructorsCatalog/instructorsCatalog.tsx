@@ -1,45 +1,36 @@
-import { ScrollView, View, Text, Image } from 'react-native';
-import { useState, useEffect } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import BottomBar from './../bottomBar';
-import InstrucetorSearchTrigger from './instructorSearchField';
-import styles from './../../styles';
-
+import InstructorSearchTrigger from './instructorSearchField';
 
 const InstructorsCatalog = ({ navigation }) => {
-    const [instructors, setInstructorsData] = useState('');
+  const [instructors, setInstructorsData] = useState([]);
 
+  useEffect(() => {
     const fetchInstructors = async () => {
-        const getInstructorUrl = `https://ejercitatebackend-production.up.railway.app/api/instructors/`
-
-        try {
-            const response = await fetch(getInstructorUrl);
-            const data = await response.json();
-            if (response.ok) {
-                const instructorData = data.instructors;
-                console.log(instructorData, 'prueba');
-
-                setInstructorsData(instructorData);
-            }
+      try {
+        const getInstructorUrl = `https://ejercitatebackend-production.up.railway.app/api/instructors/`;
+        const response = await fetch(getInstructorUrl);
+        if (response.ok) {
+          const data = await response.json();
+          const instructorData = data.instructors;
+          setInstructorsData(instructorData);
         }
-        catch (error) {
-            throw new Error(error.message);
-        }
-    }
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-    useEffect(() => {
-        fetchInstructors();
-    }, [])
+    fetchInstructors();
+  }, []);
 
+  return (
+    <>
+      <InstructorSearchTrigger instructors={instructors} />
+      <BottomBar navigation={navigation} instructors={instructors} />
+    </>
+  );
+};
 
-    return (
-        <>
-            <InstrucetorSearchTrigger instructors={instructors} />
-            <BottomBar navigation={navigation} instructors={instructors} />
-        </>
-
-    )
-}
 
 
 export default InstructorsCatalog;

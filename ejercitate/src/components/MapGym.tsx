@@ -14,7 +14,10 @@ const MapGym = ({ hideMap, gyms, instructors }) => {
 
         <Modal visible={true} animationType="slide">
             <SearchBox />
-            <MapScreen gyms={gyms} instructors={instructors}/>
+            {
+                gyms ? <MapScreen gyms={gyms} instructors={instructors} /> : null
+            }
+
             <View style={styles.buttonsRow}>
                 <Pressable style={styles.singleButton} onPress={hideMap}>
                     <Text style={styles.buttonText} >

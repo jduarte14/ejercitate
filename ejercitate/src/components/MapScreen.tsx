@@ -34,22 +34,16 @@ const MapScreen = ({ gyms, instructors }) => {
         }}
       >
         {gyms.map((gym) => {
-            let gymCoordinates = {
-              longitude: gym.longitude,
-              latitude: gym.latitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }
+          const {prices, name} = gym;
           return (
-          
             <Marker
               key={gym.id}
               coordinate={markerCoordinates}
               onPress={() => openGymModal(gym)}
             >
               <View style={MapStyle.gymMarker}>
-                <Text style={MapStyle.gymMarkerText}>{gym.name}</Text>
-                <Text style={MapStyle.gymMarkerPrice}>UYU 1200</Text>
+                <Text style={MapStyle.gymMarkerText}>{name}</Text>
+                <Text style={MapStyle.gymMarkerPrice}>{prices.freePass}</Text>
               </View>
             </Marker>
           );

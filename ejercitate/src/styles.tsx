@@ -10,7 +10,9 @@ const styles = StyleSheet.create({
         height: '100%',
         flex: 1,
     },
+    searchField:{
 
+    },
     homeContainer: {
         backgroundColor: gray,
         flex: 1,
@@ -126,7 +128,8 @@ const styles = StyleSheet.create({
     gymDescription: {
         color: "black",
         fontWeight: "bold",
-        fontSize: 13,
+        fontSize: 15,
+        lineHeight:22,
         paddingBottom:15,
         width:200,
     },
@@ -329,6 +332,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         paddingTop: 10,
+        alignItems:'center',
     },
     gymTitle: {
         color: "black",

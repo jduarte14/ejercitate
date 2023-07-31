@@ -17,7 +17,7 @@ const Activities = ({ sports }) => {
                 }
                 {
                     wrestling ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/weightlifter.png')} />
+                        <Image style={styles.gymIcon} source={require('./../../img/wrestling.png')} />
                         <Text style={styles.caracText}> Lucha grecoromana </Text>
                     </View> : null
                 }
@@ -31,21 +31,21 @@ const Activities = ({ sports }) => {
 
                 {
                     boxing ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/weightlifter.png')} />
+                        <Image style={styles.gymIcon} source={require('./../../img/boxing.png')} />
                         <Text style={styles.caracText}> Boxeo </Text>
                     </View> : null
                 }
 
                 {
                     bjj ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/weightlifter.png')} />
+                        <Image style={styles.gymIcon} source={require('./../../img/bjj.png')} />
                         <Text style={styles.caracText}> Brazilian Jiujitsu </Text>
                     </View> : null
                 }
 
                 {
                     mma ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/weightlifter.png')} />
+                        <Image style={styles.gymIcon} source={require('./../../img/mma.png')} />
                         <Text style={styles.caracText}> MMA </Text>
                     </View> : null
                 }

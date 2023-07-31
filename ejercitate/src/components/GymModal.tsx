@@ -14,11 +14,11 @@ import Gallery from './gymModal/gallery';
 const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
     const [pricesModal, setPricesModal] = useState(false);
     const [instructorModal, setInstructorModal] = useState(false);
-    const { reviews, sports, schedules, facilities, prices, imagen, imagen2,imagen3,imagen4,imagen5, _id } = selectedGym;
+    const { reviews, sports, schedules, facilities, prices, imagen, imagen2, imagen3, imagen4, imagen5, _id } = selectedGym;
 
     const selectedInstructors = instructors.filter(instructor => instructor.gym === _id);
 
-    
+
     const showInstructorModal = () => {
         setInstructorModal(true);
     }
@@ -39,7 +39,7 @@ const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
         <Modal visible={true} animationType="slide">
             <ScrollView style={styles.modalWrapper}>
                 <View style={styles.modalContainer}>
-                    <Gallery imagen={imagen} imagen2={imagen2} imagen3={imagen3} imagen4={imagen4} imagen5={imagen5}/>
+                    <Gallery imagen={imagen} imagen2={imagen2} imagen3={imagen3} imagen4={imagen4} imagen5={imagen5} />
                     <Text style={styles.gymTitle}>
                         {selectedGym.name}
                     </Text>
@@ -52,7 +52,7 @@ const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
                             Direccion:
                         </Text>
                         <View style={styles.directionInfo}>
-                            <Image style={styles.gymIcon} source={require('./../img/weightlifter.png')} />
+                            <Image style={styles.gymIcon} source={require('./../img/gym_location.png')} />
                             <Text style={styles.directionSubText}>
                                 {selectedGym.address}
                             </Text>
@@ -79,7 +79,7 @@ const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
                     <Text style={styles.gymSubText}>
                         Servicios:
                     </Text>
-                    <Facilities facilities={facilities}/>
+                    <Facilities facilities={facilities} />
 
                     <Schedules schedules={schedules} />
                     {reviews ? <Reviews reviews={reviews} /> : null}
@@ -97,7 +97,7 @@ const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
                     </Pressable>
                 </View>
                 {
-                    instructorModal ? <Instructors hideInstructorModal={hideInstructorModal} instructors={selectedInstructors}  /> : null
+                    instructorModal ? <Instructors hideInstructorModal={hideInstructorModal} instructors={selectedInstructors} /> : null
                 }
 
                 {
