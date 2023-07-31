@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeContent from './src/components/HomeContent';
-
+import { NavigationContainer } from '@react-navigation/native';
 
 function App() {
 
@@ -8,7 +8,10 @@ function App() {
 
   return (
     <>
-      <HomeContent />
+      <NavigationContainer>
+        <HomeContent />
+      </NavigationContainer>
+
     </>
   );
 }

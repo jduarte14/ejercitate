@@ -11,7 +11,7 @@ const Activities = ({ sports }) => {
             <View style={styles.caracContainer}>
                 {
                     calisthenic ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/weightlifter.png')} />
+                        <Image style={styles.gymIcon} source={require('./../../img/calisthenic.png')} />
                         <Text style={styles.caracText}> Calistenia </Text>
                     </View> : null
                 }

@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         flexDirection: "row",
         flexWrap: "wrap",
+        marginTop:10,
     },
     category: {
         backgroundColor: "white",
@@ -98,6 +99,9 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         marginRight: 8,
+        backgroundColor:gray,
+        borderRadius:100,
+        padding:5,
     },
     categoryText: {
         color: "black",
@@ -117,8 +121,9 @@ const styles = StyleSheet.create({
     gymDescription: {
         color: "black",
         fontWeight: "bold",
-        fontSize: 16,
-        paddingBottom:10,
+        fontSize: 13,
+        paddingBottom:15,
+        width:200,
     },
     gymContainer: {
         height: 200,
@@ -126,6 +131,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         padding: 10,
         borderRadius: 5,
+        display:"flex",
     },
     searchBtn: {
         backgroundColor: "black",
@@ -599,6 +605,42 @@ const styles = StyleSheet.create({
         color:slate,
         fontSize:13,
         textAlign:"left"
+    },
+    bottomBarRow:{
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"space-between",
+        backgroundColor:"white",
+        paddingLeft:20,
+        paddingRight:20,
+        paddingBottom:10,
+        marginTop:30,
+        borderTopWidth:1,
+        borderColor:gray,
+    },
+    bottomBarText :{
+        color:slate,
+        fontWeight:"bold",
+        fontSize:18,
+    },
+    bottomBarIcon :{
+        width:40,
+        height:40,
+    },
+    bottomBarIconContainer:{
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        textAlign:"center",
+        paddingTop:10,
+    },
+    postsTitle:{
+        color:slate,
+        fontSize:20,
+        paddingTop:10,
+        fontWeight:"bold",
+        paddingLeft:10,
+        paddingBottom:5,
     }
 });
 

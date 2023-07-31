@@ -5,6 +5,7 @@ import Categories from './Categories';
 import Posts from './Posts';
 import MapGym from './MapGym';
 import SearchTrigger from './SearchTrigger';
+import BottomBar from './bottomBar';
 
 const HomeContent = () => {
 
@@ -64,7 +65,8 @@ const HomeContent = () => {
                 }
                 <SearchTrigger showMapBox={showMapBox} />
                 <Categories />
-                <Posts />
+                <Posts gyms={gyms} />
+                <BottomBar/>
             </ScrollView>
         </View>
     )
