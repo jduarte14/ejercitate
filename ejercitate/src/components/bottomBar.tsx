@@ -1,22 +1,24 @@
 import styles from '../styles';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, Pressable } from 'react-native';
 
-const BottomBar = () => {
+const BottomBar = ({navigation,instructors}) => {
+
+    
     return (
         <>
             <View style={styles.bottomBarRow}>
-                <View style={styles.bottomBarIconContainer}>
+                <Pressable style={styles.bottomBarIconContainer}  onPress={() => navigation.navigate('Home')}>
                     <Image style={styles.bottomBarIcon} source={require('./../img/weight_icon.png')} />
                     <Text style={styles.bottomBarText}>
                         Gimnasios
                     </Text>
-                </View>
-                <View style={styles.bottomBarIconContainer}>
+                </Pressable>
+                <Pressable style={styles.bottomBarIconContainer} onPress={() => navigation.navigate('Instructores')}>
                     <Image style={styles.bottomBarIcon} source={require('./../img/entrenador-card.png')} />
                     <Text style={styles.bottomBarText}>
                         Instructores
                     </Text>
-                </View>
+                </Pressable>
             </View>
         </>
     )

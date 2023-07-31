@@ -7,7 +7,7 @@ import MapGym from './MapGym';
 import SearchTrigger from './SearchTrigger';
 import BottomBar from './bottomBar';
 
-const HomeContent = () => {
+const HomeContent = ({ navigation }) => {
 
     const [gyms, setGymsData] = useState('');
     const [instructors, setInstructorsData] = useState('');
@@ -15,32 +15,32 @@ const HomeContent = () => {
 
     const fetchGyms = async () => {
         const getUrl = `https://ejercitatebackend-production.up.railway.app/api/gyms`;
-        try{
+        try {
             const response = await fetch(getUrl);
             const data = await response.json();
             if (response.ok) {
                 const gymsData = data.gyms;
-                setGymsData(gymsData); 
+                setGymsData(gymsData);
             }
         }
-        catch(error) {
-            throw new Error (error.message);
+        catch (error) {
+            throw new Error(error.message);
         }
     }
 
-    const fetchInstructors = async ()=>{
+    const fetchInstructors = async () => {
         const getInstructorUrl = `https://ejercitatebackend-production.up.railway.app/api/instructors/`
-        
-        try{
+
+        try {
             const response = await fetch(getInstructorUrl);
             const data = await response.json();
             if (response.ok) {
                 const instructorData = data.instructors;
-                setInstructorsData(instructorData);   
+                setInstructorsData(instructorData);
             }
         }
-        catch(error) {
-            throw new Error (error.message);
+        catch (error) {
+            throw new Error(error.message);
         }
     }
 
@@ -66,7 +66,7 @@ const HomeContent = () => {
                 <SearchTrigger showMapBox={showMapBox} />
                 <Categories />
                 <Posts gyms={gyms} />
-                <BottomBar/>
+                <BottomBar navigation={navigation} instructors={instructors} />
             </ScrollView>
         </View>
     )

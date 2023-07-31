@@ -15,6 +15,11 @@ const styles = StyleSheet.create({
         backgroundColor: gray,
         flex: 1,
     },
+    instructorContainerCatalog: {
+        backgroundColor: gray,
+        flex: 1,
+        paddingTop:30,
+    },
 
     text: {
         fontWeight: "bold",
@@ -641,7 +646,7 @@ const styles = StyleSheet.create({
         fontWeight:"bold",
         paddingLeft:10,
         paddingBottom:5,
-    }
+    },
 });
 
 
