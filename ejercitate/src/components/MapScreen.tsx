@@ -43,7 +43,7 @@ const MapScreen = ({ gyms, instructors }) => {
             >
               <View style={MapStyle.gymMarker}>
                 <Text style={MapStyle.gymMarkerText}>{name}</Text>
-                <Text style={MapStyle.gymMarkerPrice}>{prices.freePass}</Text>
+                <Text style={MapStyle.gymMarkerPrice}>${prices.freePass}</Text>
               </View>
             </Marker>
           );

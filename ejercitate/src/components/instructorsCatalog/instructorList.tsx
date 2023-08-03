@@ -40,7 +40,7 @@ const InstructorList = ({ instructors, searchValue }) => {
           );
         })
       ) : (
-        <Text style={instructorStyle.charginText}>No se encontraron instructores</Text>
+        <Text style={instructorStyle.charginText}>Cargando instructores</Text>
       )}
       {instructorPage ? <InstructorPage hideInstructorPage={hideInstructorPage} instructor={selectedInstructor} /> : null}
     </View>
@@ -94,7 +94,8 @@ const instructorStyle = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20,
         color: slate,
-        paddingLeft: 20,
+        paddingLeft: 45,
+        paddingTop:20,
     },
     instructorAvatar: {
         width: 60,
