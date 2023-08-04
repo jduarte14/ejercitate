@@ -6,7 +6,7 @@ const Posts = ({ gyms }) => {
         <>
             {
                 gyms ? <>
-                    <Text style={styles.postsTitle}> Gimnasios </Text>
+                    <Text style={styles.postsTitle}> Gimnasios cerca de ti </Text>
                     <ScrollView horizontal>
                         <TouchableOpacity style={styles.gymContainer}>
                             

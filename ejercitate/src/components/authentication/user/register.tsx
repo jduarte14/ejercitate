@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet, Image, Button } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 const Register = ({ navigation }) => {
@@ -33,7 +33,7 @@ const Register = ({ navigation }) => {
             let url = 'https://ejercitatebackend-production.up.railway.app/auth/user/';
             const response = await fetch(url, {
                 method:"POST",
-                body: formData,
+                body: formData.toString(),
                 headers: {
                     'Content-Type': 'application/json',
                   },

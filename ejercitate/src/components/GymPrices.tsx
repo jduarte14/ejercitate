@@ -51,7 +51,7 @@ const GymPrices = ({ hidePricesModal, prices }) => {
           fourDays ?
             <Pressable style={priceContainer(3).priceContainer} onPress={() => handlePress(3, 'Asistencia 4 dias', { fourDays })}>
               <Text style={styles.priceDeal}>Asistencia 4 dias</Text>
-              <Text style={styles.checkoutPrice}>{threeDays}</Text>
+              <Text style={styles.checkoutPrice}>{fourDays}</Text>
             </Pressable>
             : null
         }
