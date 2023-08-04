@@ -553,8 +553,9 @@ const styles = StyleSheet.create({
         alignItems:"center",
     },
     contactIcon: {
-        width: 30,
-        height: 30,
+        width: 25,
+        height: 25,
+        marginRight:5,
     },
     instructorAvatarRow:{
         display:"flex",

@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet, Image } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const Login = ({ navigation }) => {
@@ -7,7 +9,18 @@ const Login = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [userLogged, setUserLogged] = useState(false);
-    
+
+    const setLoggedSession = async (value, key) => {
+        try {
+            await AsyncStorage.setItem(key, JSON.stringify(value));
+            console.log('session agregado');
+            
+        }
+        catch (error) {
+            console.error("There was an error setting the session storage", error);
+        }
+    }
+
     const handleLogin = async () => {
         try {
             const url = 'https://ejercitatebackend-production.up.railway.app/auth/user/login';
@@ -15,18 +28,21 @@ const Login = ({ navigation }) => {
             userData.append("email", email.toLowerCase());
             userData.append("password", password.toLowerCase());
 
-            const response = await axios.post(url, userData, {
+            const response = await axios.post(url, userData.toString(), {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
 
+            console.log(userData);
+
+
             if (response.status === 200) {
                 console.log('Usuario conectado correctamente');
-                setUserLogged(true);
+                setLoggedSession('loggedUser','logged');
             } else {
                 setError('Credenciales incorrectas');
-                console.log(response.data,'asd');
+                console.log(response.data, 'asd');
             }
         } catch (error) {
             setError('Error al obtener los datos');
@@ -115,8 +131,8 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         paddingHorizontal: 10,
         marginBottom: 15,
-        paddingLeft:20,
-        fontWeight:"bold"
+        paddingLeft: 20,
+        fontWeight: "bold"
     },
     button: {
         backgroundColor: slate,
