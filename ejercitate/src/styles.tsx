@@ -631,11 +631,11 @@ const styles = StyleSheet.create({
     bottomBarText :{
         color:slate,
         fontWeight:"bold",
-        fontSize:18,
+        fontSize:15,
     },
     bottomBarIcon :{
-        width:40,
-        height:40,
+        width:35,
+        height:35,
     },
     bottomBarIconContainer:{
         display:"flex",

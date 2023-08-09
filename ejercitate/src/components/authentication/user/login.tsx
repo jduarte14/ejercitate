@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet, Image } from 'react-native';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
@@ -14,7 +13,7 @@ const Login = ({ navigation }) => {
         try {
             await AsyncStorage.setItem(key, JSON.stringify(value));
             console.log('session agregado');
-            
+
         }
         catch (error) {
             console.error("There was an error setting the session storage", error);
@@ -34,15 +33,14 @@ const Login = ({ navigation }) => {
                 }
             });
 
-            console.log(userData);
-
-
             if (response.status === 200) {
-                console.log('Usuario conectado correctamente');
-                setLoggedSession('loggedUser','logged');
+                const userResponse = await response.data;
+                const { user } = userResponse;
+                const { _id } = user;
+                setLoggedSession(_id, 'id');
+                setLoggedSession('loggedUser', 'logged');
             } else {
                 setError('Credenciales incorrectas');
-                console.log(response.data, 'asd');
             }
         } catch (error) {
             setError('Error al obtener los datos');

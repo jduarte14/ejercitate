@@ -12,19 +12,23 @@ import OwnerLogin from './src/components/authentication/owner/login';
 import OwnerRegistration from './src/components/authentication/owner/register';
 import InstructorLogin from './src/components/authentication/instructor/login';
 import InstructorRegister from './src/components/authentication/instructor/register';
+import Account from './src/components/Account';
 
 function App() {
   const Stack = createNativeStackNavigator();
 
+
   const [userLogged, setUserLog] = useState(false);
+  const [userData, setUserData] = useState('');
 
   const handleUser = async () => {
     try {
       const getAuth = await AsyncStorage.getItem('logged');
+      const getUserData = await AsyncStorage.getItem('user');
+
       if (getAuth) {
         setUserLog(true);
-        console.log(getAuth);
-
+        setUserData(getUserData);
       }
 
     }
@@ -46,6 +50,8 @@ function App() {
             <>
               <Stack.Screen name="Home" component={HomeContent} options={{ headerShown: false }} />
               <Stack.Screen name="Instructores" component={InstructorsCatalog} options={{ headerShown: false }} />
+              <Stack.Screen name="Account" component={Account} initialParams={{ userData: userData }}
+                options={{ headerShown: false }} />
             </>
           ) : (<>
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />

@@ -19,6 +19,12 @@ const BottomBar = ({navigation,instructors}) => {
                         Instructores
                     </Text>
                 </Pressable>
+                <Pressable style={styles.bottomBarIconContainer} onPress={() => navigation.navigate('Account')}>
+                    <Image style={styles.bottomBarIcon} source={require('./../img/user.png')} />
+                    <Text style={styles.bottomBarText}>
+                        Cuenta
+                    </Text>
+                </Pressable>
             </View>
         </>
     )
