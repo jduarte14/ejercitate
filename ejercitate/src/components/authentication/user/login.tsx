@@ -3,12 +3,12 @@ import { View, TextInput, Pressable, Text, StyleSheet, Image } from 'react-nativ
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, route }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [userLogged, setUserLogged] = useState(false);
-
+    const {setUserLog} = route.params;
     const setLoggedSession = async (value, key) => {
         try {
             await AsyncStorage.setItem(key, JSON.stringify(value));
@@ -39,6 +39,7 @@ const Login = ({ navigation }) => {
                 const { _id } = user;
                 setLoggedSession(_id, 'id');
                 setLoggedSession('loggedUser', 'logged');
+                setUserLog(true);
             } else {
                 setError('Credenciales incorrectas');
             }
