@@ -38,6 +38,7 @@ const Account = ({ navigation }) => {
     }, [])
 
     return (
+        <View style={styles.container}>
         <ScrollView style={styles.settingsContainer}>
             <View style={styles.settingsWrapper}>
                 {user ? (
@@ -46,7 +47,7 @@ const Account = ({ navigation }) => {
                         <Image source={{ uri: user.avatar }} style={styles.avatarImage} />
                         <View style={styles.userInfo}>
                             <Text style={styles.text}>{user.username}</Text>
-                            <Text style={styles.text}>{user.email}</Text>
+                            <Text style={styles.email}>{user.email}</Text>
                         </View>
                     </View>
                     <View style={styles.buttonsContainer}>
@@ -68,27 +69,48 @@ const Account = ({ navigation }) => {
                                 Cambiar Avatar
                             </Text>
                         </Pressable>
+                        <Pressable style={styles.buttonRow}>
+                        <Image style={styles.icon} source={require('./../img/debit-card.png')}/>
+                            <Text style={styles.subText}>
+                                Configuracion de pagos
+                            </Text>
+                        </Pressable>
                     </View>
                    
                     </>) :
                     (<Text style={styles.text}>Cargando...</Text>)}
             </View>
-            <BottomBar  navigation={navigation} />
+           
         </ScrollView>
+        <BottomBar  navigation={navigation} />
+        </View>
     )
 }
 let slate = "#0f172a";
+let gray = "#f7f7f7";
 const styles = StyleSheet.create({
+    container:{
+        backgroundColor:gray,
+        flex:1,
+    },
     settingsContainer: {
         padding: 10,
         borderRadius: 20,
-        backgroundColor: "#f7f7f7",
+        backgroundColor: gray,
         flex:1,
     },
     settingsRow: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor:"white",
+        padding:10,
+        borderRadius:10,
+        elevation: 3,
+        shadowColor: '#000', 
+        shadowOffset: { width: 0, height: 2 }, 
+        shadowOpacity: 0.3, 
+        shadowRadius: 4,
     },
     icon:{
         width:35,
@@ -96,7 +118,6 @@ const styles = StyleSheet.create({
     },
     userInfo:{
         display:"flex",
-        flexDirection:"row",
         alignItems:"center",
         paddingLeft:10,
     },
@@ -113,6 +134,13 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         textTransform:"uppercase"
     },
+    email: {
+        color: slate,
+        fontWeight: "bold",
+        fontSize: 20,
+        paddingLeft: 10,
+        paddingTop: 10,
+    },
     subText: {
         color: slate,
         fontWeight: "bold",
@@ -125,13 +153,8 @@ const styles = StyleSheet.create({
         width: 130,
         height: 130,
         borderRadius: 100,
-        borderWidth:4,
+        borderWidth:3,
         borderColor:slate,
-        elevation: 5,
-        shadowColor: '#000', 
-        shadowOffset: { width: 0, height: 2 }, 
-        shadowOpacity: 0.3, 
-        shadowRadius: 4,
     },
     buttonRow:{
         backgroundColor:"white",
