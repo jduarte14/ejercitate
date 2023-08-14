@@ -8,7 +8,7 @@ const BottomBar = ({navigation,instructors}) => {
         <>
             <View style={styles.bottomBarRow}>
                 <Pressable style={styles.bottomBarIconContainer}  onPress={() => navigation.navigate('Home')}>
-                    <Image style={styles.bottomBarIcon} source={require('./../img/weight_icon.png')} />
+                    <Image style={styles.bottomBarIcon} source={require('./../img/sports/weight_icon.png')} />
                     <Text style={styles.bottomBarText}>
                         Gimnasios
                     </Text>

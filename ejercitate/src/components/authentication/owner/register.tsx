@@ -1,31 +1,39 @@
 import React, { useState } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet } from 'react-native';
-
+import Activities  from './components/activites';
 const Register = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [modal, setModal] = useState(false);
+
+    const handleModal =()=>{
+        setModal(true);
+    }
+
+    const closeModal =()=>{
+        setModal(false);
+    }
+
+
     return (
         <>
             <View style={styles.container}>
                 <Text style={styles.loginTitle}>
-                    Registrate
+                    Registra tu gimasio
+                </Text>
+                <Text style={styles.loginSubTitle}>
+                    Nombre del gimnasio:
                 </Text>
                 <TextInput
-                    placeholder="Email"
+                    placeholder="Nombre gimnasio"
                     onChangeText={setEmail}
                     value={email}
                     style={styles.input}
                 />
-                <TextInput
-                    placeholder="Password"
-                    secureTextEntry
-                    onChangeText={setPassword}
-                    value={password}
-                    style={styles.input}
-                />
                 <View style={styles.buttonRow}>
-                    <Pressable style={styles.button}>
-                        <Text style={styles.buttonText}>Registrarse</Text>
+                    <Pressable style={styles.button} onPress={handleModal}>
+                        <Text style={styles.buttonText}>Registrar gimnasio</Text>
                     </Pressable>
                 </View>
                 <View>
@@ -49,6 +57,10 @@ const Register = ({ navigation }) => {
                     </View>
                 </View>
             </View>
+            {
+                modal ? <Activities closeModal={closeModal}/> : null
+
+            }
         </>
     )
 }
@@ -65,6 +77,12 @@ const styles = StyleSheet.create({
         color: slate,
         paddingBottom: 30,
     },
+    loginSubTitle: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: slate,
+        paddingBottom: 30,
+    },
     buttonRow: {
         display: "flex",
         flexDirection: "row",
@@ -72,7 +90,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     container: {
-        flex: 1,
+        display:"flex",
+        flex:1,
         justifyContent: 'center',
         alignItems: 'center',
     },

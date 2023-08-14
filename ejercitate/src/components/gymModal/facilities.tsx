@@ -9,7 +9,7 @@ const Facilities = ({ facilities }) => {
             {
                 canteen ?
                     <View style={styles.grayRowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/ducha.png')} />
+                        <Image style={styles.gymIcon} source={require('./../../img/facilities/ducha.png')} />
                         <Text style={styles.caracBlackText}>Duchas </Text>
                     </View>
 
@@ -18,7 +18,7 @@ const Facilities = ({ facilities }) => {
             {
                 lockers ?
                     <View style={styles.grayRowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/casilleros.png')} />
+                        <Image style={styles.gymIcon} source={require('./../../img/facilities/casilleros.png')} />
                         <Text style={styles.caracBlackText}>Casilleros </Text>
                     </View>
 
@@ -27,7 +27,7 @@ const Facilities = ({ facilities }) => {
             {
                 pingpong ?
                     <View style={styles.grayRowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/ping-pong.png')} />
+                        <Image style={styles.gymIcon} source={require('./../../img/facilities/ping-pong.png')} />
                         <Text style={styles.caracBlackText}>Ping pong </Text>
                     </View>
 
@@ -36,7 +36,7 @@ const Facilities = ({ facilities }) => {
             {
                 showers ?
                     <View style={styles.grayRowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/cantina.png')} />
+                        <Image style={styles.gymIcon} source={require('./../../img/facilities/cantina.png')} />
                         <Text style={styles.caracBlackText}>Cantina </Text>
                     </View>
 

@@ -7,7 +7,6 @@ const Login = ({ navigation, route }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [userLogged, setUserLogged] = useState(false);
     const {setUserLog} = route.params;
     const setLoggedSession = async (value, key) => {
         try {

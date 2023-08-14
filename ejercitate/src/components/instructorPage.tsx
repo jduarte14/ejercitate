@@ -20,7 +20,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     </Text>
                     {bjj ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
-                            <Image style={styles.sportImage} source={require('./../img/martial-arts.png')} />
+                            <Image style={styles.sportImage} source={require('./../img/sports/bjj.png')} />
                             <Text style={styles.sportTitle}>
                                 Brazilian JiuJitsu
                             </Text>
@@ -28,7 +28,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     </View> : null}
                     {boxing ? <View style={styles.orangeContainer}>
                         <View style={styles.sportRow}>
-                            <Image style={styles.sportImage} source={require('./../img/boxing.png')} />
+                            <Image style={styles.sportImage} source={require('./../img/sports/boxing.png')} />
                             <Text style={styles.sportTitleWhite}>
                                 Boxeo
                             </Text>
@@ -36,7 +36,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     </View> : null}
                     {mma ? <View style={styles.grayContainer}>
                         <View style={styles.sportRow}>
-                            <Image style={styles.sportImage} source={require('./../img/mma.png')} />
+                            <Image style={styles.sportImage} source={require('./../img/sports/mma.png')} />
                             <Text style={styles.sportTitle}>
                                 Artes marciales mixtas
                             </Text>
@@ -44,7 +44,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     </View> : null}
                     {pilates ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
-                            <Image style={styles.sportImage} source={require('./../img/pilates.png')} />
+                            <Image style={styles.sportImage} source={require('./../img/sports/pilates.png')} />
                             <Text style={styles.sportTitle}>
                                 Pilates
                             </Text>
@@ -52,7 +52,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     </View> : null}
                     {yoga ? <View style={styles.orangeContainer}>
                         <View style={styles.sportRow}>
-                            <Image style={styles.sportImage} source={require('./../img/yoga.png')} />
+                            <Image style={styles.sportImage} source={require('./../img/sports/yoga.png')} />
                             <Text style={styles.sportTitleWhite}>
                                 Yoga
                             </Text>
@@ -60,7 +60,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     </View> : null}
                     {weightlifting ? <View style={styles.grayContainer}>
                         <View style={styles.sportRow}>
-                            <Image style={styles.sportImage} source={require('./../img/weightlifter.png')} />
+                            <Image style={styles.sportImage} source={require('./../img/sports/weightlifter.png')} />
                             <Text style={styles.sportTitle}>
                                 Levantamiento de pesas
                             </Text>
@@ -68,7 +68,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     </View> : null}
                     {wrestling ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
-                            <Image style={styles.sportImage} source={require('./../img/wrestling.png')} />
+                            <Image style={styles.sportImage} source={require('./../img/sports/wrestling.png')} />
                             <Text style={styles.sportTitle}>
                                 Lucha Grecoromana
                             </Text>
@@ -76,7 +76,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     </View> : null}
                     {nutritionist ? <View style={styles.orangeContainer}>
                         <View style={styles.sportRow}>
-                            <Image style={styles.sportImage} source={require('./../img/cantina.png')} />
+                            <Image style={styles.sportImage} source={require('./../img/facilities/cantina.png')} />
                             <Text style={styles.sportTitleWhite}>
                                 Nutricionista
                             </Text>

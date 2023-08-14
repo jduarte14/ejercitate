@@ -10,15 +10,15 @@ const Categories = () => {
                 <Text style={styles.categoryText}>Gimnasio tradicional</Text>
             </View>
             <View style={styles.category}>
-                <Image style={styles.categoryImg} source={require('./../img/calisthenic.png')} />
+                <Image style={styles.categoryImg} source={require('./../img/sports/calisthenic.png')} />
                 <Text style={styles.categoryText}>Calistenia</Text>
             </View>
             <View style={styles.category}>
-                <Image style={styles.categoryImg} source={require('./../img/martial-arts.png')} />
+                <Image style={styles.categoryImg} source={require('./../img/sports/martial-arts.png')} />
                 <Text style={styles.categoryText}>Artes    marciales</Text>
             </View>
             <View style={styles.category}>
-                <Image style={styles.categoryImg} source={require('./../img/crossfit.png')} />
+                <Image style={styles.categoryImg} source={require('./../img/sports/crossfit.png')} />
                 <Text style={styles.categoryText}>Crossfit</Text>
             </View>
         </View>
