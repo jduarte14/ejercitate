@@ -1,6 +1,18 @@
 import { Modal, ScrollView, View, Text, StyleSheet, Image, Pressable, TextInput } from 'react-native';
+import { useState } from 'react';
+
+import GymInfo from './gymInfo';
 
 const Prices = ({ hidePricesModal }) => {
+    const [modal, setModal] = useState(false);
+
+    const showInfoModal = () => {
+        setModal(true);
+    }
+    const hideInfoModal = () => {
+        setModal(false);
+    }
+
     return (
         <Modal animationType='slide'>
             <ScrollView>
@@ -14,10 +26,10 @@ const Prices = ({ hidePricesModal }) => {
                             Dos dias
                         </Text>
                         <TextInput
-                                style={styles.input}
-                                placeholder="Agregar precio"
-                                placeholderTextColor="white"
-                            />
+                            style={styles.input}
+                            placeholder="Agregar precio"
+                            placeholderTextColor="white"
+                        />
                     </View>
                     <View style={styles.pricesRow}>
                         <Image style={styles.icon} source={require('./../../../../img/calendar.png')} />
@@ -25,10 +37,10 @@ const Prices = ({ hidePricesModal }) => {
                             Tres dias
                         </Text>
                         <TextInput
-                                style={styles.input}
-                                placeholder="Agregar precio"
-                                placeholderTextColor="white"
-                            />
+                            style={styles.input}
+                            placeholder="Agregar precio"
+                            placeholderTextColor="white"
+                        />
                     </View>
                     <View style={styles.pricesRow}>
                         <Image style={styles.icon} source={require('./../../../../img/calendar.png')} />
@@ -36,10 +48,10 @@ const Prices = ({ hidePricesModal }) => {
                             Cuatro dias
                         </Text>
                         <TextInput
-                                style={styles.input}
-                                placeholder="Agregar precio"
-                                placeholderTextColor="white"
-                            />
+                            style={styles.input}
+                            placeholder="Agregar precio"
+                            placeholderTextColor="white"
+                        />
                     </View>
                     <View style={styles.pricesRow}>
                         <Image style={styles.icon} source={require('./../../../../img/calendar.png')} />
@@ -47,10 +59,10 @@ const Prices = ({ hidePricesModal }) => {
                             Cinco dias
                         </Text>
                         <TextInput
-                                style={styles.input}
-                                placeholder="Agregar precio"
-                                placeholderTextColor="white"
-                            />
+                            style={styles.input}
+                            placeholder="Agregar precio"
+                            placeholderTextColor="white"
+                        />
                     </View>
                     <View style={styles.pricesRow}>
                         <Image style={styles.icon} source={require('./../../../../img/calendar.png')} />
@@ -58,21 +70,21 @@ const Prices = ({ hidePricesModal }) => {
                             Seis dias
                         </Text>
                         <TextInput
-                                style={styles.input}
-                                placeholder="Agregar precio"
-                                placeholderTextColor="white"
-                            />
+                            style={styles.input}
+                            placeholder="Agregar precio"
+                            placeholderTextColor="white"
+                        />
                     </View>
                     <View style={styles.pricesRow}>
                         <Image style={styles.icon} source={require('./../../../../img/calendar.png')} />
                         <Text style={styles.whiteText}>
-                            Pase libre 
+                            Pase libre
                         </Text>
                         <TextInput
-                                style={styles.input}
-                                placeholder="Agregar precio"
-                                placeholderTextColor="white"
-                            />
+                            style={styles.input}
+                            placeholder="Agregar precio"
+                            placeholderTextColor="white"
+                        />
                     </View>
                 </View>
                 <View style={styles.registrationRow}>
@@ -80,12 +92,15 @@ const Prices = ({ hidePricesModal }) => {
                         <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
                         <Text style={styles.whiteText}>Anterior</Text>
                     </Pressable>
-                    <Pressable style={styles.direction}>
+                    <Pressable style={styles.direction} onPress={showInfoModal}>
                         <Text style={styles.whiteText}>Siguiente</Text>
                         <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
                     </Pressable>
                 </View>
             </ScrollView>
+            {
+                modal ? <GymInfo hideInfoModal={hideInfoModal} /> : null
+            }
         </Modal>
     )
 }
@@ -98,9 +113,9 @@ let cyan = "#6889d5";
 const styles = StyleSheet.create({
     input: {
         height: 40,
-        fontWeight:"bold",
-        paddingLeft:10,
-        color:"white",
+        fontWeight: "bold",
+        paddingLeft: 10,
+        color: "white",
     },
     pricesContainer: {
         flex: 1,
