@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { View, StyleSheet, Image, ScrollView, Text, Pressable, Modal } from 'react-native';
+import { View, StyleSheet, Image, ScrollView, Text, Pressable, Modal, TouchableOpacity } from 'react-native';
 import Facilities from './facilities';
 
-const Activities = ({ closeModal }) => {
+const Activities = ({ closeModal, gymName }) => {
+
     const [modal, setModal] = useState(false);
+    const [selectedSports, setSelectedSports] = useState([]);
 
     const showFacilitiesModal = () => {
         setModal(true);
@@ -12,6 +14,17 @@ const Activities = ({ closeModal }) => {
     const hideFacilitiesModal = () => {
         setModal(false);
     }
+
+    const handlePress = (sport) => {
+        if (selectedSports.includes(sport)) {
+            setSelectedSports(selectedSports.filter(item => item !== sport));
+        } else {
+            setSelectedSports([...selectedSports, sport]);
+        }
+    };
+
+
+
 
     return (
         <>
@@ -26,30 +39,34 @@ const Activities = ({ closeModal }) => {
                     <ScrollView>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
-                                <View style={styles.sport}>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('BJJ') && styles.selectedSport
+                                ]} onPress={() => handlePress('BJJ')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/bjj.png')} />
                                     <Text style={styles.text}>
                                         Brazilian JiuJitsu
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('MMA') && styles.selectedSport
+                                ]} onPress={() => handlePress('MMA')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/mma.png')} />
                                     <Text style={styles.text}>
                                         MMA
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('Boxing') && styles.selectedSport
+                                ]} onPress={() => handlePress('Boxing')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/boxing.png')} />
                                     <Text style={styles.text}>
                                         Boxeo
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('Lucha Grecoromana') && styles.selectedSport
+                                ]} onPress={() => handlePress('Lucha Grecoromana')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/wrestling.png')} />
                                     <Text style={styles.text}>
                                         Lucha Grecoromana
                                     </Text>
-                                </View>
+                                </TouchableOpacity>
                             </ScrollView>
 
                         </View>
@@ -58,18 +75,20 @@ const Activities = ({ closeModal }) => {
                         </Text>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
-                                <View style={styles.sport}>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('Sala') && styles.selectedSport
+                                ]} onPress={() => handlePress('Sala')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/weightlifter.png')} />
                                     <Text style={styles.text}>
                                         Sala
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('Calistenia') && styles.selectedSport
+                                ]} onPress={() => handlePress('Calistenia')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/calisthenic.png')} />
                                     <Text style={styles.text}>
-                                        Calisthenia
+                                        Calistenia
                                     </Text>
-                                </View>
+                                </TouchableOpacity>
                             </ScrollView>
 
                         </View>
@@ -78,24 +97,27 @@ const Activities = ({ closeModal }) => {
                         </Text>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
-                                <View style={styles.sport}>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('Yoga') && styles.selectedSport
+                                ]} onPress={() => handlePress('Yoga')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/yoga.png')} />
                                     <Text style={styles.text}>
                                         Yoga
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('Pilates') && styles.selectedSport
+                                ]} onPress={() => handlePress('Pilates')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/pilates.png')} />
                                     <Text style={styles.text}>
                                         Pilates
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('Meditacion') && styles.selectedSport
+                                ]} onPress={() => handlePress('Meditacion')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/meditation.png')} />
                                     <Text style={styles.text}>
                                         Meditacion
                                     </Text>
-                                </View>
+                                </TouchableOpacity>
                             </ScrollView>
 
                         </View>
@@ -113,17 +135,19 @@ const Activities = ({ closeModal }) => {
                 </View>
             </Modal>
             {
-                modal ? <Facilities hideFacilitiesModal={hideFacilitiesModal} /> : null
+                modal ? <Facilities hideFacilitiesModal={hideFacilitiesModal} selectedSports={selectedSports} gymName={gymName} /> : null
             }
         </>
     )
 }
 
 let slate = "#0f172a";
-let gray = "#f7f7f7";
-let red = "#dc2626";
-let solidGray = "#d6d3d1";
+let golden = "#FFD700";
 const styles = StyleSheet.create({
+    selectedSport: {
+        borderColor: golden,
+        borderWidth: 2,
+    },
     container: {
         flex: 1,
         background: 'white',
@@ -142,14 +166,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 15,
         backgroundColor: slate,
-        width: 170,
+        width: 155,
         borderRadius: 10,
         margin: 10,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        marginTop:25,
+        marginTop: 25,
     },
     text: {
         color: "white",
@@ -170,7 +194,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: "bold",
         textAlign: "center",
-        paddingTop:10,
+        paddingTop: 10,
     },
     icon: {
         width: 40,

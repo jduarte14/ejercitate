@@ -1,9 +1,18 @@
 import { useState } from 'react';
-import { View, StyleSheet, Image, ScrollView, Text, Pressable, Modal } from 'react-native';
+import { View, StyleSheet, Image, ScrollView, Text, Pressable, Modal, TouchableOpacity } from 'react-native';
 import Schedules from './schedules';
-const Facilities = ({ hideFacilitiesModal }) => {
+const Facilities = ({ hideFacilitiesModal, gymName, selectedSports }) => {
     const [scheduleModal, setScheduleModal] = useState(false);
+    const [selectedFacilities, setSelectedFacilities] = useState([]);
 
+    const handleFacilities = (facility) => {
+        if (selectedFacilities.includes(facility)) {
+            setSelectedFacilities(selectedFacilities.filter(item => item !== facility));
+        } else {
+            setSelectedFacilities([...selectedFacilities, facility]);
+        }
+    };
+    
     const showModal = () => {
         setScheduleModal(true);
     }
@@ -25,24 +34,27 @@ const Facilities = ({ hideFacilitiesModal }) => {
                     <ScrollView>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
-                                <View style={styles.sport}>
+                            <TouchableOpacity style={[styles.sport, selectedFacilities.includes('Cantina') && styles.selectedFacility
+                                ]} onPress={() => handleFacilities('Cantina')}>
                                     <Image style={styles.icon} source={require('./../../../../img/facilities/cantina.png')} />
                                     <Text style={styles.text}>
                                         Cantina
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('Casilleros') && styles.selectedFacility
+                                ]} onPress={() => handleFacilities('Casilleros')}>
                                     <Image style={styles.icon} source={require('./../../../../img/facilities/casilleros.png')} />
                                     <Text style={styles.text}>
                                         Casilleros
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('Ducha') && styles.selectedFacility
+                                ]} onPress={() => handleFacilities('Ducha')}>
                                     <Image style={styles.icon} source={require('./../../../../img/facilities/ducha.png')} />
                                     <Text style={styles.text}>
                                         Ducha
                                     </Text>
-                                </View>
+                                </TouchableOpacity>
                             </ScrollView>
 
                         </View>
@@ -51,24 +63,27 @@ const Facilities = ({ hideFacilitiesModal }) => {
                         </Text>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
-                                <View style={styles.sport}>
+                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('Ping pong') && styles.selectedFacility
+                                ]} onPress={() => handleFacilities('Ping pong')}>
                                     <Image style={styles.icon} source={require('./../../../../img/facilities/ping-pong.png')} />
                                     <Text style={styles.text}>
                                         Ping pong
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('Sauna') && styles.selectedFacility
+                                ]} onPress={() => handleFacilities('Sauna')}>
                                     <Image style={styles.icon} source={require('./../../../../img/facilities/sauna.png')} />
                                     <Text style={styles.text}>
                                         Sauna
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('Spa') && styles.selectedFacility
+                                ]} onPress={() => handleFacilities('Spa')}>
                                     <Image style={styles.icon} source={require('./../../../../img/facilities/spa.png')} />
                                     <Text style={styles.text}>
                                         Spa
                                     </Text>
-                                </View>
+                                </TouchableOpacity>
                             </ScrollView>
                         </View>
                         <Text style={styles.subTitle}>
@@ -76,24 +91,27 @@ const Facilities = ({ hideFacilitiesModal }) => {
                         </Text>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
-                                <View style={styles.sport}>
+                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes(' Ping pong') && styles.selectedFacility
+                                ]} onPress={() => handleFacilities(' Ping pong')}>
                                     <Image style={styles.icon} source={require('./../../../../img/facilities/ping-pong.png')} />
                                     <Text style={styles.text}>
                                         Ping pong
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('Sauna') && styles.selectedFacility
+                                ]} onPress={() => handleFacilities('Sauna')}>
                                     <Image style={styles.icon} source={require('./../../../../img/facilities/sauna.png')} />
                                     <Text style={styles.text}>
                                         Sauna
                                     </Text>
-                                </View>
-                                <View style={styles.sport}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('Spa') && styles.selectedFacility
+                                ]} onPress={() => handleFacilities('Spa')}>
                                     <Image style={styles.icon} source={require('./../../../../img/facilities/spa.png')} />
                                     <Text style={styles.text}>
                                         Spa
                                     </Text>
-                                </View>
+                                </TouchableOpacity>
                             </ScrollView>
                         </View>
                     </ScrollView>
@@ -110,18 +128,21 @@ const Facilities = ({ hideFacilitiesModal }) => {
                 </View>
             </Modal>
             {
-                scheduleModal ? <Schedules hideModal={hideModal} /> : null
+                scheduleModal ? <Schedules hideModal={hideModal} gymName={gymName} selectedSports={selectedSports} selectedFacilities={selectedFacilities}/> : null
             }
 
         </>
     )
 }
 
+
 let slate = "#0f172a";
-let gray = "#f7f7f7";
-let red = "#dc2626";
-let solidGray = "#d6d3d1";
+let golden = "#FFD700";
 const styles = StyleSheet.create({
+    selectedFacility: {
+        borderColor: golden,
+        borderWidth: 2,
+    },
     container: {
         flex: 1,
         background: 'white',
@@ -140,7 +161,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 15,
         backgroundColor: slate,
-        width: 170,
+        width: 155,
         borderRadius: 10,
         margin: 10,
         display: "flex",

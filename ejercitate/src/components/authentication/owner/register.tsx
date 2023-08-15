@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet } from 'react-native';
 import Activities  from './components/activites';
 const Register = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [gymName, setGymName] = useState('');
 
     const [modal, setModal] = useState(false);
 
     const handleModal =()=>{
         setModal(true);
+        setGymName(gymName);
     }
 
     const closeModal =()=>{
@@ -27,8 +27,8 @@ const Register = ({ navigation }) => {
                 </Text>
                 <TextInput
                     placeholder="Nombre gimnasio"
-                    onChangeText={setEmail}
-                    value={email}
+                    onChangeText={setGymName}
+                    value={gymName}
                     style={styles.input}
                 />
                 <View style={styles.buttonRow}>
@@ -58,8 +58,7 @@ const Register = ({ navigation }) => {
                 </View>
             </View>
             {
-                modal ? <Activities closeModal={closeModal}/> : null
-
+                modal ? <Activities gymName={gymName} closeModal={closeModal}/> : null
             }
         </>
     )

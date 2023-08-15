@@ -3,15 +3,15 @@ import { useState } from 'react';
 
 import Prices from './prices';
 
-const BranchInfo = ({ hideInfoModal }) => {
+const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports }) => {
 
     const [pricesModal, setPricesModal] = useState(false);
 
-    const showPricesModal =()=>{
+    const showPricesModal = () => {
         setPricesModal(true);
     }
 
-    const hidePricesModal =()=>{
+    const hidePricesModal = () => {
         setPricesModal(false);
     }
 
@@ -68,7 +68,7 @@ const BranchInfo = ({ hideInfoModal }) => {
                 </Pressable>
             </View>
             {
-                pricesModal ? <Prices hidePricesModal={hidePricesModal} />:null
+                pricesModal ? <Prices hidePricesModal={hidePricesModal} /> : null
             }
         </Modal>
     )

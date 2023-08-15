@@ -1,21 +1,23 @@
 import { Modal, ScrollView, View, Text, StyleSheet, Image, Pressable, TextInput } from 'react-native';
 
-const GymInfo =({ hideInfoModal })=>{
+const GymInfo = ({ hideInfoModal }) => {
     return (
         <Modal animationType='slide'>
             <View style={styles.container}>
-
+                <Text style={styles.title}>
+                    Esto son todos los datos de tu gimnasio:
+                </Text>
             </View>
             <View style={styles.registrationRow}>
-                    <Pressable style={styles.direction} onPress={hideInfoModal}>
-                        <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
-                        <Text style={styles.whiteText}>Anterior</Text>
-                    </Pressable>
-                    <Pressable style={styles.direction}>
-                        <Text style={styles.whiteText}>Confirmar</Text>
-                        <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
-                    </Pressable>
-                </View>
+                <Pressable style={styles.direction} onPress={hideInfoModal}>
+                    <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
+                    <Text style={styles.whiteText}>Anterior</Text>
+                </Pressable>
+                <Pressable style={styles.direction}>
+                    <Text style={styles.whiteText}>Confirmar</Text>
+                    <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
+                </Pressable>
+            </View>
         </Modal>
     )
 }
