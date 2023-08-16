@@ -3,67 +3,30 @@ import styles from '../../styles';
 
 
 const Activities = ({ sports }) => {
-
-    const { calisthenic, wrestling, weightlifting, yoga, pilates, boxing, bjj, mma } = sports;
+    const sportsList = [
+        { key: 'calisthenic', label: 'Calistenia', icon: require('./../../img/sports/calisthenic.png') },
+        { key: 'wrestling', label: 'Lucha grecoromana', icon: require('./../../img/sports/wrestling.png') },
+        { key: 'weightlifting', label: 'Sala', icon: require('./../../img/sports/sala.png') },
+        { key: 'boxing', label: 'Boxeo', icon: require('./../../img/sports/boxing.png') },
+        { key: 'bjj', label: 'Brazilian Jiujitsu', icon: require('./../../img/sports/bjj.png') },
+        { key: 'mma', label: 'MMA', icon: require('./../../img/sports/mma.png') },
+        { key: 'pilates', label: 'Pilates', icon: require('./../../img/sports/pilates.png') },
+        { key: 'yoga', label: 'Yoga', icon: require('./../../img/sports/yoga.png') },
+    ];
 
     return (
-        <>
-            <View style={styles.caracContainer}>
-                {
-                    calisthenic ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/sports/calisthenic.png')} />
-                        <Text style={styles.caracText}> Calistenia </Text>
-                    </View> : null
-                }
-                {
-                    wrestling ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/sports/wrestling.png')} />
-                        <Text style={styles.caracText}> Lucha grecoromana </Text>
-                    </View> : null
-                }
-
-                {
-                    weightlifting ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/sports/sala.png')} />
-                        <Text style={styles.caracText}> Sala </Text>
-                    </View> : null
-                }
-
-                {
-                    boxing ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/sports/boxing.png')} />
-                        <Text style={styles.caracText}> Boxeo </Text>
-                    </View> : null
-                }
-
-                {
-                    bjj ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/sports/bjj.png')} />
-                        <Text style={styles.caracText}> Brazilian Jiujitsu </Text>
-                    </View> : null
-                }
-
-                {
-                    mma ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/sports/mma.png')} />
-                        <Text style={styles.caracText}> MMA </Text>
-                    </View> : null
-                }
-                {
-                    pilates ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/sports/pilates.png')} />
-                        <Text style={styles.caracText}> Pilates </Text>
-                    </View> : null
-                }
-                {
-                    yoga ? <View style={styles.rowText}>
-                        <Image style={styles.gymIcon} source={require('./../../img/sports/yoga.png')} />
-                        <Text style={styles.caracText}> Yoga </Text>
-                    </View> : null
-                }
-            </View>
-        </>
-    )
+        <View style={styles.caracContainer}>
+            {sportsList.map(sport => (
+                sports[sport.key] ? (
+                    <View style={styles.rowText} key={sport.key}>
+                        <Image style={styles.gymIcon} source={sport.icon} />
+                        <Text style={styles.caracText}>{sport.label}</Text>
+                    </View>
+                ) : null
+            ))}
+        </View>
+    );
 }
+
 
 export default Activities;

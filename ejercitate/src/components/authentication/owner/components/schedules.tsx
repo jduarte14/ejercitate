@@ -43,7 +43,7 @@ const Schedules = ({ hideModal, selectedFacilities, selectedSports, gymName }) =
 
     const handleStartHour = (hour) => {
         if (startHour === hour) {
-            setSelectedStartHour(null); // Deselect if already selected
+            setSelectedStartHour(null); 
         } else {
             setSelectedStartHour(hour);
         }
@@ -51,7 +51,7 @@ const Schedules = ({ hideModal, selectedFacilities, selectedSports, gymName }) =
 
     const handleFinishHour = (hour) => {
         if (endHour === hour) {
-            setSelectedEndHour(null); // Deselect if already selected
+            setSelectedEndHour(null);
         } else {
             setSelectedEndHour(hour);
         }
@@ -64,6 +64,17 @@ const Schedules = ({ hideModal, selectedFacilities, selectedSports, gymName }) =
     const hideInfoModal = () => {
         setBranchInfoModal(false);
     }
+
+    const days = `${selectedStartDay} a ${selectedEndDay}`;
+    const hours = `De ${startHour} a ${endHour}`;
+
+    const schedules ={
+        days,
+        hours
+    }
+
+    console.log(schedules);
+    
 
     return (
         <Modal animationType='slide'>
@@ -159,7 +170,7 @@ const Schedules = ({ hideModal, selectedFacilities, selectedSports, gymName }) =
                 </Pressable>
             </View>
             {
-                branchInfoModal ? <BranchInfo hideInfoModal={hideInfoModal} selectedFacilities={selectedFacilities} gymName={gymName} selectedSports={selectedSports} /> : null
+                branchInfoModal ? <BranchInfo hideInfoModal={hideInfoModal} selectedFacilities={selectedFacilities} gymName={gymName} selectedSports={selectedSports} schedules={schedules} /> : null
             }
 
         </Modal>

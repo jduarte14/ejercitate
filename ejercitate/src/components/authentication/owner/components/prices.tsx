@@ -3,8 +3,14 @@ import { useState } from 'react';
 
 import GymInfo from './gymInfo';
 
-const Prices = ({ hidePricesModal }) => {
+const Prices = ({ hidePricesModal, address,description,gymName, schedules, selectedSports, selectedFacilities }) => {
     const [modal, setModal] = useState(false);
+
+    const [twoDaysPrice, setTwoDaysPrice] = useState('');
+    const [threeDaysPrice, setThreeDaysPrice] = useState('');
+    const [fourDaysPrice, setFourDaysPrice] = useState('');
+    const [fiveDaysPrice, setFiveDaysPrice] = useState('');
+    const [freePass, setFreePass] = useState('');
 
     const showInfoModal = () => {
         setModal(true);
@@ -12,6 +18,15 @@ const Prices = ({ hidePricesModal }) => {
     const hideInfoModal = () => {
         setModal(false);
     }
+
+    const prices = {
+        twoDaysPrice,
+        threeDaysPrice,
+        fourDaysPrice,
+        fiveDaysPrice,
+        freePass,
+    }
+
 
     return (
         <Modal animationType='slide'>
@@ -29,6 +44,8 @@ const Prices = ({ hidePricesModal }) => {
                             style={styles.input}
                             placeholder="Agregar precio"
                             placeholderTextColor="white"
+                            onChangeText={setTwoDaysPrice}
+                            value={twoDaysPrice}
                         />
                     </View>
                     <View style={styles.pricesRow}>
@@ -40,6 +57,8 @@ const Prices = ({ hidePricesModal }) => {
                             style={styles.input}
                             placeholder="Agregar precio"
                             placeholderTextColor="white"
+                            onChangeText={setThreeDaysPrice}
+                            value={threeDaysPrice}
                         />
                     </View>
                     <View style={styles.pricesRow}>
@@ -51,6 +70,8 @@ const Prices = ({ hidePricesModal }) => {
                             style={styles.input}
                             placeholder="Agregar precio"
                             placeholderTextColor="white"
+                            onChangeText={setFourDaysPrice}
+                            value={fourDaysPrice}
                         />
                     </View>
                     <View style={styles.pricesRow}>
@@ -62,17 +83,8 @@ const Prices = ({ hidePricesModal }) => {
                             style={styles.input}
                             placeholder="Agregar precio"
                             placeholderTextColor="white"
-                        />
-                    </View>
-                    <View style={styles.pricesRow}>
-                        <Image style={styles.icon} source={require('./../../../../img/calendar.png')} />
-                        <Text style={styles.whiteText}>
-                            Seis dias
-                        </Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Agregar precio"
-                            placeholderTextColor="white"
+                            onChangeText={setFiveDaysPrice}
+                            value={fiveDaysPrice}
                         />
                     </View>
                     <View style={styles.pricesRow}>
@@ -84,8 +96,15 @@ const Prices = ({ hidePricesModal }) => {
                             style={styles.input}
                             placeholder="Agregar precio"
                             placeholderTextColor="white"
+                            onChangeText={setFreePass}
+                            value={freePass}
                         />
                     </View>
+                </View>
+                <View>
+                    <Text style={styles.smallText}>
+                        Los precios son opcionales puedes agregar el precio por la cantidad de dias que desees.
+                    </Text>
                 </View>
                 <View style={styles.registrationRow}>
                     <Pressable style={styles.direction} onPress={hidePricesModal}>
@@ -97,9 +116,10 @@ const Prices = ({ hidePricesModal }) => {
                         <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
                     </Pressable>
                 </View>
+            
             </ScrollView>
             {
-                modal ? <GymInfo hideInfoModal={hideInfoModal} /> : null
+                modal ? <GymInfo hideInfoModal={hideInfoModal} address={address} description={description} prices={prices} selectedFacilities={selectedFacilities} selectedSports={selectedSports}  schedules={schedules}  gymName={gymName} /> : null
             }
         </Modal>
     )
@@ -116,6 +136,15 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         paddingLeft: 10,
         color: "white",
+        width:300,
+    },
+    smallText:{
+        fontSize:14,
+        fontWeight:"bold",
+        color:slate,
+        textAlign:"center",
+        marginHorizontal:20,
+        lineHeight:20,
     },
     pricesContainer: {
         flex: 1,

@@ -1,13 +1,33 @@
-import { Modal, ScrollView, View, Text, StyleSheet, Image, Pressable, TextInput } from 'react-native';
+import { Modal, ScrollView, View, Text, StyleSheet, Image, Pressable } from 'react-native';
 
-const GymInfo = ({ hideInfoModal }) => {
+import Activities from './subComponents/activities';
+import Prices from './subComponents/prices';
+import Facilities from './subComponents/facilities';
+import Logistics from './subComponents/logistics';
+
+const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, schedules, gymName, address, description }) => {
+
+    const gym = {
+        prices,
+        selectedSports,
+        selectedFacilities,
+        schedules,
+        gymName,
+        address,
+        description
+    }
+
+    let pricesData = gym.prices;
+
     return (
         <Modal animationType='slide'>
-            <View style={styles.container}>
-                <Text style={styles.title}>
-                    Esto son todos los datos de tu gimnasio:
-                </Text>
-            </View>
+            <ScrollView>
+                <View style={styles.container}>
+                    <Logistics gymName={gymName} address={address} description={description} />
+                    <Activities selectedSports={selectedSports} />
+                    <Facilities selectedFacilities={selectedFacilities} />
+                    <Prices pricesData={pricesData} />
+                </View>
             <View style={styles.registrationRow}>
                 <Pressable style={styles.direction} onPress={hideInfoModal}>
                     <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
@@ -18,14 +38,15 @@ const GymInfo = ({ hideInfoModal }) => {
                     <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
                 </Pressable>
             </View>
-        </Modal>
+        </ScrollView>
+        </Modal >
     )
 }
 
 let slate = "#0f172a";
 let gray = "#f7f7f7";
 let red = "#dc2626";
-let solidGray = "#d6d3d1";
+let golden = "#FFD700";
 let cyan = "#6889d5";
 
 const styles = StyleSheet.create({
@@ -59,13 +80,10 @@ const styles = StyleSheet.create({
         minHeight: 250,
     },
     container: {
-        flex: 1,
         background: 'white',
-        justifyContent: "center",
-        alignItems: "center",
-        display: "flex",
         paddingHorizontal: 5,
         paddingVertical: 50,
+        marginHorizontal:20,
     },
     scheduleContainer: {
         display: "flex",
@@ -132,10 +150,25 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    prices: {
+        backgroundColor: cyan,
+        height: 50,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingHorizontal: 5,
+        margin: 5,
+        borderRadius: 10,
+        borderColor: golden,
+        borderWidth: 2,
+        flexDirection: "row",
+    },
     whiteText: {
         color: "white",
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textAlign: "center",
+        paddingHorizontal: 10,
     },
     subWhiteText: {
         color: "white",
@@ -169,6 +202,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 20,
         padding: 10,
+    },
+    gymInfo: {
+        padding: 20,
+        marginHorizontal: 20,
     }
 });
 

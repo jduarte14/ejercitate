@@ -3,9 +3,11 @@ import { useState } from 'react';
 
 import Prices from './prices';
 
-const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports }) => {
-
+const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports, schedules }) => {
+    const [description, setDescription] = useState('');
+    const [address, setAddress] = useState('');
     const [pricesModal, setPricesModal] = useState(false);
+
 
     const showPricesModal = () => {
         setPricesModal(true);
@@ -26,6 +28,8 @@ const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports
                             </View>
                             <TextInput
                                 style={styles.input}
+                                onChangeText={setAddress}
+                                value={address}
                                 placeholder="Agrega la direccion de tu gimnasio"
                                 placeholderTextColor="white"
                             />
@@ -45,17 +49,12 @@ const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports
                             <TextInput style={styles.textArea}
                                 placeholder="Agrega la descripcion de tu gimnasio"
                                 placeholderTextColor="white"
+                                onChangeText={setDescription}
+                                value={description}
                                 numberOfLines={4} />
                         </View>
-
                     </View>
-
                 </View>
-                <Pressable style={styles.save}>
-                    <Text style={styles.whiteText}>
-                        Guardar
-                    </Text>
-                </Pressable>
             </ScrollView>
             <View style={styles.registrationRow}>
                 <Pressable style={styles.direction} onPress={hideInfoModal}>
@@ -68,7 +67,7 @@ const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports
                 </Pressable>
             </View>
             {
-                pricesModal ? <Prices hidePricesModal={hidePricesModal} /> : null
+                pricesModal ? <Prices hidePricesModal={hidePricesModal} address={address} description={description} gymName={gymName} selectedFacilities={selectedFacilities} selectedSports={selectedSports} schedules={schedules} /> : null
             }
         </Modal>
     )
