@@ -4,8 +4,11 @@ import Activities from './subComponents/activities';
 import Prices from './subComponents/prices';
 import Facilities from './subComponents/facilities';
 import Logistics from './subComponents/logistics';
+import Gallery from './subComponents/gallery';
 
-const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, schedules, gymName, address, description }) => {
+const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, schedules, gymName, address, description,images }) => {
+    console.log(images);
+    
 
     const gym = {
         prices,
@@ -14,7 +17,12 @@ const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, sc
         schedules,
         gymName,
         address,
-        description
+        description,
+        imagen: images[0],
+        imagen2: images[1],
+        imagen3: images[2],
+        imagen4: images[3],
+        imagen5: images[4]
     }
 
     let pricesData = gym.prices;
@@ -27,6 +35,7 @@ const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, sc
                     <Activities selectedSports={selectedSports} />
                     <Facilities selectedFacilities={selectedFacilities} />
                     <Prices pricesData={pricesData} />
+                    <Gallery images={images}/>
                 </View>
             <View style={styles.registrationRow}>
                 <Pressable style={styles.direction} onPress={hideInfoModal}>

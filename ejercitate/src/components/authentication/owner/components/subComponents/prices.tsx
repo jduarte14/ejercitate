@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
         color: slate,
         fontSize: 22,
         fontWeight: "bold",
-        paddingLeft: 20,
+        paddingLeft: 10,
+        paddingHorizontal:10,
     },
 })
 

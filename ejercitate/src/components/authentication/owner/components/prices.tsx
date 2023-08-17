@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import GymInfo from './gymInfo';
 
-const Prices = ({ hidePricesModal, address,description,gymName, schedules, selectedSports, selectedFacilities }) => {
+const Prices = ({ hidePricesModal, address,description,gymName, schedules, selectedSports, selectedFacilities, images }) => {
     const [modal, setModal] = useState(false);
 
     const [twoDaysPrice, setTwoDaysPrice] = useState('');
@@ -119,7 +119,7 @@ const Prices = ({ hidePricesModal, address,description,gymName, schedules, selec
             
             </ScrollView>
             {
-                modal ? <GymInfo hideInfoModal={hideInfoModal} address={address} description={description} prices={prices} selectedFacilities={selectedFacilities} selectedSports={selectedSports}  schedules={schedules}  gymName={gymName} /> : null
+                modal ? <GymInfo hideInfoModal={hideInfoModal} address={address} images={images} description={description} prices={prices} selectedFacilities={selectedFacilities} selectedSports={selectedSports}  schedules={schedules}  gymName={gymName} /> : null
             }
         </Modal>
     )
