@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { View, TextInput, Pressable, Text, StyleSheet, Image, Button } from 'react-native';
+import { View, TextInput, Pressable, Text, StyleSheet, Image } from 'react-native';
+import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
-const Register = ({ navigation }) => {
+
+//Helper
+import setLoggedSession from './../helpers/setLoggedSession';
+
+
+const Register = ({ navigation, route }) => {
+    const {setUserLog} = route.params;
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [image, setImage] = useState(null);
+    const [avatar, setAvatar] = useState(null);
 
     const pickImage = async () => {
         try {
@@ -16,54 +24,66 @@ const Register = ({ navigation }) => {
             });
 
             if (!result.canceled) {
-                setImage(result.assets[0].uri);
+                setAvatar(result.assets[0].uri);
             }
+
+
         } catch (error) {
             console.log('Error picking an image', error);
         }
     };
 
-    const registerUser = async ()=>{
-        const formData = new FormData();
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("avatar", image);
-        
+    const registerUser = async () => {
         try {
-            let url = 'https://ejercitatebackend-production.up.railway.app/auth/user/';
-            const response = await fetch(url, {
-                method:"POST",
-                body: formData.toString(),
+            const formData = await new FormData();
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append("avatar", avatar);
+            formData.append("username", username);
+            console.log(formData);
+            
+
+            const url = 'https://ejercitatebackend-production.up.railway.app/auth/user';
+            const response = await axios.post(url, formData, {
                 headers: {
-                    'Content-Type': 'application/json',
-                  },
+                    'Content-Type': 'multipart/form-data',
+                },
             });
-           
-
-            if(response.ok) {
-                const data = await response.json();
-                console.log('Datos enviados:', data);
+            const data = response.data; 
+            console.log(data);
+               
+            if (response.status === 200) {
+                const {_id} = data;
+            
+                setLoggedSession(_id, 'id');
+                setLoggedSession('loggedUser', 'logged');
+                console.log(data);
+                
+                
+            } else {
+                throw new Error(`Error ${response.status}: ${data.message}`);
             }
-            else {
-                const errorData = await response.json();
-                throw new Error(`Error ${response.status}: ${errorData.message}`);
-            }
-
-        }
-        catch(error){
-            console.log(error.message);
+    
+        } catch (error) {
+            console.log('Error en la solicitud', error.message);
         }
     }
 
     return (
         <>
             <View style={styles.container}>
-            <View>
-                <Image style={styles.logo} source={require('./../../../img/ejercitate_logo.png')} />
-            </View>
+                <View>
+                    <Image style={styles.logo} source={require('./../../../img/ejercitate_logo.png')} />
+                </View>
                 <Text style={styles.loginTitle}>
                     Registrate
                 </Text>
+                <TextInput
+                    placeholder="Username"
+                    onChangeText={setUsername}
+                    value={username}
+                    style={styles.input}
+                />
                 <TextInput
                     placeholder="Email"
                     onChangeText={setEmail}
@@ -77,10 +97,10 @@ const Register = ({ navigation }) => {
                     value={password}
                     style={styles.input}
                 />
-                {image && <Image source={{ uri: image }} style={{ width: 100, height: 100,marginBottom:20, borderRadius:200,borderWidth:2,borderColor:slate,}} />}
+                {avatar && <Image source={{ uri: avatar }} style={{ width: 100, height: 100, marginBottom: 20, borderRadius: 200, borderWidth: 2, borderColor: slate, }} />}
                 <Pressable style={styles.imageButton} onPress={pickImage}>
-                        <Text style={styles.buttonText}> Agrega tu avatar </Text>
-                    </Pressable>
+                    <Text style={styles.buttonText}> Agrega tu avatar </Text>
+                </Pressable>
 
                 <View style={styles.buttonRow}>
                     <Pressable style={styles.button} onPress={registerUser}>
@@ -143,8 +163,9 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         paddingHorizontal: 10,
         marginBottom: 15,
-        paddingLeft:20,
-        fontWeight:"bold"
+        paddingLeft: 20,
+        fontWeight: "bold",
+        textTransform: "lowercase",
     },
     logo: {
         width: 260,

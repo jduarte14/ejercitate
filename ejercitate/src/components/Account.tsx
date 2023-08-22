@@ -5,9 +5,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import BottomBar from './../components/bottomBar';
 
-const Account = ({route,navigation}) => {
+const Account = ({ route, navigation }) => {
     const [user, setUserInfo] = useState('');
-    const {setUserLog} = route.params;
+    const { setUserLog } = route.params;
     const handleUserData = async () => {
         try {
             const id = (await AsyncStorage.getItem('id'));
@@ -18,9 +18,10 @@ const Account = ({route,navigation}) => {
             if (response.status === 200) {
                 const data = await response.json();
                 const userInfo = data['user_found'];
-             
+                console.log(data);
+
                 setUserInfo(userInfo);
-               
+
 
 
             }
@@ -39,12 +40,12 @@ const Account = ({route,navigation}) => {
             await AsyncStorage.removeItem('logged');
             console.log('fuera de sesion');
             setUserLog(false);
-            
+
         }
-        catch(error) {
+        catch (error) {
             console.error('Error al eliminar el elemento:', error);
         }
-       
+
     }
 
     useEffect(() => {
@@ -58,7 +59,11 @@ const Account = ({route,navigation}) => {
                     {user ? (
                         <>
                             <View style={styles.settingsRow}>
-                                <Image source={{ uri: user.avatar }} style={styles.avatarImage} />
+                                {
+                                    user.avatar ? < Image source={{ uri: user.avatar }} style={styles.avatarImage} /> :
+                                        <Image source={require('./../img/avatar.png')} style={styles.avatarImage} />
+                                }
+
                                 <View style={styles.userInfo}>
                                     <Text style={styles.text}>{user.username}</Text>
                                     <Text style={styles.email}>{user.email}</Text>

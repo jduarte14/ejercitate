@@ -54,7 +54,7 @@ function App() {
             </>
           ) : (<>
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} initialParams={{userLogged:userLogged, setUserLog:setUserLog}}/>
-            <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+            <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} initialParams={{userLogged:userLogged, setUserLog:setUserLog}}/>
             <Stack.Screen name="OwnerLogin" component={OwnerLogin} options={{ headerShown: false }} />
             <Stack.Screen name="OwnerRegistrarion" component={OwnerRegistration} options={{ headerShown: false }} />
             <Stack.Screen name="InstructorLogin" component={InstructorLogin} options={{ headerShown: false }} />
