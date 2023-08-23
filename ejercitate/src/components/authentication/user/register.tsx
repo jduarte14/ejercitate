@@ -8,7 +8,7 @@ import setLoggedSession from './../helpers/setLoggedSession';
 
 
 const Register = ({ navigation, route }) => {
-    const {setUserLog} = route.params;
+    const { setUserLog } = route.params;
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,15 +19,15 @@ const Register = ({ navigation, route }) => {
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
-                aspect: [4, 3],
+                aspect: [3, 4],
                 quality: 1,
             });
 
             if (!result.canceled) {
                 setAvatar(result.assets[0].uri);
+                console.log(result.assets[0].uri);
+
             }
-
-
         } catch (error) {
             console.log('Error picking an image', error);
         }
@@ -38,32 +38,27 @@ const Register = ({ navigation, route }) => {
             const formData = await new FormData();
             formData.append("email", email);
             formData.append("password", password);
-            formData.append("avatar", avatar);
+            formData.append("avatar", {uri:avatar,type:'image/jpeg',name:'avatar.jpg'});
             formData.append("username", username);
-            console.log(formData);
-            
-
-            const url = 'https://ejercitatebackend-production.up.railway.app/auth/user';
+            const url = 'https://ejercitatebackend-production.up.railway.app/api/gyms';
             const response = await axios.post(url, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            const data = response.data; 
-            console.log(data);
-               
+            const data = response.data;
             if (response.status === 200) {
-                const {_id} = data;
-            
-                setLoggedSession(_id, 'id');
-                setLoggedSession('loggedUser', 'logged');
+                const { _id } = data;
+                await setLoggedSession(_id, 'id');
+                await setLoggedSession('loggedUser', 'logged');
                 console.log(data);
                 
+                //setUserLog(true);
                 
             } else {
                 throw new Error(`Error ${response.status}: ${data.message}`);
             }
-    
+
         } catch (error) {
             console.log('Error en la solicitud', error.message);
         }
