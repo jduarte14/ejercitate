@@ -7,23 +7,22 @@ import BottomBar from './../components/bottomBar';
 
 const Account = ({ route, navigation }) => {
     const [user, setUserInfo] = useState('');
-    const { setUserLog } = route.params;
+    const { setUserLog, userData } = route.params;
+    console.log(user);
+    
     const handleUserData = async () => {
         try {
             const id = (await AsyncStorage.getItem('id'));
+            if (!id) {
+                return;
+            }
             const urlId = id.replace(/"/g, "");
             let url = `https://ejercitatebackend-production.up.railway.app/auth/user/${urlId}`;
-
             const response = await fetch(url);
             if (response.status === 200) {
                 const data = await response.json();
                 const userInfo = data['user_found'];
-                console.log(data);
-
                 setUserInfo(userInfo);
-
-
-
             }
             else {
                 console.error("Hubo un error con la peticion");

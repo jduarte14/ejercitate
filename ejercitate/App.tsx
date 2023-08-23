@@ -26,9 +26,14 @@ function App() {
       const getAuth = await AsyncStorage.getItem('logged');
       const getUserData = await AsyncStorage.getItem('user');
 
-      if (getAuth) {
-        setUserLog(true);
+      if (getAuth || getUserData) {
+        setUserLog(false);
         setUserData(getUserData);
+      }
+      else {
+        setUserLog(false);
+        await AsyncStorage.removeItem('logged'),
+        await AsyncStorage.removeItem('user');
       }
 
     }
@@ -50,11 +55,11 @@ function App() {
             <>
               <Stack.Screen name="Home" component={HomeContent} options={{ headerShown: false }} />
               <Stack.Screen name="Instructores" component={InstructorsCatalog} options={{ headerShown: false }} />
-              <Stack.Screen name="Account" component={Account} options={{ headerShown: false }} initialParams={{userLogged:userLogged, setUserLog:setUserLog}}/>
+              <Stack.Screen name="Account" component={Account} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, userData, setUserData, setUserLog: setUserLog }} />
             </>
           ) : (<>
-            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} initialParams={{userLogged:userLogged, setUserLog:setUserLog}}/>
-            <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} initialParams={{userLogged:userLogged, setUserLog:setUserLog}}/>
+            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
+            <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
             <Stack.Screen name="OwnerLogin" component={OwnerLogin} options={{ headerShown: false }} />
             <Stack.Screen name="OwnerRegistrarion" component={OwnerRegistration} options={{ headerShown: false }} />
             <Stack.Screen name="InstructorLogin" component={InstructorLogin} options={{ headerShown: false }} />

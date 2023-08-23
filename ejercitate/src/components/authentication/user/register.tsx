@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 //Helper
 import setLoggedSession from './../helpers/setLoggedSession';
+import unLogSession from './../helpers/unLogSession';
 
 
 const Register = ({ navigation, route }) => {
@@ -40,7 +41,7 @@ const Register = ({ navigation, route }) => {
             formData.append("password", password);
             formData.append("avatar", {uri:avatar,type:'image/jpeg',name:'avatar.jpg'});
             formData.append("username", username);
-            const url = 'https://ejercitatebackend-production.up.railway.app/api/gyms';
+            const url = 'https://ejercitatebackend-production.up.railway.app/auth/user';
             const response = await axios.post(url, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -48,12 +49,11 @@ const Register = ({ navigation, route }) => {
             });
             const data = response.data;
             if (response.status === 200) {
-                const { _id } = data;
-                await setLoggedSession(_id, 'id');
-                await setLoggedSession('loggedUser', 'logged');
-                console.log(data);
-                
-                //setUserLog(true);
+                let id = data.user._id;
+                unLogSession();
+                setLoggedSession(id, 'id');
+                setLoggedSession('loggedUser', 'logged');
+                setUserLog(true);
                 
             } else {
                 throw new Error(`Error ${response.status}: ${data.message}`);

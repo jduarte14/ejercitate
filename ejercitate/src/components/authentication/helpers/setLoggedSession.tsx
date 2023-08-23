@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const setLoggedSession = async (value, key) => {
     try {
+        //await AsyncStorage.clear();
         await AsyncStorage.setItem(key, JSON.stringify(value));
         console.log('session agregado');
 
