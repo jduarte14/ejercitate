@@ -1,122 +1,135 @@
 import { useState } from 'react';
 import { View, StyleSheet, Image, ScrollView, Text, Pressable, Modal, TouchableOpacity } from 'react-native';
-import Schedules from './schedules';
-const Facilities = ({ hideFacilitiesModal, gymName, selectedSports }) => {
-    const [scheduleModal, setScheduleModal] = useState(false);
-    const [selectedFacilities, setSelectedFacilities] = useState([]);
 
-    const handleFacilities = (facility) => {
-        if (selectedFacilities.includes(facility)) {
-            setSelectedFacilities(selectedFacilities.filter(item => item !== facility));
-        } else {
-            setSelectedFacilities([...selectedFacilities, facility]);
-        }
-    };
-    
+import InstructorInfo from './instructorInfo';
+
+const Activities = ({ hideActivitiesModal, username, email, password, avatar, phone, name, description }) => {
+
+    const [modal, setModal] = useState(false);
+    const [scheduleModal, setScheduleModal] = useState(false);
+    const [selectedSports, setSelectedSports] = useState([]);
+
+
     const showModal = () => {
-        setScheduleModal(true);
+        setModal(true);
     }
 
     const hideModal = () => {
-        setScheduleModal(false);
+        setModal(false)
     }
+
+    const handleSports = (sport) => {
+        if (selectedSports.includes(sport)) {
+            setSelectedSports(selectedSports.filter(item => item !== sport));
+        } else {
+            setSelectedSports([...selectedSports, sport]);
+        }
+    };
+
 
     return (
         <>
             <Modal animationType="slide">
                 <View style={styles.container}>
                     <Text style={styles.title}>
-                        Selecciona las facilidades de tu Gimnasio:
+                        Selecciona las actividades que puedes instruir:
                     </Text>
                     <Text style={styles.subTitle}>
-                        Artes marciales
+                        Culturismo:
                     </Text>
                     <ScrollView>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
-                            <TouchableOpacity style={[styles.sport, selectedFacilities.includes('canteen') && styles.selectedFacility
-                                ]} onPress={() => handleFacilities('canteen')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/facilities/cantina.png')} />
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('weightlifting') && styles.selectedFacility
+                                ]} onPress={() => handleSports('weightlifting')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/weightlifter.png')} />
                                     <Text style={styles.text}>
-                                        Cantina
+                                        Alterofilia
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('lockers') && styles.selectedFacility
-                                ]} onPress={() => handleFacilities('lockers')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/facilities/casilleros.png')} />
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('calisthenic') && styles.selectedFacility
+                                ]} onPress={() => handleSports('calisthenic')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/calisthenic.png')} />
                                     <Text style={styles.text}>
-                                        Casilleros
+                                        Calistenia
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('showers') && styles.selectedFacility
-                                ]} onPress={() => handleFacilities('showers')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/facilities/ducha.png')} />
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('calisthenic') && styles.selectedFacility
+                                ]} onPress={() => handleSports('calisthenic')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/calisthenic.png')} />
                                     <Text style={styles.text}>
-                                        Ducha
+                                        Calistenia
+                                    </Text>
+                                </TouchableOpacity>
+                            </ScrollView>
+                        </View>
+                        <Text style={styles.subTitle}>
+                            Relajacion:
+                        </Text>
+                        <View style={styles.sportsContainer}>
+                            <ScrollView horizontal>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('yoga') && styles.selectedFacility
+                                ]} onPress={() => handleSports('yoga')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/yoga.png')} />
+                                    <Text style={styles.text}>
+                                        Yoga
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('pilates') && styles.selectedFacility
+                                ]} onPress={() => handleSports('pilates')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/pilates.png')} />
+                                    <Text style={styles.text}>
+                                        Pilates
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('calisthenic') && styles.selectedFacility
+                                ]} onPress={() => handleSports('calisthenic')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/calisthenic.png')} />
+                                    <Text style={styles.text}>
+                                        Calistenia
                                     </Text>
                                 </TouchableOpacity>
                             </ScrollView>
 
                         </View>
                         <Text style={styles.subTitle}>
-                            Actividades fisicas:
+                            Artes marciales:
                         </Text>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
-                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('pingpong') && styles.selectedFacility
-                                ]} onPress={() => handleFacilities('pingpong')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/facilities/ping-pong.png')} />
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('mma') && styles.selectedFacility
+                                ]} onPress={() => handleSports('mma')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/mma.png')} />
                                     <Text style={styles.text}>
-                                        Ping pong
+                                        MMA
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('sauna') && styles.selectedFacility
-                                ]} onPress={() => handleFacilities('sauna')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/facilities/sauna.png')} />
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('wrestling') && styles.selectedFacility
+                                ]} onPress={() => handleSports('wrestling')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/wrestling.png')} />
                                     <Text style={styles.text}>
-                                        Sauna
+                                        Lucha grecoromana
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('spa') && styles.selectedFacility
-                                ]} onPress={() => handleFacilities('spa')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/facilities/spa.png')} />
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('bjj') && styles.selectedFacility
+                                ]} onPress={() => handleSports('bjj')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/bjj.png')} />
                                     <Text style={styles.text}>
-                                        Spa
+                                        Brazilian Jiujitsu
                                     </Text>
                                 </TouchableOpacity>
-                            </ScrollView>
-                        </View>
-                        <Text style={styles.subTitle}>
-                            Actividades fisicas:
-                        </Text>
-                        <View style={styles.sportsContainer}>
-                            <ScrollView horizontal>
-                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('pingpong') && styles.selectedFacility
-                                ]} onPress={() => handleFacilities(' Ping pong')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/facilities/ping-pong.png')} />
+                                <TouchableOpacity style={[styles.sport, selectedSports.includes('boxing') && styles.selectedFacility
+                                ]} onPress={() => handleSports('boxing')}>
+                                    <Image style={styles.icon} source={require('./../../../../img/sports/boxing.png')} />
                                     <Text style={styles.text}>
-                                        Ping pong
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('sauna') && styles.selectedFacility
-                                ]} onPress={() => handleFacilities('sauna')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/facilities/sauna.png')} />
-                                    <Text style={styles.text}>
-                                        Sauna
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[styles.sport, selectedFacilities.includes('spa') && styles.selectedFacility
-                                ]} onPress={() => handleFacilities('spa')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/facilities/spa.png')} />
-                                    <Text style={styles.text}>
-                                        Spa
+                                        Boxeo
                                     </Text>
                                 </TouchableOpacity>
                             </ScrollView>
                         </View>
                     </ScrollView>
                     <View style={styles.registrationRow}>
-                        <Pressable style={styles.direction} onPress={hideFacilitiesModal}>
+                        <Pressable style={styles.direction} onPress={hideActivitiesModal} >
                             <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
                             <Text style={styles.whiteText}>Anterior</Text>
                         </Pressable>
@@ -128,9 +141,8 @@ const Facilities = ({ hideFacilitiesModal, gymName, selectedSports }) => {
                 </View>
             </Modal>
             {
-                scheduleModal ? <Schedules hideModal={hideModal} gymName={gymName} selectedSports={selectedSports} selectedFacilities={selectedFacilities}/> : null
+                modal ? <InstructorInfo hideModal={hideModal} username={username} email={email} selectedSports={selectedSports} name={name} description={description} password={password} avatar={avatar} phone={phone} /> : null
             }
-
         </>
     )
 }
@@ -158,7 +170,7 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     sport: {
-        paddingHorizontal: 20,
+        paddingHorizontal: 30,
         paddingVertical: 15,
         backgroundColor: slate,
         width: 155,
@@ -172,7 +184,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "white",
-        fontSize: 18,
+        fontSize: 15,
         fontWeight: "bold"
     },
     title: {
@@ -226,4 +238,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Facilities;
+export default Activities;

@@ -1,15 +1,58 @@
 import React, { useState } from 'react';
-import { View, TextInput, Pressable, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Pressable, Text, StyleSheet, Image } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 
-const Register = ({ navigation }) => {
+import Description from './subComponents/description';
+
+
+const Register = ({ navigation, route }) => {
+    const [modal, setModal] = useState(false);
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [avatar, setAvatar] = useState(null);
+
+    const showModal = () => {
+        setModal(true);
+    }
+
+    const hideModal = () => {
+        setModal(false);
+    }
+
+    const pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [3, 4],
+                quality: 1,
+            });
+
+            if (!result.canceled) {
+                setAvatar(result.assets[0].uri);
+            }
+        } catch (error) {
+            console.log('Error picking an image', error);
+        }
+    };
+
+
     return (
         <>
             <View style={styles.container}>
+                <View>
+                    <Image style={styles.logo} source={require('./../../../img/ejercitate_logo.png')} />
+                </View>
                 <Text style={styles.loginTitle}>
                     Registrate
                 </Text>
+                <TextInput
+                    placeholder="Username"
+                    onChangeText={setUsername}
+                    value={username}
+                    style={styles.input}
+                />
                 <TextInput
                     placeholder="Email"
                     onChangeText={setEmail}
@@ -23,17 +66,22 @@ const Register = ({ navigation }) => {
                     value={password}
                     style={styles.input}
                 />
+                {avatar && <Image source={{ uri: avatar }} style={{ width: 100, height: 100, marginBottom: 20, borderRadius: 200, borderWidth: 2, borderColor: slate, }} />}
+                <Pressable style={styles.imageButton} onPress={pickImage}>
+                    <Text style={styles.buttonText}> Agrega tu avatar </Text>
+                </Pressable>
+
                 <View style={styles.buttonRow}>
-                    <Pressable style={styles.button} onPress={() => navigation.navigate('Register')}>
-                        <Text style={styles.buttonText}>Registrarse</Text>
+                    <Pressable style={styles.button} onPress={showModal}>
+                        <Text style={styles.buttonText}>Siguiente</Text>
                     </Pressable>
                 </View>
                 <View>
                     <View style={styles.buttonRow}>
-                        <Pressable style={styles.slateButton}onPress={() => navigation.navigate('Login')}>
-                            <Text style={styles.buttonBottomText} >Logueate</Text>
+                        <Pressable style={styles.slateButton} onPress={() => navigation.navigate('Login')}>
+                            <Text style={styles.buttonBottomText} >Loguea tu gimnasio</Text>
                         </Pressable>
-                        <Pressable style={styles.slateButton}  onPress={() => navigation.navigate('OwnerRegistration')}>
+                        <Pressable style={styles.slateButton} onPress={() => navigation.navigate('OwnerRegistrarion')}>
                             <Text style={styles.buttonBottomText}>
                                 Registra tu gimnasio
                             </Text>
@@ -41,7 +89,7 @@ const Register = ({ navigation }) => {
 
                     </View>
                     <View style={styles.buttonRow}>
-                        <Pressable style={styles.slateButton} onPress={() => navigation.navigate('InstructorRegister')}>
+                        <Pressable style={styles.slateButton}>
                             <Text style={styles.buttonBottomText}>
                                 Registrate como instructor
                             </Text>
@@ -49,6 +97,10 @@ const Register = ({ navigation }) => {
                     </View>
                 </View>
             </View>
+            {
+                modal ? <Description navigation={navigation} hideModal={hideModal} username={username} email={email} password={password} avatar={avatar}/> : null
+            }
+
         </>
     )
 }
@@ -84,6 +136,14 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         paddingHorizontal: 10,
         marginBottom: 15,
+        paddingLeft: 20,
+        fontWeight: "bold",
+        textTransform: "lowercase",
+    },
+    logo: {
+        width: 260,
+        height: 55,
+        marginBottom: 50,
     },
     button: {
         backgroundColor: slate,
@@ -92,6 +152,13 @@ const styles = StyleSheet.create({
         margin: 20,
         borderRadius: 20,
         width: 300,
+    },
+    imageButton: {
+        backgroundColor: slate,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        margin: 5,
+        borderRadius: 20,
     },
     buttonText: {
         color: 'white',

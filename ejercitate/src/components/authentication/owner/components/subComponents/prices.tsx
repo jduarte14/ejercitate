@@ -1,7 +1,7 @@
 import {View, Text, ScrollView, Image, StyleSheet} from 'react-native';
 
 const Prices =({pricesData})=>{
-    const { fiveDaysPrice, fourDaysPrice, freePass, threeDaysPrice, twoDaysPrice } = pricesData;
+    const { fiveDays, fourDays, freePass, threeDays, twoDays } = pricesData;
 
     return (
         <>
@@ -20,37 +20,37 @@ const Prices =({pricesData})=>{
                                     </View>) : null
                             }
                             {
-                                fiveDaysPrice ?
+                                fiveDays ?
                                     (<View style={styles.prices}>
                                         <Image style={styles.icon} source={require('./../../../../../img/coin.png')} />
                                         <Text style={styles.whiteText}>
-                                            {fiveDaysPrice} UYU
+                                            {fiveDays} UYU
                                         </Text>
                                     </View>) : null
                             }
                             {
-                                fourDaysPrice ?
+                                fourDays ?
                                     (<View style={styles.prices}>
                                         <Image style={styles.icon} source={require('./../../../../../img/coin.png')} />
                                         <Text style={styles.whiteText}>
-                                            {fourDaysPrice} UYU
+                                            {fourDays} UYU
                                         </Text>
                                     </View>) : null
                             }
                             {
-                                threeDaysPrice ?
+                                threeDays ?
                                     (<View style={styles.prices}>
                                         <Image style={styles.icon} source={require('./../../../../../img/coin.png')} />
                                         <Text style={styles.whiteText}>
-                                            {threeDaysPrice} UYU
+                                            {threeDays} UYU
                                         </Text>
                                     </View>) : null
                             }
                             {
-                                twoDaysPrice ?
+                                twoDays ?
                                     (<View style={styles.prices}>
                                         <Image style={styles.icon} source={require('./../../../../../img/coin.png')} />
-                                        <Text style={styles.whiteText}> {twoDaysPrice} UYU </Text>
+                                        <Text style={styles.whiteText}> {twoDays} UYU </Text>
                                     </View>) : null
                             }
 

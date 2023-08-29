@@ -6,10 +6,10 @@ import GymInfo from './gymInfo';
 const Prices = ({ hidePricesModal, address,description,gymName, schedules, selectedSports, selectedFacilities, images }) => {
     const [modal, setModal] = useState(false);
 
-    const [twoDaysPrice, setTwoDaysPrice] = useState('');
-    const [threeDaysPrice, setThreeDaysPrice] = useState('');
-    const [fourDaysPrice, setFourDaysPrice] = useState('');
-    const [fiveDaysPrice, setFiveDaysPrice] = useState('');
+    const [twoDays, setTwoDaysPrice] = useState('');
+    const [threeDays, setThreeDaysPrice] = useState('');
+    const [fourDays, setFourDaysPrice] = useState('');
+    const [fiveDays, setFiveDaysPrice] = useState('');
     const [freePass, setFreePass] = useState('');
 
     const showInfoModal = () => {
@@ -20,10 +20,10 @@ const Prices = ({ hidePricesModal, address,description,gymName, schedules, selec
     }
 
     const prices = {
-        twoDaysPrice,
-        threeDaysPrice,
-        fourDaysPrice,
-        fiveDaysPrice,
+        twoDays,
+        threeDays,
+        fourDays,
+        fiveDays,
         freePass,
     }
 
@@ -45,7 +45,7 @@ const Prices = ({ hidePricesModal, address,description,gymName, schedules, selec
                             placeholder="Agregar precio"
                             placeholderTextColor="white"
                             onChangeText={setTwoDaysPrice}
-                            value={twoDaysPrice}
+                            value={twoDays}
                         />
                     </View>
                     <View style={styles.pricesRow}>
@@ -58,7 +58,7 @@ const Prices = ({ hidePricesModal, address,description,gymName, schedules, selec
                             placeholder="Agregar precio"
                             placeholderTextColor="white"
                             onChangeText={setThreeDaysPrice}
-                            value={threeDaysPrice}
+                            value={threeDays}
                         />
                     </View>
                     <View style={styles.pricesRow}>
@@ -71,7 +71,7 @@ const Prices = ({ hidePricesModal, address,description,gymName, schedules, selec
                             placeholder="Agregar precio"
                             placeholderTextColor="white"
                             onChangeText={setFourDaysPrice}
-                            value={fourDaysPrice}
+                            value={fourDays}
                         />
                     </View>
                     <View style={styles.pricesRow}>
@@ -84,7 +84,7 @@ const Prices = ({ hidePricesModal, address,description,gymName, schedules, selec
                             placeholder="Agregar precio"
                             placeholderTextColor="white"
                             onChangeText={setFiveDaysPrice}
-                            value={fiveDaysPrice}
+                            value={fiveDays}
                         />
                     </View>
                     <View style={styles.pricesRow}>

@@ -1,4 +1,5 @@
 import { Modal, ScrollView, View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import axios from 'axios';
 
 import Activities from './subComponents/activities';
 import Prices from './subComponents/prices';
@@ -7,11 +8,8 @@ import Logistics from './subComponents/logistics';
 import Gallery from './subComponents/gallery';
 
 const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, schedules, gymName, address, description, images }) => {
-
     const gym = {
         prices,
-        selectedSports,
-        selectedFacilities,
         schedules,
         gymName,
         address,
@@ -23,35 +21,49 @@ const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, sc
         imagen5: images[4]
     }
     console.log(gym);
+
     let pricesData = gym.prices;
 
     const sendData = async () => {
-        const formData = new FormData();
-
-        formData.append("prices", prices);
-        formData.append("sports", selectedSports);
-        formData.append("schedules", schedules);
-        formData.append("name", gymName);
-        formData.append("description", description);
-        formData.append("address", address);
-        formData.append("imagen", images[0]);
-        formData.append("imagen2", images[1]);
-        formData.append("imagen3", images[2]);
-        formData.append("imagen4", images[3]);
-        formData.append("imagen5", images[5]);
-
         try {
-            let url = 'https://ejercitatebackend-production.up.railway.app/api/gyms';
-            const response = await fetch(url, {
-                method: "POST",
-                body: formData,
+            const gymData = new FormData();
+            gymData.append("name", gymName);
+            gymData.append("description", description);
+            gymData.append("address", address);
+            gymData.append("schedules[days]", schedules['days']);
+            gymData.append("schedules[hours]", schedules['hours']);
+            for (const key in prices) {
+                if (prices.hasOwnProperty(key)) {
+                    gymData.append(`prices[${key}]`, prices[key]);
+                }
+            }
+            for (const facility of selectedFacilities) {
+                gymData.append(`facilities[${facility}]`, "true");
+            }
+            for (const sports of selectedSports) {
+                gymData.append(`sports[${sports}]`, "true");
+            }
+            for (let i = 0; i < images.length; i++) {
+                gymData.append(`imagen${i + 1}`, {
+                    uri: images[i],
+                    type: 'image/jpeg',
+                    name: `imagen${i + 1}.jpg`,
+                });
+            }
+
+            const url = 'https://ejercitatebackend-production.up.railway.app/api/gyms';
+            const response = await axios.post(url, gymData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            const data = await response.json();
-            if (response.ok) {
-                console.log('El gimnasio ha sido creado');
+            const data = response;
+        
+            console.log(gymData);
+            
+            
+            if (response.status === 200) {
+                console.log('El gimnasio ha sido creado', data);
             }
             else {
                 console.error("Hubo un problema con el registro del gimnasio");
@@ -60,9 +72,7 @@ const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, sc
         catch (error) {
             console.error(error.message);
         }
-
     }
-
     return (
         <Modal animationType='slide'>
             <ScrollView>
