@@ -29,39 +29,46 @@ const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, sc
             const gymData = new FormData();
             gymData.append("name", gymName);
             gymData.append("description", description);
-            gymData.append("address", address);
-            gymData.append("schedules[days]", schedules['days']);
-            gymData.append("schedules[hours]", schedules['hours']);
             for (const key in prices) {
                 if (prices.hasOwnProperty(key)) {
                     gymData.append(`prices[${key}]`, prices[key]);
                 }
             }
+            gymData.append("address", address);
+            gymData.append("schedules[days]", schedules.days);
+            gymData.append("schedules[hours]", schedules.hours);
             for (const facility of selectedFacilities) {
                 gymData.append(`facilities[${facility}]`, "true");
             }
-            for (const sports of selectedSports) {
-                gymData.append(`sports[${sports}]`, "true");
+            for (const sport of selectedSports) {
+                gymData.append(`sports[${sport}]`, "true");
             }
-            for (let i = 0; i < images.length; i++) {
-                gymData.append(`imagen${i + 1}`, {
-                    uri: images[i],
-                    type: 'image/jpeg',
-                    name: `imagen${i + 1}.jpg`,
-                });
-            }
-
-            const url = 'https://ejercitatebackend-production.up.railway.app/api/gyms';
+            gymData.append("latitude", "-3333333");
+            gymData.append("longitude", "-3333333");
+            gymData.append("imagen", {uri: images[0], type: 'image/jpeg', name: 'imagen.jpg'});
+            if(images[1]){
+                gymData.append("imagen2", {uri: images[1], type: 'image/jpeg', name: 'imagen2.jpg'});
+             }
+             if(images[2]){
+                gymData.append("imagen3", {uri: images[2], type: 'image/jpeg', name: 'imagen.jpg'});
+             }
+             if(images[3]){
+                gymData.append("imagen4", {uri: images[3], type: 'image/jpeg', name: 'imagen2.jpg'});
+             }
+             if(images[4]){
+                gymData.append("imagen5", {uri: images[4], type: 'image/jpeg', name: 'imagen2.jpg'});
+             }
+             const url = 'https://ejercitatebackend-production.up.railway.app/api/gyms';
             const response = await axios.post(url, gymData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            const data = response;
-        
+            const data = response.data;
+
             console.log(gymData);
-            
-            
+
+
             if (response.status === 200) {
                 console.log('El gimnasio ha sido creado', data);
             }
