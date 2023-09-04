@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, StyleSheet, Image, ScrollView, Text, Pressable, Modal, TouchableOpacity } from 'react-native';
 import Facilities from './facilities';
 
-const Activities = ({ closeModal, gymName }) => {
+const Activities = ({  gymName, navigation, setUserLog, hideActivitesModal, userId }) => {
 
     const [modal, setModal] = useState(false);
     const [selectedSports, setSelectedSports] = useState([]);
@@ -123,7 +123,7 @@ const Activities = ({ closeModal, gymName }) => {
                         </View>
                     </ScrollView>
                     <View style={styles.registrationRow}>
-                        <Pressable style={styles.direction} onPress={closeModal}>
+                        <Pressable style={styles.direction} onPress={hideActivitesModal}>
                             <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
                             <Text style={styles.whiteText}>Anterior</Text>
                         </Pressable>
@@ -135,7 +135,7 @@ const Activities = ({ closeModal, gymName }) => {
                 </View>
             </Modal>
             {
-                modal ? <Facilities hideFacilitiesModal={hideFacilitiesModal} selectedSports={selectedSports} gymName={gymName} /> : null
+                modal ? <Facilities setUserLog={setUserLog} userId={userId} hideFacilitiesModal={hideFacilitiesModal} selectedSports={selectedSports} gymName={gymName} navigation={navigation} /> : null
             }
         </>
     )

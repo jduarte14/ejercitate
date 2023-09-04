@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import BranchInfo from './branchInfo';
 
-const Schedules = ({ hideModal, selectedFacilities, selectedSports, gymName }) => {
+const Schedules = ({ hideModal, selectedFacilities, selectedSports, gymName, navigation, setUserLog, userId }) => {
     const [branchInfoModal, setBranchInfoModal] = useState(false);
     const [selectedStartDay, setSelectedStartDay] = useState(null);
     const [selectedEndDay, setSelectedEndDay] = useState(null);
@@ -170,7 +170,7 @@ const Schedules = ({ hideModal, selectedFacilities, selectedSports, gymName }) =
                 </Pressable>
             </View>
             {
-                branchInfoModal ? <BranchInfo hideInfoModal={hideInfoModal} selectedFacilities={selectedFacilities} gymName={gymName} selectedSports={selectedSports} schedules={schedules} /> : null
+                branchInfoModal ? <BranchInfo userId={userId} setUserLog={setUserLog} navigation={navigation} hideInfoModal={hideInfoModal} selectedFacilities={selectedFacilities} gymName={gymName} selectedSports={selectedSports} schedules={schedules} /> : null
             }
 
         </Modal>

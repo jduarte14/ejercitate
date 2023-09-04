@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, StyleSheet, Image, ScrollView, Text, Pressable, Modal, TouchableOpacity } from 'react-native';
 import Schedules from './schedules';
-const Facilities = ({ hideFacilitiesModal, gymName, selectedSports }) => {
+const Facilities = ({ hideFacilitiesModal, gymName, selectedSports, navigation, setUserLog, userId }) => {
     const [scheduleModal, setScheduleModal] = useState(false);
     const [selectedFacilities, setSelectedFacilities] = useState([]);
 
@@ -128,7 +128,7 @@ const Facilities = ({ hideFacilitiesModal, gymName, selectedSports }) => {
                 </View>
             </Modal>
             {
-                scheduleModal ? <Schedules hideModal={hideModal} gymName={gymName} selectedSports={selectedSports} selectedFacilities={selectedFacilities}/> : null
+                scheduleModal ? <Schedules userId={userId} setUserLog={setUserLog} hideModal={hideModal} gymName={gymName} selectedSports={selectedSports} selectedFacilities={selectedFacilities} navigation={navigation}/> : null
             }
 
         </>

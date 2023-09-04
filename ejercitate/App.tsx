@@ -14,6 +14,9 @@ import InstructorLogin from './src/components/authentication/instructor/login';
 import InstructorRegister from './src/components/authentication/instructor/register';
 import Account from './src/components/Account';
 
+import { AuthProvider } from './src/authProvider'; 
+
+
 function App() {
   const Stack = createNativeStackNavigator();
 
@@ -23,32 +26,29 @@ function App() {
 
   const handleUser = async () => {
     try {
-      const getAuth = await AsyncStorage.getItem('logged');
-      const getUserData = await AsyncStorage.getItem('user');
+      const [getAuth, getUserData] = await Promise.all([
+        AsyncStorage.getItem('logged'),
+        AsyncStorage.getItem('user')
+      ]);
 
       if (getAuth || getUserData) {
-        setUserLog(false);
+        setUserLog(true);
         setUserData(getUserData);
-      }
-      else {
+      } else {
         setUserLog(false);
-        await AsyncStorage.removeItem('logged'),
-        await AsyncStorage.removeItem('user');
+        await AsyncStorage.multiRemove(['logged', 'user']);
       }
-
+    } catch (error) {
+      console.error('Error al obtener datos de AsyncStorage:', error.message);
     }
-    catch (error) {
-      console.error('No hay un usuario con esta key en el storage');
-    }
-
-  }
+  };
 
   useEffect(() => {
     handleUser();
   }, [])
 
   return (
-    <>
+    <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator>
           {userLogged ? (
@@ -60,8 +60,8 @@ function App() {
           ) : (<>
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
             <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
-            <Stack.Screen name="OwnerLogin" component={OwnerLogin} options={{ headerShown: false }} />
-            <Stack.Screen name="OwnerRegistrarion" component={OwnerRegistration} options={{ headerShown: false }} />
+            <Stack.Screen name="OwnerLogin" component={OwnerLogin}  options={{ headerShown: false }} />
+            <Stack.Screen name="OwnerRegistrarion" component={OwnerRegistration} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
             <Stack.Screen name="InstructorLogin" component={InstructorLogin} options={{ headerShown: false }} />
             <Stack.Screen name="InstructorRegister" component={InstructorRegister} options={{ headerShown: false }}  />
           </>
@@ -72,7 +72,7 @@ function App() {
 
       </NavigationContainer>
 
-    </>
+    </AuthProvider>
   );
 }
 

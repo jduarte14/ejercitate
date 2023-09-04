@@ -3,7 +3,7 @@ import { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import Prices from './prices';
 
-const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports, schedules }) => {
+const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports, schedules, navigation, setUserLog, userId }) => {
     const [description, setDescription] = useState('');
     const [address, setAddress] = useState('');
     const [pricesModal, setPricesModal] = useState(false);
@@ -117,7 +117,7 @@ const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports
                 </Pressable>
             </View>
             {
-                pricesModal ? <Prices hidePricesModal={hidePricesModal} images={images} address={address} description={description} gymName={gymName} selectedFacilities={selectedFacilities} selectedSports={selectedSports} schedules={schedules} /> : null
+                pricesModal ? <Prices setUserLog={setUserLog} userId={userId} navigation={navigation} hidePricesModal={hidePricesModal} images={images} address={address} description={description} gymName={gymName} selectedFacilities={selectedFacilities} selectedSports={selectedSports} schedules={schedules} /> : null
             }
         </Modal>
     )

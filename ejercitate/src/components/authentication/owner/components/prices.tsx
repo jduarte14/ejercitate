@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import GymInfo from './gymInfo';
 
-const Prices = ({ hidePricesModal, address,description,gymName, schedules, selectedSports, selectedFacilities, images }) => {
+const Prices = ({ hidePricesModal, address, description, gymName, schedules, selectedSports, selectedFacilities, images, navigation, setUserLog, userId }) => {
     const [modal, setModal] = useState(false);
 
     const [twoDays, setTwoDaysPrice] = useState('');
@@ -116,10 +116,10 @@ const Prices = ({ hidePricesModal, address,description,gymName, schedules, selec
                         <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
                     </Pressable>
                 </View>
-            
+
             </ScrollView>
             {
-                modal ? <GymInfo hideInfoModal={hideInfoModal} address={address} images={images} description={description} prices={prices} selectedFacilities={selectedFacilities} selectedSports={selectedSports}  schedules={schedules}  gymName={gymName} /> : null
+                modal ? <GymInfo setUserLog={setUserLog} userId={userId} navigation={navigation} hideInfoModal={hideInfoModal} address={address} images={images} description={description} prices={prices} selectedFacilities={selectedFacilities} selectedSports={selectedSports} schedules={schedules} gymName={gymName} /> : null
             }
         </Modal>
     )
@@ -136,15 +136,15 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         paddingLeft: 10,
         color: "white",
-        width:300,
+        width: 300,
     },
-    smallText:{
-        fontSize:14,
-        fontWeight:"bold",
-        color:slate,
-        textAlign:"center",
-        marginHorizontal:20,
-        lineHeight:20,
+    smallText: {
+        fontSize: 14,
+        fontWeight: "bold",
+        color: slate,
+        textAlign: "center",
+        marginHorizontal: 20,
+        lineHeight: 20,
     },
     pricesContainer: {
         flex: 1,

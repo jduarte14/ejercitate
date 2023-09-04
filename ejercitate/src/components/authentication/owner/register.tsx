@@ -1,65 +1,17 @@
 import React, { useState } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet } from 'react-native';
-import Activities  from './components/activites';
-const Register = ({ navigation }) => {
-    const [gymName, setGymName] = useState('');
+import GymName from './components/subComponents/gymName';
+import OwnerInfo from './components/subComponents/ownerInfo';
+const Register = ({ navigation, route }) => {
 
-    const [modal, setModal] = useState(false);
-
-    const handleModal =()=>{
-        setModal(true);
-        setGymName(gymName);
-    }
-
-    const closeModal =()=>{
-        setModal(false);
-    }
-
+    const { setUserLog } = route.params;
 
     return (
         <>
             <View style={styles.container}>
-                <Text style={styles.loginTitle}>
-                    Registra tu gimasio
-                </Text>
-                <Text style={styles.loginSubTitle}>
-                    Nombre del gimnasio:
-                </Text>
-                <TextInput
-                    placeholder="Nombre gimnasio"
-                    onChangeText={setGymName}
-                    value={gymName}
-                    style={styles.input}
-                />
-                <View style={styles.buttonRow}>
-                    <Pressable style={styles.button} onPress={handleModal}>
-                        <Text style={styles.buttonText}>Registrar gimnasio</Text>
-                    </Pressable>
-                </View>
-                <View>
-                    <View style={styles.buttonRow}>
-                        <Pressable style={styles.slateButton}>
-                            <Text style={styles.buttonBottomText} onPress={() => navigation.navigate('OwnerLogin')}>Loguea tu Gimnasio</Text>
-                        </Pressable>
-                        <Pressable style={styles.slateButton}>
-                            <Text style={styles.buttonBottomText}>
-                                Registra tu gimnasio
-                            </Text>
-                        </Pressable>
-
-                    </View>
-                    <View style={styles.buttonRow}>
-                        <Pressable style={styles.slateButton}>
-                            <Text style={styles.buttonBottomText}>
-                                Registrate como instructor
-                            </Text>
-                        </Pressable>
-                    </View>
-                </View>
+                <OwnerInfo navigation={navigation} setUserLog={setUserLog} />
             </View>
-            {
-                modal ? <Activities gymName={gymName} closeModal={closeModal}/> : null
-            }
+          
         </>
     )
 }
