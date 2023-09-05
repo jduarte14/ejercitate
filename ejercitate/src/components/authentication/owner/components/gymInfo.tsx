@@ -76,7 +76,6 @@ const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, sc
                 let ownerId = data.gym.userType._id
                 setLoggedSession(userId, 'id');
                 setLoggedSession(ownerId, 'ownerId');
-                setLoggedSession('id','ownerId') 
                 setLoggedSession('loggedUser', 'logged');
                 setUserLog(true);
             }
