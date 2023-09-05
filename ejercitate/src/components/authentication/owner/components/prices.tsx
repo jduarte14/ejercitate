@@ -126,9 +126,6 @@ const Prices = ({ hidePricesModal, address, description, gymName, schedules, sel
 }
 
 let slate = "#0f172a";
-let gray = "#f7f7f7";
-let red = "#dc2626";
-let solidGray = "#d6d3d1";
 let cyan = "#6889d5";
 const styles = StyleSheet.create({
     input: {
@@ -153,38 +150,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         display: "flex",
     },
-    scheduleContainer: {
-        display: "flex",
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "row",
-        flexWrap: "wrap"
-    },
-    schedule: {
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        backgroundColor: cyan,
-        width: 170,
-        borderRadius: 10,
-        margin: 10,
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 25,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    text: {
-        color: slate,
-        fontSize: 22,
-        fontWeight: "bold",
-        paddingLeft: 20,
-    },
     title: {
         color: slate,
         fontSize: 28,
@@ -193,13 +158,6 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingBottom: 30,
         marginHorizontal: 10,
-    },
-    subTitle: {
-        color: slate,
-        fontSize: 22,
-        fontWeight: "bold",
-        textAlign: "center",
-        paddingTop: 10,
     },
     icon: {
         width: 30,

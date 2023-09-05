@@ -130,7 +130,7 @@ const Facilities = ({ hideFacilitiesModal, gymName, selectedSports, navigation, 
             {
                 scheduleModal ? <Schedules userId={userId} setUserLog={setUserLog} hideModal={hideModal} gymName={gymName} selectedSports={selectedSports} selectedFacilities={selectedFacilities} navigation={navigation}/> : null
             }
-
+ 
         </>
     )
 }

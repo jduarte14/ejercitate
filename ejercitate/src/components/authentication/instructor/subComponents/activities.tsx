@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, ScrollView, Text, Pressable, Modal, TouchableO
 
 import InstructorInfo from './instructorInfo';
 
-const Activities = ({ hideActivitiesModal, username, email, password, avatar, phone, name, description }) => {
+const Activities = ({ hideActivitiesModal, username, email, password, avatar, phone, name, description, setUserLog, id }) => {
 
     const [modal, setModal] = useState(false);
     const [scheduleModal, setScheduleModal] = useState(false);
@@ -141,7 +141,7 @@ const Activities = ({ hideActivitiesModal, username, email, password, avatar, ph
                 </View>
             </Modal>
             {
-                modal ? <InstructorInfo hideModal={hideModal} username={username} email={email} selectedSports={selectedSports} name={name} description={description} password={password} avatar={avatar} phone={phone} /> : null
+                modal ? <InstructorInfo id={id} setUserLog={setUserLog} hideModal={hideModal} email={email} selectedSports={selectedSports} name={name} avatar={avatar} description={description} phone={phone} /> : null
             }
         </>
     )

@@ -182,33 +182,17 @@ let slate = "#0f172a";
 let cyan = "#6889d5";
 let golden = "#FFD700";
 const styles = StyleSheet.create({
-    input: {
-        height: 60,
-        margin: 12,
-        padding: 15,
-        borderRadius: 10,
-        backgroundColor: cyan,
-        color: 'white',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-        elevation: 5,
-    },
     container: {
         flex: 1,
         background: 'white',
         justifyContent: "center",
         alignItems: "center",
-        display: "flex",
     },
     scheduleContainer: {
-        display: "flex",
-        flex: 1,
+        flexDirection: "row",
+        flexWrap: "wrap",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "row",
-        flexWrap: "wrap"
     },
     schedule: {
         paddingHorizontal: 20,
@@ -217,7 +201,6 @@ const styles = StyleSheet.create({
         width: 170,
         borderRadius: 10,
         margin: 10,
-        display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
@@ -249,22 +232,14 @@ const styles = StyleSheet.create({
         paddingBottom: 30,
         marginHorizontal: 10,
     },
-    subTitle: {
-        color: slate,
-        fontSize: 22,
-        fontWeight: "bold",
-        textAlign: "center",
-        paddingTop: 10,
-    },
     icon: {
         width: 30,
         height: 30,
         marginRight: 10,
     },
     registrationRow: {
-        display: "flex",
-        justifyContent: "space-between",
         flexDirection: "row",
+        justifyContent: "space-between",
         marginHorizontal: 20,
         width: 350,
         marginVertical: 20,
@@ -278,7 +253,6 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         height: 50,
         width: 150,
-        display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-around",
@@ -288,9 +262,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold"
     },
-    hours: {
-
-    }
 });
 
 

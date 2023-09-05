@@ -1,24 +1,52 @@
 import React, { useState } from 'react';
-import { View, TextInput, Pressable, Text, StyleSheet, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import axios from 'axios';
+import { View, TextInput, Pressable, Text, StyleSheet, Image } from 'react-native';
 
+import setLoggedSession from './../helpers/setLoggedSession';
 import Description from './subComponents/description';
 
-
 const Register = ({ navigation, route }) => {
+    const { setUserLog } = route.params;
+    
     const [modal, setModal] = useState(false);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [avatar, setAvatar] = useState(null);
-
-    const showModal = () => {
-        setModal(true);
-    }
-
+    const [id, setId] = useState(null);
     const hideModal = () => {
         setModal(false);
     }
+
+    const registerUser = async () => {
+        try {
+            const formData = await new FormData();
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append("avatar", {uri:avatar,type:'image/jpeg',name:'avatar.jpg'});
+            formData.append("username", username);
+            const url = 'https://ejercitatebackend-production.up.railway.app/auth/user';
+            const response = await axios.post(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            const data = response.data;
+            if (response.status === 200) {
+                let userId = data.user._id;
+                setId(userId);
+                setLoggedSession(userId, 'id');
+                setModal(true);
+            } else {
+                throw new Error(`Error ${response.status}: ${data.message}`);
+            }
+
+        } catch (error) {
+            console.log('Error en la solicitud', error.message);
+        }
+    }
+
 
     const pickImage = async () => {
         try {
@@ -72,7 +100,7 @@ const Register = ({ navigation, route }) => {
                 </Pressable>
 
                 <View style={styles.buttonRow}>
-                    <Pressable style={styles.button} onPress={showModal}>
+                    <Pressable style={styles.button} onPress={registerUser}>
                         <Text style={styles.buttonText}>Siguiente</Text>
                     </Pressable>
                 </View>
@@ -98,7 +126,7 @@ const Register = ({ navigation, route }) => {
                 </View>
             </View>
             {
-                modal ? <Description navigation={navigation} hideModal={hideModal} username={username} email={email} password={password} avatar={avatar}/> : null
+                modal ? <Description  id={id} setUserLog={setUserLog} hideModal={hideModal} username={username} email={email} password={password} avatar={avatar}/> : null
             }
 
         </>

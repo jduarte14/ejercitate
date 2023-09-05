@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import Activities from './activities';
 
-const Description = ({ hideModal, username, email, password, avatar }) => {
+const Description = ({ hideModal, username, email, password, avatar, setUserLog, id }) => {
     const [description, setDescription] = useState('');
     const [phone, setPhone] = useState('');
     const [name, setName] = useState('');
@@ -22,7 +22,7 @@ const Description = ({ hideModal, username, email, password, avatar }) => {
             <Modal animationType='slide'>
                 <ScrollView>
                     <View style={styles.container}>
-                    <View style={styles.slateContainer}>
+                        <View style={styles.slateContainer}>
                             <View style={styles.placeHolderRow}>
                                 <View style={styles.iconContainer}>
                                     <Image style={styles.icon} source={require('./../../../../img/entrenador-card.png')} />
@@ -43,7 +43,7 @@ const Description = ({ hideModal, username, email, password, avatar }) => {
                                     Describete como instructor:
                                 </Text>
                             </View>
-                         
+
                             <View>
                                 <TextInput style={styles.textArea}
                                     placeholder="Agrega la descripcion de tu gimnasio"
@@ -82,7 +82,7 @@ const Description = ({ hideModal, username, email, password, avatar }) => {
                 </View>
             </Modal>
             {
-                activitiesModal ? <Activities hideActivitiesModal={hideActivitiesModal} name={name} description={description} username={username} email={email} password={password} avatar={avatar} phone={phone} /> : null
+                activitiesModal ? <Activities id={id} setUserLog={setUserLog} hideActivitiesModal={hideActivitiesModal} name={name} description={description} username={username} email={email} password={password} avatar={avatar} phone={phone} /> : null
             }
 
         </>
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         fontWeight: "bold",
-        width:220,
+        width: 220,
     },
     container: {
         flex: 1,
