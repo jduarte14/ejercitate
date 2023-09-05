@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-
+import UserContext from './../../providers/UserContext';
 const Login = ({ navigation, route }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const {setUserLog} = route.params;
+    const { setUserData, setUserResponse } = useContext(UserContext);
+
     const setLoggedSession = async (value, key) => {
         try {
             await AsyncStorage.setItem(key, JSON.stringify(value));
             console.log('session agregado');
-
-        }
-        catch (error) {
+        } catch (error) {
             console.error("There was an error setting the session storage", error);
         }
     }
@@ -39,6 +39,10 @@ const Login = ({ navigation, route }) => {
                 setLoggedSession(_id, 'id');
                 setLoggedSession('loggedUser', 'logged');
                 setUserLog(true);
+                console.log(userResponse, user);
+                
+                setUserData(user);
+                setUserResponse(userResponse);
             } else {
                 setError('Credenciales incorrectas');
             }

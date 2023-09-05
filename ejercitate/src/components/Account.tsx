@@ -4,12 +4,22 @@ import { View, Text, ScrollView, StyleSheet, Image, Pressable } from 'react-nati
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import BottomBar from './../components/bottomBar';
+import InstructorPanel from './subComponents/account/instructorPanel';
 
 const Account = ({ route, navigation }) => {
+    const [instructorPanelModal, setInstructorPanel] = useState(false);
     const [user, setUserInfo] = useState('');
-    const { setUserLog, userData } = route.params;
-    console.log(user);
-    
+    const { setUserLog, userData, userResponse } = route.params;
+    const instructor = userResponse['instructor'];
+
+    const showModal = () => {
+        setInstructorPanel(true);
+     }
+
+     const hideModal =()=>{
+        setInstructorPanel(false);
+     }
+
     const handleUserData = async () => {
         try {
             const id = (await AsyncStorage.getItem('id'));
@@ -21,6 +31,8 @@ const Account = ({ route, navigation }) => {
             const response = await fetch(url);
             if (response.status === 200) {
                 const data = await response.json();
+                console.log(data);
+
                 const userInfo = data['user_found'];
                 setUserInfo(userInfo);
             }
@@ -49,6 +61,8 @@ const Account = ({ route, navigation }) => {
 
     useEffect(() => {
         handleUserData();
+        console.log(userResponse);
+
     }, [])
 
     return (
@@ -93,6 +107,15 @@ const Account = ({ route, navigation }) => {
                                         Configuracion de pagos
                                     </Text>
                                 </Pressable>
+                                {instructor ?
+                                    (
+                                        <Pressable style={styles.buttonRow} onPress={showModal}>
+                                            <Image style={styles.icon} source={require('./../img/entrenador.png')} />
+                                            <Text style={styles.subText}>
+                                                Panel de instructor
+                                            </Text>
+                                        </Pressable>
+                                    ) : null}
                             </View>
                             <Pressable style={styles.logoutContainer} onPress={handleLogout}>
                                 <Text style={styles.logoutText}>
@@ -106,6 +129,10 @@ const Account = ({ route, navigation }) => {
 
             </ScrollView>
             <BottomBar navigation={navigation} />
+            {
+                instructorPanelModal ?  <InstructorPanel hideModal={hideModal}/>: null
+            }
+           
         </View>
     )
 }
