@@ -23,8 +23,8 @@ const Login = ({ navigation, route }) => {
         try {
             const url = 'https://ejercitatebackend-production.up.railway.app/auth/user/login';
             const userData = new URLSearchParams();
-            userData.append("email", email);
-            userData.append("password", password);
+            userData.append("email", email.toLowerCase());
+            userData.append("password", password.toLocaleLowerCase());
 
             const response = await axios.post(url, userData.toString(), {
                 headers: {
