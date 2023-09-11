@@ -1,6 +1,6 @@
 import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, Pressable } from "react-native";
 
-const InstructorPanel = ({ hideInstructorModal }) => {
+const InstructorPanel = ({ hideInstructorModal, instructor }) => {
     return (
 
         <Modal visible={true} animationType="slide">

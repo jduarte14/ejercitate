@@ -1,8 +1,9 @@
 import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, Pressable } from "react-native";
 
-const GymPanel = ({ hideGymModal }) => {
+const GymPanel = ({ hideGymModal, owner }) => {
+    console.log(owner);
+    
     return (
-
         <Modal visible={true} animationType="slide">
             <View style={styles.panelControlContainer}>
 

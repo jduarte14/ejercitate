@@ -2,14 +2,11 @@ import React, { useState, useContext } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import UserContext from './../../providers/UserContext';
 const Login = ({ navigation, route }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const { setUserLog } = route.params;
-    const { setUserData, setUserResponse } = useContext(UserContext);
-
     const setLoggedSession = async (value, key) => {
         try {
             await AsyncStorage.setItem(key, JSON.stringify(value));
@@ -39,12 +36,6 @@ const Login = ({ navigation, route }) => {
                 await AsyncStorage.clear();
                 setLoggedSession(_id, 'id');
                 setLoggedSession('loggedUser', 'logged');
-                if(instructor) {
-                    setLoggedSession(instructor, 'instructorData');
-                }
-                if(gym) {
-                    setLoggedSession(gym, 'gymData');
-                }
                 setUserLog(true);
             } else {
                 setError('Credenciales incorrectas');

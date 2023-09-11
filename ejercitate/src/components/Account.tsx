@@ -14,7 +14,7 @@ const Account = ({ route, navigation }) => {
     const [instructor, setInstructor] = useState(false);
     const [gymModal, setGymModal] = useState(false);
 
-    const { setUserLog, userResponse, loggedInstructor, loggedGym } = route.params;    
+    const { setUserLog } = route.params;    
     
     const showInstructorModal = () => {
         setInstructorPanel(true);
@@ -39,23 +39,26 @@ const Account = ({ route, navigation }) => {
             }
             const urlId = id.replace(/"/g, "");
             let url = `https://ejercitatebackend-production.up.railway.app/auth/user/${urlId}`;
+
             const response = await fetch(url);
             if (response.status === 200) {
                 const data = await response.json();
+                console.log(data);
+                
                 const userInfo = data['user_found'];
                 setUserInfo(userInfo);
-                const {owner, instructor} = userInfo;
+                const {gym, instructor} = data;
+                
                 if(instructor) {
-                    setInstructor(instructor);
+                    setInstructor(instructor);           
                 }
-                if(owner){
-                    setOwner(owner);
+                if(gym){
+                    setOwner(gym);                  
                 }
             }   
             else {
                 console.error("Hubo un error con la peticion");
             }
-
         }
         catch (error) {
             console.error("Falta informacion del usuario");
@@ -65,16 +68,13 @@ const Account = ({ route, navigation }) => {
     const handleLogout = async () => {
         try {
             await AsyncStorage.clear();
-            
             setUserLog(false);
-
         }
         catch (error) {
             console.error('Error al eliminar el elemento:', error);
         }
-
     }
-
+    
     useEffect(() => {
         handleUserData();
     }, [])
@@ -153,10 +153,10 @@ const Account = ({ route, navigation }) => {
             </ScrollView>
             <BottomBar navigation={navigation} />
             {
-                instructorPanelModal ? <InstructorPanel hideInstructorModal={hideInstructorModal} /> : null
+                instructorPanelModal ? <InstructorPanel instructor={instructor} hideInstructorModal={hideInstructorModal} /> : null
             }
             {
-                gymModal ? <GymPanel hideGymModal={hideGymModal} /> : null
+                gymModal ? <GymPanel owner={owner} hideGymModal={hideGymModal} /> : null
             }
 
         </View>
