@@ -73,7 +73,7 @@ const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, sc
             const data = response.data;
             if (response.status === 200) {
                 console.log('El gimnasio ha sido creado', data);
-                let ownerId = data.gym.userType._id
+                let ownerId = data.gym.owner
                 setLoggedSession(userId, 'id');
                 setLoggedSession(ownerId, 'ownerId');
                 setLoggedSession('loggedUser', 'logged');

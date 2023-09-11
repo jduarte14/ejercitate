@@ -7,7 +7,7 @@ const Login = ({ navigation, route }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const {setUserLog} = route.params;
+    const { setUserLog } = route.params;
     const { setUserData, setUserResponse } = useContext(UserContext);
 
     const setLoggedSession = async (value, key) => {
@@ -23,8 +23,8 @@ const Login = ({ navigation, route }) => {
         try {
             const url = 'https://ejercitatebackend-production.up.railway.app/auth/user/login';
             const userData = new URLSearchParams();
-            userData.append("email", email.toLowerCase());
-            userData.append("password", password.toLowerCase());
+            userData.append("email", email);
+            userData.append("password", password);
 
             const response = await axios.post(url, userData.toString(), {
                 headers: {
@@ -34,15 +34,18 @@ const Login = ({ navigation, route }) => {
 
             if (response.status === 200) {
                 const userResponse = await response.data;
-                const { user } = userResponse;
-                const { _id } = user;
+                const { user, instructor, gym } = userResponse;
+                const { _id } = user;         
+                await AsyncStorage.clear();
                 setLoggedSession(_id, 'id');
                 setLoggedSession('loggedUser', 'logged');
+                if(instructor) {
+                    setLoggedSession(instructor, 'instructorData');
+                }
+                if(gym) {
+                    setLoggedSession(gym, 'gymData');
+                }
                 setUserLog(true);
-                console.log(userResponse, user);
-                
-                setUserData(user);
-                setUserResponse(userResponse);
             } else {
                 setError('Credenciales incorrectas');
             }

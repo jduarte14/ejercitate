@@ -4,21 +4,32 @@ import { View, Text, ScrollView, StyleSheet, Image, Pressable } from 'react-nati
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import BottomBar from './../components/bottomBar';
+import GymPanel from './../components/subComponents/account/gymPanel';
 import InstructorPanel from './subComponents/account/instructorPanel';
 
 const Account = ({ route, navigation }) => {
     const [instructorPanelModal, setInstructorPanel] = useState(false);
     const [user, setUserInfo] = useState('');
-    const { setUserLog, userData, userResponse } = route.params;
-    const instructor = userResponse['instructor'];
+    const [owner, setOwner] = useState(false);
+    const [instructor, setInstructor] = useState(false);
+    const [gymModal, setGymModal] = useState(false);
 
-    const showModal = () => {
+    const { setUserLog, userResponse, loggedInstructor, loggedGym } = route.params;    
+    
+    const showInstructorModal = () => {
         setInstructorPanel(true);
-     }
-
-     const hideModal =()=>{
+    }
+    const hideInstructorModal = () => {
         setInstructorPanel(false);
-     }
+    }
+
+    const hideGymModal=()=>{
+        setGymModal(false);
+    }
+
+    const showGymModal =()=>{
+        setGymModal(true);
+    }
 
     const handleUserData = async () => {
         try {
@@ -31,11 +42,16 @@ const Account = ({ route, navigation }) => {
             const response = await fetch(url);
             if (response.status === 200) {
                 const data = await response.json();
-                console.log(data);
-
                 const userInfo = data['user_found'];
                 setUserInfo(userInfo);
-            }
+                const {owner, instructor} = userInfo;
+                if(instructor) {
+                    setInstructor(instructor);
+                }
+                if(owner){
+                    setOwner(owner);
+                }
+            }   
             else {
                 console.error("Hubo un error con la peticion");
             }
@@ -48,8 +64,8 @@ const Account = ({ route, navigation }) => {
 
     const handleLogout = async () => {
         try {
-            await AsyncStorage.removeItem('logged');
-            console.log('fuera de sesion');
+            await AsyncStorage.clear();
+            
             setUserLog(false);
 
         }
@@ -61,8 +77,6 @@ const Account = ({ route, navigation }) => {
 
     useEffect(() => {
         handleUserData();
-        console.log(userResponse);
-
     }, [])
 
     return (
@@ -109,10 +123,19 @@ const Account = ({ route, navigation }) => {
                                 </Pressable>
                                 {instructor ?
                                     (
-                                        <Pressable style={styles.buttonRow} onPress={showModal}>
+                                        <Pressable style={styles.buttonRow} onPress={showInstructorModal}>
                                             <Image style={styles.icon} source={require('./../img/entrenador.png')} />
                                             <Text style={styles.subText}>
                                                 Panel de instructor
+                                            </Text>
+                                        </Pressable>
+                                    ) : null}
+                                { owner ?
+                                    (
+                                        <Pressable style={styles.buttonRow} onPress={showGymModal}>
+                                            <Image style={styles.icon} source={require('./../img/entrenador.png')} />
+                                            <Text style={styles.subText}>
+                                                Panel del gimnasio
                                             </Text>
                                         </Pressable>
                                     ) : null}
@@ -130,9 +153,12 @@ const Account = ({ route, navigation }) => {
             </ScrollView>
             <BottomBar navigation={navigation} />
             {
-                instructorPanelModal ?  <InstructorPanel hideModal={hideModal}/>: null
+                instructorPanelModal ? <InstructorPanel hideInstructorModal={hideInstructorModal} /> : null
             }
-           
+            {
+                gymModal ? <GymPanel hideGymModal={hideGymModal} /> : null
+            }
+
         </View>
     )
 }

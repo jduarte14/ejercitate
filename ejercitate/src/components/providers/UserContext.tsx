@@ -5,6 +5,8 @@ const UserContext = createContext({
   setUserData: () => {},
   userResponse: null,
   setUserResponse: () => {},
+  gymData:null,
+  setGymData:()=>{},
 });
 
 export default UserContext;

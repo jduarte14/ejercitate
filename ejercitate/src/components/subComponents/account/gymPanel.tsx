@@ -1,6 +1,6 @@
 import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, Pressable } from "react-native";
 
-const InstructorPanel = ({ hideInstructorModal }) => {
+const GymPanel = ({ hideGymModal }) => {
     return (
 
         <Modal visible={true} animationType="slide">
@@ -32,7 +32,7 @@ const InstructorPanel = ({ hideInstructorModal }) => {
                 </Pressable>
             </View>
             <View style={styles.buttonRow}>
-                <TouchableOpacity onPress={hideInstructorModal} style={styles.button}>
+                <TouchableOpacity onPress={hideGymModal} style={styles.button}>
                     <Text style={styles.whiteTextCentered}>Cerrar</Text>
                 </TouchableOpacity>
             </View>
@@ -109,4 +109,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default InstructorPanel;
+export default GymPanel;
