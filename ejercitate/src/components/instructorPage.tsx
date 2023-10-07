@@ -1,10 +1,22 @@
 import { ScrollView, View, Text, Image, Modal, Pressable } from 'react-native';
 import styles from './../styles';
+import Articles from './subComponents/articles/Articles';
+import { useState } from 'react';
 
 const InstructorPage = ({ hideInstructorPage, instructor }) => {
-    const { name, mail, phone, avatar, specialty, description } = instructor;
+    const { name, mail, phone, avatar, specialty, description, articles } = instructor;
     const { mma, boxing, bjj, pilates, weightlifting, wrestling, yoga, nutritionist, calisthenic } = specialty;
 
+    const [modal, setModal] = useState(false);
+    console.log(articles);
+    
+    const showModal = () => {
+        setModal(true);
+    }
+
+    const hideModal = () => {
+        setModal(false);
+    }
 
     return (
         <Modal visible={true} animationType="slide">
@@ -16,7 +28,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     </View>
 
                     <Text style={styles.whiteSubInstructorText}>
-                       {description}
+                        {description}
                     </Text>
                     {bjj ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
@@ -101,8 +113,18 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             Cerrar
                         </Text>
                     </Pressable>
+                    {
+                        articles[0] ? <Pressable style={styles.button} onPress={showModal}>
+                            <Text style={styles.buttonText}>
+                                Ver rutinas
+                            </Text>
+                        </Pressable> : null
+                    }
                 </View>
             </ScrollView>
+            {
+                modal ? <Articles hideModal={hideModal} articles={articles} /> : null
+            }
         </Modal>
     )
 }

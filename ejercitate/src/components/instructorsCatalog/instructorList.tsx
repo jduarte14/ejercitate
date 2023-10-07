@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, ScrollView } from 'react-native';
 import InstructorPage from './../instructorPage';
 
 const InstructorList = ({ instructors, searchValue }) => {
   const [filteredInstructors, setFilteredInstructors] = useState([]);
   const [instructorPage, setInstructorPage] = useState(false);
   const [selectedInstructor, setSelectedInstructor] = useState(null);
-
   const showInstructorPage = (instructorId) => {
     setSelectedInstructor(instructors.find(instructor => instructor._id === instructorId));
     setInstructorPage(true);
@@ -25,12 +24,16 @@ const InstructorList = ({ instructors, searchValue }) => {
 
   return (
     <View style={instructorStyle.container}>
+      <ScrollView>
       {filteredInstructors.length > 0 ? (
         filteredInstructors.map((instructor, index) => {
           const { name, phone, avatar, _id } = instructor;
           return (
             <View style={instructorStyle.instructorRowContainer} key={index}>
-              <Image source={{ uri: avatar }} style={instructorStyle.instructorAvatar} />
+              {
+                avatar ?  <Image source={{ uri: avatar }} style={instructorStyle.instructorAvatar} /> : <Image source={require('./../../img/avatar.png')} style={instructorStyle.instructorAvatar} />
+              }
+              
               <View style={instructorStyle.instructorInfoRow}>
                 <Text style={instructorStyle.instructorText}>{name}</Text>
                 <Text style={instructorStyle.instructorText}>{phone}</Text>
@@ -43,6 +46,8 @@ const InstructorList = ({ instructors, searchValue }) => {
         <Text style={instructorStyle.charginText}>Cargando instructores</Text>
       )}
       {instructorPage ? <InstructorPage hideInstructorPage={hideInstructorPage} instructor={selectedInstructor} /> : null}
+      </ScrollView>
+    
     </View>
   )
 }

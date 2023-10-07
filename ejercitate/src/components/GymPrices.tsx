@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, ScrollView, View, Text, Pressable, StyleSheet } from 'react-native';
 import styles from './../styles';
 
-const GymPrices = ({ hidePricesModal, prices }) => {
+const GymPrices = ({ handlePricesModal, prices }) => {
   const [selectedId, setSelectedId] = useState(null);
   const { freePass, twoDays, threeDays, fourDays, fiveDays } = prices;
   const handlePress = (id, plan, value) => {
@@ -73,10 +73,10 @@ const GymPrices = ({ hidePricesModal, prices }) => {
 
       </ScrollView>
       <View style={styles.buttonsRow}>
-        <Pressable style={styles.button} onPress={hidePricesModal}>
+        <Pressable style={styles.button} onPress={handlePricesModal}>
           <Text style={styles.buttonText}>Volver</Text>
         </Pressable>
-        <Pressable style={styles.button} onPress={hidePricesModal}>
+        <Pressable style={styles.button} onPress={handlePricesModal}>
           <Text style={styles.buttonText}>Reservar</Text>
         </Pressable>
       </View>

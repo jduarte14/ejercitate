@@ -43,8 +43,6 @@ const Account = ({ route, navigation }) => {
             const response = await fetch(url);
             if (response.status === 200) {
                 const data = await response.json();
-                console.log(data);
-                
                 const userInfo = data['user_found'];
                 setUserInfo(userInfo);
                 const {gym, instructor} = data;

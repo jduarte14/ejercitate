@@ -143,6 +143,7 @@ const Activities = ({  gymName, navigation, setUserLog, hideActivitesModal, user
 
 let slate = "#0f172a";
 let golden = "#FFD700";
+
 const styles = StyleSheet.create({
     selectedSport: {
         borderColor: golden,

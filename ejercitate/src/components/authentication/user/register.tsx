@@ -6,10 +6,9 @@ import * as ImagePicker from 'expo-image-picker';
 //Helper
 import setLoggedSession from './../helpers/setLoggedSession';
 import unLogSession from './../helpers/unLogSession';
-import UserContext from './../../../components/providers/UserContext';
+
 
 const Register = ({ navigation, route }) => {
-    const { userData, setUserData } = useContext(UserContext);
     const { setUserLog } = route.params;
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');

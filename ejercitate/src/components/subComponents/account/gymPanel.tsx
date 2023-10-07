@@ -1,37 +1,43 @@
 import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, Pressable } from "react-native";
+import {useState} from 'react';
+import GymModify from './subComponents/GymModify';
 
 const GymPanel = ({ hideGymModal, owner }) => {
-    console.log(owner);
-    
+    const {name} = owner;
+    const [modalVisible, setModalVisible] = useState(false);
+    const handleModal =()=>{
+        modalVisible ? setModalVisible(false) : setModalVisible(true);
+    }
     return (
         <Modal visible={true} animationType="slide">
             <View style={styles.panelControlContainer}>
+                <Text style={styles.title}>
+                    {name}
+                </Text>
 
-                <Pressable style={styles.panelRow}>
-                    <Image style={styles.icon} source={require('./../../../img/password.png')} />
+                <Pressable style={styles.panelRow} onPress={handleModal}>
+                    <Image style={styles.icon} source={require('./../../../img/gym_location.png')} />
                     <Text style={styles.subText}>
-                        Cambiar Email
+                        Modificar Gimnasio
                     </Text>
                 </Pressable>
                 <Pressable style={styles.panelRow}>
-                    <Image style={styles.icon} source={require('./../../../img/password.png')} />
+                    <Image style={styles.icon} source={require('./../../../img/gym_avatar.png')} />
                     <Text style={styles.subText}>
-                        Cambiar contrasena
+                        Gestionar instructores
                     </Text>
                 </Pressable>
                 <Pressable style={styles.panelRow}>
-                    <Image style={styles.icon} source={require('./../../../img/password.png')} />
-                    <Text style={styles.subText}>
-                        Cambiar Avatar
-                    </Text>
-                </Pressable>
-                <Pressable style={styles.panelRow}>
-                    <Image style={styles.icon} source={require('./../../../img/password.png')} />
+                    <Image style={styles.icon} source={require('./../../../img/debit-card.png')} />
                     <Text style={styles.subText}>
                         Configuracion de pagos
                     </Text>
                 </Pressable>
             </View>
+            {
+                modalVisible ? <GymModify gym={owner} handleModal={handleModal}/> :null
+            }
+     
             <View style={styles.buttonRow}>
                 <TouchableOpacity onPress={hideGymModal} style={styles.button}>
                     <Text style={styles.whiteTextCentered}>Cerrar</Text>
@@ -50,6 +56,12 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         color: slate,
+    },
+    title:{
+        fontSize:30,
+        color:slate,
+        fontWeight:'bold',
+        paddingBottom:50, 
     },
     whiteText: {
         fontSize: 20,
@@ -94,7 +106,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        width:300,
+        width:350,
     },
     icon: {
         width: 35,

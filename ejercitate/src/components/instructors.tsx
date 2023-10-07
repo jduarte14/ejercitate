@@ -5,7 +5,7 @@ import styles from './../styles';
 
 import InstructorPage from './instructorPage';
 
-const Instructors = ({ hideInstructorModal, instructors }) => {
+const Instructors = ({ instructors, handleInstructorModal }) => {
     const [instructorPage, setInstructorPage] = useState(false);
     const [selectedInstructor, setSelectedInstructor] = useState(null);
 
@@ -42,7 +42,7 @@ const Instructors = ({ hideInstructorModal, instructors }) => {
                         );
                     })}
                     <View style={styles.buttonsRow}>
-                        <Pressable style={styles.button} onPress={hideInstructorModal}>
+                        <Pressable style={styles.button} onPress={handleInstructorModal}>
                             <Text style={styles.buttonText}>
                                 Cerrar
                             </Text>

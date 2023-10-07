@@ -11,7 +11,7 @@ import Schedules from './gymModal/schedules';
 import Facilities from './gymModal/facilities';
 import Gallery from './gymModal/gallery';
 
-const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
+const GymModal = ({ handleGymModal, selectedGym, instructors }) => {
     const [pricesModal, setPricesModal] = useState(false);
     const [instructorModal, setInstructorModal] = useState(false);
     const { reviews, sports, schedules, facilities, prices, imagen, imagen2, imagen3, imagen4, imagen5, _id } = selectedGym;
@@ -19,21 +19,18 @@ const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
     const selectedInstructors = instructors.filter(instructor => instructor.gym === _id);
 
 
-    const showInstructorModal = () => {
+    const handleInstructorModal = () => {
+        instructorModal === true ?
+        setInstructorModal(false) :
         setInstructorModal(true);
     }
 
-    const hideInstructorModal = () => {
-        setInstructorModal(false);
-    }
-
-    const showPricesModal = () => {
+    const handlePricesModal =()=>{
+        pricesModal === true ? 
+        setPricesModal(false) : 
         setPricesModal(true);
     }
 
-    const hidePricesModal = () => {
-        setPricesModal(false);
-    }
 
     return (
         <Modal visible={true} animationType="slide">
@@ -69,7 +66,7 @@ const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
                     }
                     <View style={styles.instructorRow}>
                         <View style={styles.instructorContainer}>
-                            <Pressable style={styles.rowPressable} onPress={showInstructorModal}>
+                            <Pressable style={styles.rowPressable} onPress={handleInstructorModal}>
                                 <Image style={styles.gymIcon} source={require('./../img/entrenador.png')} />
                                 <Text style={styles.instructorText}>Instructores </Text>
                             </Pressable>
@@ -85,23 +82,23 @@ const GymModal = ({ closeGymModal, selectedGym, instructors }) => {
                     {reviews ? <Reviews reviews={reviews} /> : null}
                 </View>
                 <View style={styles.buttonsRow}>
-                    <Pressable style={styles.button} onPress={closeGymModal}>
+                    <Pressable style={styles.button} onPress={handleGymModal}>
                         <Text style={styles.buttonText}>
                             Cerrar
                         </Text>
                     </Pressable>
-                    <Pressable style={styles.button} onPress={showPricesModal}>
+                    <Pressable style={styles.button} onPress={handleInstructorModal}>
                         <Text style={styles.buttonText} >
                             Reservar
                         </Text>
                     </Pressable>
                 </View>
                 {
-                    instructorModal ? <Instructors hideInstructorModal={hideInstructorModal} instructors={selectedInstructors} /> : null
+                    instructorModal ? <Instructors handleInstructorModal={handleInstructorModal} instructors={selectedInstructors} /> : null
                 }
 
                 {
-                    pricesModal ? <GymPrices hidePricesModal={hidePricesModal} prices={prices} /> : null
+                    pricesModal ? <GymPrices handlePricesModal={handlePricesModal} prices={prices} /> : null
                 }
 
             </ScrollView>

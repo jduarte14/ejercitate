@@ -10,9 +10,6 @@ const styles = StyleSheet.create({
         height: '100%',
         flex: 1,
     },
-    searchField:{
-
-    },
     homeContainer: {
         backgroundColor: gray,
         flex: 1,

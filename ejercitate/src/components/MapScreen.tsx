@@ -8,14 +8,14 @@ const MapScreen = ({ gyms, instructors }) => {
   const [gymModalVisible, setGymModalVisible] = useState(false);
   const [selectedGym, setSelectedGymId] = useState(null);
   
-  const openGymModal = (gym) => {
+  const handleGymModal = (gym) => {
     setSelectedGymId(gym); 
     setGymModalVisible(true);
+    if(gymModalVisible) {
+      setGymModalVisible(false);
+    }
   };
 
-  const closeGymModal = () => {
-    setGymModalVisible(false);
-  };
 
   const markerCoordinates = {
     latitude: 37.78825,
@@ -39,7 +39,7 @@ const MapScreen = ({ gyms, instructors }) => {
             <Marker
               key={gym.id}
               coordinate={markerCoordinates}
-              onPress={() => openGymModal(gym)}
+              onPress={() => handleGymModal(gym)}
             >
               <View style={MapStyle.gymMarker}>
                 <Text style={MapStyle.gymMarkerText}>{name}</Text>
@@ -49,7 +49,7 @@ const MapScreen = ({ gyms, instructors }) => {
           );
         })}
       </MapView>
-      {gymModalVisible && <GymModal selectedGym={selectedGym} instructors={instructors} closeGymModal={closeGymModal} />}
+      {gymModalVisible && <GymModal selectedGym={selectedGym} instructors={instructors} handleGymModal={handleGymModal} />}
     </View>
   );
 };
