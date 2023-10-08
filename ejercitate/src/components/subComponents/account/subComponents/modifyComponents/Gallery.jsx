@@ -1,9 +1,42 @@
-import { StyleSheet, View, Text, Pressable, Modal } from "react-native";
+import * as ImagePicker from 'expo-image-picker';
+import { StyleSheet, View, Text, Pressable, Modal, Image } from "react-native";
 
-const Gallery = ({ images, pickImage, removeImage, handlePopUp }) => {
+const Gallery = ({ images, handlePopUp, setImages }) => {
+    const pickImage = async (index) => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+
+            if (!result.cancelled) {
+                const updatedImages = [...images];
+                updatedImages[index] = result.assets[0].uri;
+                setImages(updatedImages);
+            }
+        } catch (error) {
+            console.log('Error picking an image', error);
+        }
+    };
+
+    const removeImage = (index) => {
+        const updatedImages = [...images];
+        updatedImages[index] = null;
+        setImages(updatedImages);
+    };
+
+
+
+
     return (
         <Modal  visible={true} animationType="slide">
+                <Text style={styles.title}>
+                    Modifica las imagenes de tu gimnasio
+                </Text>
             <View style={styles.imageContainer}>
+            
                 {images.map((image, index) => (
                     <View key={index} style={styles.imagePreviewContainer}>
                         {image && (
@@ -123,6 +156,13 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    title:{
+        fontWeight:"bold",
+        color:slate,
+        fontSize:23,
+        paddingVertical:15,
+        textAlign:"center",
+    }, 
 })
 
 export default Gallery;

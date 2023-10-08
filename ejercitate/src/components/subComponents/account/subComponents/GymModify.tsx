@@ -1,6 +1,5 @@
 import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, TextInput, Pressable, ScrollView } from "react-native";
 import { useState, useEffect } from 'react';
-import * as ImagePicker from 'expo-image-picker';
 
 import Activities from './modifyComponents/Activities';
 import GymInfo from './modifyComponents/GymInfo';
@@ -12,13 +11,26 @@ import { fetchHelper } from "../../../authentication/helpers/fetchHelper";
 const GymModify = ({ gym, handleModal }) => {
     const { address, description, facilities, imagen, imagen2, imagen3, imagen4, imagen5, prices, schedules, sports } = gym;
     const { days, hours } = schedules;
+    const [popup, setPopUp] = useState('');
     const [stateAddress, setStateAddress] = useState(address);
     const [stateDescription, setStateDescription] = useState(description);
     const [stateDays, setStateDays] = useState(days);
     const [stateHours, setStateHours] = useState(hours);
-    const [statePrices, setStatePrices] = useState(prices);
-    const [popup, setPopUp] = useState('');
+    const [statePrices, setStatePrices] = useState({
+        fiveDays: prices.fiveDays || '',
+        fourDays: prices.fourDays || '',
+        freePass: prices.freePass || '',
+        threeDays: prices.threeDays || '',
+        twoDays: prices.twoDays || '',
+    });
+   
 
+    const handlePriceChange = (priceType, value) => {
+        setStatePrices(prevPrices => ({
+            ...prevPrices,
+            [priceType]: value
+        }));
+    };
 
     const handlePopUp = (type) => {
         switch (type) {
@@ -42,31 +54,6 @@ const GymModify = ({ gym, handleModal }) => {
     const [selectedSports, setSelectedSports] = useState(sports);
     const [selectedFacilities, setSelectedFacilities] = useState(facilities);
     const [images, setImages] = useState(Array(5).fill(null));
-
-    const pickImage = async (index) => {
-        try {
-            let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-            });
-
-            if (!result.cancelled) {
-                const updatedImages = [...images];
-                updatedImages[index] = result.assets[0].uri;
-                setImages(updatedImages);
-            }
-        } catch (error) {
-            console.log('Error picking an image', error);
-        }
-    };
-
-    const removeImage = (index) => {
-        const updatedImages = [...images];
-        updatedImages[index] = null;
-        setImages(updatedImages);
-    };
 
 
     const handleSportsOnPress = (sport) => {
@@ -107,8 +94,14 @@ const GymModify = ({ gym, handleModal }) => {
         }
         if (selectedSports) {
             Object.keys(selectedSports).forEach(sport => {
+
                 gymData[`sports[${sport}]`] = "true";
             });
+        }
+        if(statePrices) {
+            Object.keys(statePrices).forEach((priceType,value)=>{
+                gymData.append(`prices[${priceType}]`, `UYU ${value}`)
+            })
         }
         images[0] ? gymData.append("imagen", images[0]) : gymData.append("imagen", imagen);
         images[1] ? gymData.append("imagen", images[1]) : gymData.append("imagen", imagen2);
@@ -141,7 +134,6 @@ const GymModify = ({ gym, handleModal }) => {
                     <Text style={styles.title}>
                         {gym.name}
                     </Text>
-
                     <Pressable style={styles.panelRow} onPress={() => { handlePopUp('info') }}>
                         <Image style={styles.icon} source={require('./../../../../img/debit-card.png')} />
                         <Text style={styles.subText}>
@@ -174,13 +166,10 @@ const GymModify = ({ gym, handleModal }) => {
                                 setStateDescription={setStateDescription}
                                 setStateDays={setStateDays}
                                 setStateHours={setStateHours}
-                                setStatePrices={setStatePrices}
                                 stateAddress={stateAddress}
                                 stateDescription={stateDescription}
                                 stateDays={stateDays}
                                 stateHours={stateHours}
-                                statePrices={statePrices}
-                                stateDescription={stateDescription}
                                 handlePopUp={handlePopUp}
                             /> : null
                     }
@@ -197,11 +186,11 @@ const GymModify = ({ gym, handleModal }) => {
                     }
                 </View>
                 {
-                    popup === "prices" ? <Prices statePrices={statePrices} setStatePrices={setStatePrices} handlePopUp={handlePopUp} /> : null
+                    popup === "prices" ? <Prices statePrices={statePrices} handlePriceChange={handlePriceChange} setStatePrices={setStatePrices} handlePopUp={handlePopUp} /> : null
                 }
 
                 {
-                    popup === "gallery" ? <Gallery images={images} pickImage={pickImage} removeImage={removeImage} handlePopUp={handlePopUp} /> : null
+                    popup === "gallery" ? <Gallery images={images} setImages={setImages} handlePopUp={handlePopUp} /> : null
                 }
 
 

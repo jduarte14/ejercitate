@@ -1,6 +1,6 @@
 import { StyleSheet, Image, Text, TouchableOpacity, ScrollView, Modal, View, Pressable } from "react-native";
 
-const Activities = ({ selectedFacilities, selectedSports,setSelectedFacilities,setSelectedSports, handleSportsOnPress, handleFacilitiesOnPress, handlePopUp }) => {
+const Activities = ({ selectedFacilities, selectedSports, handleSportsOnPress, handleFacilitiesOnPress, handlePopUp }) => {
   
 
     return (

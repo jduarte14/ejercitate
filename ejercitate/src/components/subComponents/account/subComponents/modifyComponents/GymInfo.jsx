@@ -1,6 +1,6 @@
 import { StyleSheet, View, TextInput, Image, Text, Modal, Pressable, ScrollView } from "react-native";
 
-const GymInfo = ({ setStateAddress, setStateDescription, setStateHours, setStateDays, setStatePrices, stateDescription, stateAddress, stateHours, stateDays, handlePopUp }) => {
+const GymInfo = ({ setStateAddress, setStateDescription, setStateHours, setStateDays, stateDescription, stateAddress, stateHours, stateDays, handlePopUp }) => {
     return (
         <Modal  visible={true} animationType="slide">
             <ScrollView style={styles.scrollView}>

@@ -1,6 +1,6 @@
-import { View, Text, ScrollView, Image, StyleSheet, Modal, Pressable } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, Modal, Pressable, TextInput } from 'react-native';
 
-const Prices = ({ setStatePrices, statePrices, handlePopUp }) => {
+const Prices = ({ setStatePrices, statePrices, handlePopUp, handlePriceChange }) => {
     const { fiveDays, fourDays, freePass, threeDays, twoDays } = statePrices;
     return (
         <Modal visible={true} animationType="slide">
@@ -53,6 +53,74 @@ const Prices = ({ setStatePrices, statePrices, handlePopUp }) => {
                             </View>)
                     }
                 </ScrollView>
+                <ScrollView>
+                    <Text style={styles.text}>Pase libre:</Text>
+                    <View style={styles.placeHolderRow}>
+                        <View style={styles.iconContainer}>
+                            <Image style={styles.icon} source={require('./../../../../../img/coin.png')} />
+                        </View>
+                        <TextInput style={styles.input}
+                            placeholder="Agrega el precio"
+                            placeholderTextColor="white"
+                            numberOfLines={4}
+                            value={freePass}
+                            onChangeText={value => handlePriceChange('freePass', value)}
+                        />
+                    </View>
+                    <Text style={styles.text}>5 dias:</Text>
+                    <View style={styles.placeHolderRow}>
+                        <View style={styles.iconContainer}>
+                            <Image style={styles.icon} source={require('./../../../../../img/coin.png')} />
+                        </View>
+                        <TextInput style={styles.input}
+                            placeholderTextColor="white"
+                            placeholder="Agrega el precio"
+                            numberOfLines={4}
+                            value={fiveDays}
+                            onChangeText={value => handlePriceChange('fiveDays', value)}
+                        />
+                    </View>
+                    <Text style={styles.text}>4 dias:</Text>
+                    <View style={styles.placeHolderRow}>
+                        <View style={styles.iconContainer}>
+                            <Image style={styles.icon} source={require('./../../../../../img/coin.png')} />
+                        </View>
+                        <TextInput style={styles.input}
+                            placeholder="Agrega el precio"
+                            placeholderTextColor="white"
+                            numberOfLines={4}
+                            value={fourDays}
+                            onChangeText={value => handlePriceChange('fourDays', value)}
+                        />
+                    </View>
+                    <Text style={styles.text}>3 dias:</Text>
+                    <View style={styles.placeHolderRow}>
+                        <View style={styles.iconContainer}>
+                            <Image style={styles.icon} source={require('./../../../../../img/coin.png')} />
+                        </View>
+                        <TextInput style={styles.input}
+                            placeholder="Agrega el precio"
+                            placeholderTextColor="white"
+                            numberOfLines={4}
+                            value={threeDays}
+                            onChangeText={value => handlePriceChange('threeDays', value)}
+                        />
+                    </View>
+                    <Text style={styles.text}>2 dias:</Text>
+                    <View style={styles.placeHolderRow}>
+                        <View style={styles.iconContainer}>
+                            <Image style={styles.icon} source={require('./../../../../../img/coin.png')} />
+                        </View>
+                        <TextInput style={styles.input}
+                            placeholder="Agrega el precio"
+                            placeholderTextColor="white"
+                            numberOfLines={4}
+                            value={twoDays}
+                            onChangeText={value => handlePriceChange('twoDays', value)}
+                        />
+                    </View>
+                </ScrollView>
+
                 <View style={styles.buttonRow}>
                     <Pressable onPress={() => { handlePopUp('') }} style={styles.button}>
                         <Text style={styles.whiteText}>
@@ -73,6 +141,15 @@ let golden = "#FFD700";
 let cyan = "#6889d5";
 
 const styles = StyleSheet.create({
+    input: {
+        height: 60,
+        margin: 12,
+        padding: 15,
+        borderRadius: 10,
+        color: 'white',
+        fontWeight: "bold",
+        width: 200
+    },
     prices: {
         backgroundColor: cyan,
         height: 50,
@@ -112,7 +189,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         paddingLeft: 10,
         paddingHorizontal: 10,
-        textAlign: "center"
+        textAlign: "center",
+        paddingTop: 10,
     },
     buttonRow: {
         display: 'flex',
@@ -137,6 +215,52 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         justifyContent: "center",
         alignItems: "center",
+    },
+    iconContainer: {
+        backgroundColor: gray,
+        borderRadius: 50,
+        padding: 15,
+        margin: 5,
+        width: 45,
+        height: 45,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row"
+    },
+    icon: {
+        width: 35,
+        height: 35,
+    },
+    subWhiteText: {
+        color: "white",
+        fontSize: 15,
+        fontWeight: "bold",
+        marginHorizontal: 20,
+    },
+    placeHolderRow: {
+        display: 'flex',
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: cyan,
+        marginTop: 10,
+        borderRadius: 10,
+        height: 60,
+        paddingLeft: 25,
+        paddingRight: 25,
+        width: 350,
+        borderWidth: 2,
+        borderColor: golden,
+        marginLeft: 20
+    },
+    buttonRow: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 10,
+        background: "white",
+        flexDirection: "row"
     },
 })
 
