@@ -1,22 +1,7 @@
-import { Modal, ScrollView, View, Text, StyleSheet, Image, Pressable, TextInput } from 'react-native';
-import { useState } from 'react';
 
-import Activities from './activities';
+import { StyleSheet, View, TextInput, Image, Text, Modal, Pressable, ScrollView } from "react-native";
 
-const Description = ({ hideModal, username, email, password, avatar, setUserLog, id }) => {
-    const [description, setDescription] = useState('');
-    const [phone, setPhone] = useState('');
-    const [name, setName] = useState('');
-
-    const [activitiesModal, setActivitesModal] = useState(false);
-
-    const showActivitiesModal = () => {
-        setActivitesModal(true)
-    }
-    const hideActivitiesModal = () => {
-        setActivitesModal(false)
-    }
-
+const Description = ({ setDescription, description, handlePopUp }) => {
     return (
         <>
             <Modal animationType='slide'>
@@ -25,19 +10,7 @@ const Description = ({ hideModal, username, email, password, avatar, setUserLog,
                         <View style={styles.slateContainer}>
                             <View style={styles.placeHolderRow}>
                                 <View style={styles.iconContainer}>
-                                    <Image style={styles.icon} source={require('./../../../../img/entrenador-card.png')} />
-                                </View>
-                                <TextInput style={styles.minTextArea}
-                                    placeholder="Agrega tu nombre completo"
-                                    placeholderTextColor="white"
-                                    onChangeText={setName}
-                                    value={name} />
-                            </View>
-                        </View>
-                        <View style={styles.slateContainer}>
-                            <View style={styles.placeHolderRow}>
-                                <View style={styles.iconContainer}>
-                                    <Image style={styles.icon} source={require('./../../../../img/description.png')} />
+                                    <Image style={styles.icon} source={require('./../../../../../img/notes.png')} />
                                 </View>
                                 <Text style={styles.subWhiteText}>
                                     Describete como instructor:
@@ -56,39 +29,64 @@ const Description = ({ hideModal, username, email, password, avatar, setUserLog,
                         <View style={styles.slateContainer}>
                             <View style={styles.placeHolderRow}>
                                 <View style={styles.iconContainer}>
-                                    <Image style={styles.icon} source={require('./../../../../img/whatsapp.png')} />
+                                    <Image style={styles.icon} source={require('./../../../../../img/mail.png')} />
                                 </View>
-                                <TextInput style={styles.minTextArea}
-                                    placeholder="Agrega tu celular"
+                                <Text style={styles.subWhiteText}>
+                                    Modifica tu telefono:
+                                </Text>
+                            </View>
+
+                            <View>
+                                <TextInput style={styles.input}
+                                    placeholder="Modifica tu telefono"
                                     placeholderTextColor="white"
-                                    onChangeText={setPhone}
-                                    value={phone}
-                                    keyboardType="numeric" />
+                                    onChangeText={setDescription}
+                                    value={description}
+                                    numberOfLines={4} />
                             </View>
                         </View>
+                        <View style={styles.slateContainer}>
+                            <View style={styles.placeHolderRow}>
+                                <View style={styles.iconContainer}>
+                                    <Image style={styles.icon} source={require('./../../../../../img/whatsapp.png')} />
+                                </View>
+                                <Text style={styles.subWhiteText}>
+                                    Modifica tu correo de contacto:
+                                </Text>
+                            </View>
 
-
+                            <View>
+                                <TextInput style={styles.input}
+                                    placeholder="Correo de contacto"
+                                    placeholderTextColor="white"
+                                    onChangeText={setDescription}
+                                    value={description}
+                                    numberOfLines={4} />
+                            </View>
+                        </View>
                     </View>
+
+
                 </ScrollView>
-                <View style={styles.registrationRow}>
-                    <Pressable style={styles.direction} onPress={hideModal}>
-                        <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
-                        <Text style={styles.whiteText}>Anterior</Text>
+                <View style={styles.buttonRow}>
+                    <Pressable style={styles.button} onPress={() => { handlePopUp('') }}>
+                        <Text style={styles.whiteText}>
+                            Confirmar
+                        </Text>
                     </Pressable>
-                    <Pressable style={styles.direction} onPress={showActivitiesModal} >
-                        <Text style={styles.whiteText}>Siguiente</Text>
-                        <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
+                    <Pressable style={styles.button}>
+                        <Text style={styles.whiteText}>
+                            Restaurar
+                        </Text>
                     </Pressable>
                 </View>
-            </Modal>
-            {
-                activitiesModal ? <Activities avatar={avatar} id={id} setUserLog={setUserLog} hideActivitiesModal={hideActivitiesModal} name={name} description={description} username={username} email={email} password={password} avatar={avatar} phone={phone} /> : null
-            }
 
+            </Modal>
         </>
     )
 }
 
+export default Description;
 
 let slate = "#0f172a";
 let gray = "#f7f7f7";
@@ -281,10 +279,29 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    buttonRow: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 10,
+        background: "white",
+        flexDirection: "row"
+    },
     whiteText: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "bold"
+        fontSize: 20,
+        color: 'white',
+        fontWeight: "bold",
+    },
+    button: {
+        backgroundColor: slate,
+        width: 150,
+        height: 50,
+        borderRadius: 20,
+        marginHorizontal: 5,
+        display: "flex",
+        marginBottom: 20,
+        justifyContent: "center",
+        alignItems: "center",
     },
     subWhiteText: {
         color: "white",
@@ -319,6 +336,3 @@ const styles = StyleSheet.create({
         padding: 20,
     }
 });
-
-
-export default Description;

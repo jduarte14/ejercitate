@@ -4,14 +4,14 @@ import { StyleSheet, View, Pressable, Text } from 'react-native';
 import GymModal from './GymModal';
 
 
-const MapScreen = ({ gyms, instructors }) => {
+const MapScreen = ({ gyms }) => {
   const [gymModalVisible, setGymModalVisible] = useState(false);
   const [selectedGym, setSelectedGymId] = useState(null);
-  
+
   const handleGymModal = (gym) => {
-    setSelectedGymId(gym); 
+    setSelectedGymId(gym);
     setGymModalVisible(true);
-    if(gymModalVisible) {
+    if (gymModalVisible) {
       setGymModalVisible(false);
     }
   };
@@ -33,11 +33,11 @@ const MapScreen = ({ gyms, instructors }) => {
           longitudeDelta: 0.0421,
         }}
       >
-        {gyms.map((gym) => {
-          const {prices, name} = gym;
+        {gyms ? gyms.map((gym) => {
+          const { prices, name } = gym;
           return (
             <Marker
-              key={gym.id}
+              key={gym._id}
               coordinate={markerCoordinates}
               onPress={() => handleGymModal(gym)}
             >
@@ -47,9 +47,9 @@ const MapScreen = ({ gyms, instructors }) => {
               </View>
             </Marker>
           );
-        })}
+        }) : null}
       </MapView>
-      {gymModalVisible && <GymModal selectedGym={selectedGym} instructors={instructors} handleGymModal={handleGymModal} />}
+      {gymModalVisible && <GymModal selectedGym={selectedGym} handleGymModal={handleGymModal} />}
     </View>
   );
 };

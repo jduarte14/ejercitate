@@ -5,11 +5,8 @@ import { useState } from 'react';
 
 const InstructorPage = ({ hideInstructorPage, instructor }) => {
     const { name, mail, phone, avatar, specialty, description, articles } = instructor;
-    const { mma, boxing, bjj, pilates, weightlifting, wrestling, yoga, nutritionist, calisthenic } = specialty;
-
+    const { calisthenic, weightlifting, boxing, bjj, mma, pilates, yoga, wrestling, nutritionist } = specialty;
     const [modal, setModal] = useState(false);
-    console.log(articles);
-    
     const showModal = () => {
         setModal(true);
     }
@@ -30,7 +27,24 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                     <Text style={styles.whiteSubInstructorText}>
                         {description}
                     </Text>
-                    {bjj ? <View style={styles.whiteContainer}>
+
+                    {calisthenic  ? <View style={styles.whiteContainer}>
+                        <View style={styles.sportRow}>
+                            <Image style={styles.sportImage} source={require('./../img/sports/calisthenic.png')} />
+                            <Text style={styles.sportTitle}>
+                                Calistenia
+                            </Text>
+                        </View>
+                    </View> : null}
+                    {mma  ? <View style={styles.whiteContainer}>
+                        <View style={styles.sportRow}>
+                            <Image style={styles.sportImage} source={require('./../img/sports/mma.png')} />
+                            <Text style={styles.sportTitle}>
+                                MMA
+                            </Text>
+                        </View>
+                    </View> : null}
+                    {bjj  ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/bjj.png')} />
                             <Text style={styles.sportTitle}>
@@ -38,7 +52,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {boxing ? <View style={styles.orangeContainer}>
+                    {boxing  ? <View style={styles.orangeContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/boxing.png')} />
                             <Text style={styles.sportTitleWhite}>
@@ -46,14 +60,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {mma ? <View style={styles.grayContainer}>
-                        <View style={styles.sportRow}>
-                            <Image style={styles.sportImage} source={require('./../img/sports/mma.png')} />
-                            <Text style={styles.sportTitle}>
-                                Artes marciales mixtas
-                            </Text>
-                        </View>
-                    </View> : null}
+
                     {pilates ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/pilates.png')} />
@@ -62,7 +69,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {yoga ? <View style={styles.orangeContainer}>
+                    {yoga  ? <View style={styles.orangeContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/yoga.png')} />
                             <Text style={styles.sportTitleWhite}>
@@ -70,7 +77,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {weightlifting ? <View style={styles.grayContainer}>
+                    {weightlifting  ? <View style={styles.grayContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/weightlifter.png')} />
                             <Text style={styles.sportTitle}>
@@ -78,7 +85,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {wrestling ? <View style={styles.whiteContainer}>
+                    {wrestling  ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/wrestling.png')} />
                             <Text style={styles.sportTitle}>
@@ -94,6 +101,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
+
                     <View style={styles.contactCard}>
                         <View style={styles.row}>
                             <Image style={styles.contactIcon} source={require('./../img/mail.png')} />

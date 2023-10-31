@@ -8,6 +8,7 @@ import InstructorPage from './instructorPage';
 const Instructors = ({ instructors, handleInstructorModal }) => {
     const [instructorPage, setInstructorPage] = useState(false);
     const [selectedInstructor, setSelectedInstructor] = useState(null);
+    console.log(instructors);
 
     const showInstructorPage = (instructorId) => {
         setSelectedInstructor(instructors.find(instructor => instructor._id === instructorId));
@@ -22,16 +23,16 @@ const Instructors = ({ instructors, handleInstructorModal }) => {
         <>
             <Modal visible={true} animationType="slide">
                 <ScrollView style={styles.modalWrapper}>
-                    {instructors.map((instructor, index) => {
+                    {instructors ? instructors.map((instructor, index) => {
                         const { _id, name, phone, avatar } = instructor;
                         return (
                             <View style={styles.singleInstructorContainer} key={index}>
                                 <View style={styles.instructorRowContainer}>
-                                <Image style={styles.trainerAvatar} source={{uri:avatar}} />
-                                <View>
-                                    <Text style={styles.whiteText}>{name} </Text>
-                                    <Text style={styles.whitePhoneText}>{phone}</Text>
-                                </View>
+                                    <Image style={styles.trainerAvatar} source={{ uri: avatar }} />
+                                    <View>
+                                        <Text style={styles.whiteText}>{name} </Text>
+                                        <Text style={styles.whitePhoneText}>{phone}</Text>
+                                    </View>
                                 </View>
                                 <View>
                                     <Pressable style={styles.instructorBtn} onPress={() => showInstructorPage(_id)}>
@@ -40,7 +41,7 @@ const Instructors = ({ instructors, handleInstructorModal }) => {
                                 </View>
                             </View>
                         );
-                    })}
+                    }) : null}
                     <View style={styles.buttonsRow}>
                         <Pressable style={styles.button} onPress={handleInstructorModal}>
                             <Text style={styles.buttonText}>

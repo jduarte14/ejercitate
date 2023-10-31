@@ -13,6 +13,7 @@ const InstructorInfo = ({ hideModal, email, phone, selectedSports, description, 
             userData.append("email", email);
             userData.append("description", description);
             userData.append('userId', id);
+            userData.append("avatar", {uri:avatar,type:'image/jpeg',name:'avatar.jpg'});
             for (const specialty of selectedSports) {
                 userData.append(`specialty[${specialty}]`, "true");
             }
@@ -67,12 +68,6 @@ const InstructorInfo = ({ hideModal, email, phone, selectedSports, description, 
     )
 }
 
-
-let slate = "#0f172a";
-let gray = "#f7f7f7";
-let red = "#dc2626";
-let solidGray = "#d6d3d1";
-let cyan = "#6889d5";
 const styles = StyleSheet.create({
     container: {
         flex: 1,

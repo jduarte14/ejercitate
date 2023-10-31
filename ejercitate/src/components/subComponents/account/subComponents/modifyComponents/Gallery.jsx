@@ -1,7 +1,10 @@
 import * as ImagePicker from 'expo-image-picker';
-import { StyleSheet, View, Text, Pressable, Modal, Image } from "react-native";
+import { StyleSheet, View, Text, Pressable, Modal, Image, ScrollView } from "react-native";
 
-const Gallery = ({ images, handlePopUp, setImages }) => {
+const Gallery = ({ images, handlePopUp, setImages, imagen1, imagen2, imagen3, imagen4, imagen5 }) => {
+
+    const imageData = [imagen1,imagen2,imagen3,imagen4,imagen5];
+
     const pickImage = async (index) => {
         try {
             let result = await ImagePicker.launchImageLibraryAsync({
@@ -31,37 +34,49 @@ const Gallery = ({ images, handlePopUp, setImages }) => {
 
 
     return (
-        <Modal  visible={true} animationType="slide">
+        <Modal visible={true} animationType="slide">
+            <View style={styles.container}>
                 <Text style={styles.title}>
                     Modifica las imagenes de tu gimnasio
                 </Text>
-            <View style={styles.imageContainer}>
-            
-                {images.map((image, index) => (
-                    <View key={index} style={styles.imagePreviewContainer}>
-                        {image && (
-                            <Image source={{ uri: image }} style={styles.imagePreview} />
-                        )}
-                        <Pressable
-                            style={styles.imageButton} onPress={() => pickImage(index)}>
-                            <Text style={styles.buttonText}>Imagen {index + 1}</Text>
+                <View style={styles.imageContainer}>
 
-                        </Pressable>
-                        <Pressable style={styles.removeImageButton} onPress={() => removeImage(index)}>
-                            <Text style={styles.removeButtonText}>X</Text>
-                        </Pressable>
-                    </View>
+                    {images.map((image, index) => (
+                        <View key={index} style={styles.imagePreviewContainer}>
+                            {image? (
+                                <Image source={{ uri: image }} style={styles.imagePreview} />
+                            ): null}
+                            <Pressable
+                                style={styles.imageButton} onPress={() => pickImage(index)}>
+                                <Text style={styles.buttonText}>Imagen {index + 1}</Text>
 
-                ))}
+                            </Pressable>
+                            <Pressable style={styles.removeImageButton} onPress={() => removeImage(index)}>
+                                <Text style={styles.removeButtonText}>X</Text>
+                            </Pressable>
+                        </View>
+
+                    ))}
+                </View>
+                <Text styles={styles.boldTitle}>
+                    Imagenes existentes
+                </Text>
+                <ScrollView horizontal>
+                {
+                    imageData.map((image,index)=>{
+                        return <Image source={{uri:image}} style={styles.exImage} key={index}/>
+                    })
+                }
+            </ScrollView>
             </View>
+  
             <View style={styles.buttonRow}>
-                <Pressable onPress={()=> {handlePopUp('')}} style={styles.button}>
+                <Pressable onPress={() => { handlePopUp('') }} style={styles.button}>
                     <Text style={styles.whiteText}>
                         Volver
                     </Text>
                 </Pressable>
             </View>
-
         </Modal>
     )
 
@@ -81,6 +96,12 @@ const styles = StyleSheet.create({
     imagePreviewContainer: {
         alignItems: 'center',
         position: "relative",
+    },
+    exImage:{
+        width:250,
+        height:150,
+        borderRadius:5,
+        marginTop:40,
     },
     imagePreview: {
         width: 100,
@@ -145,6 +166,12 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: "bold",
     },
+    boldTitle:{
+        color:slate,
+        fontSize:25,
+        fontWeight:"bold",
+        marginLeft:20,
+    },
     button: {
         backgroundColor: slate,
         width: 150,
@@ -156,13 +183,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    title:{
-        fontWeight:"bold",
-        color:slate,
-        fontSize:23,
-        paddingVertical:15,
-        textAlign:"center",
-    }, 
+    title: {
+        fontWeight: "bold",
+        color: slate,
+        fontSize: 23,
+        paddingVertical: 15,
+        textAlign: "center",
+    },
+    container: {
+        flex: 1,
+    }
 })
 
 export default Gallery;

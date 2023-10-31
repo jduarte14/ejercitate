@@ -56,10 +56,8 @@ const Login = ({navigation}) => {
         </View>
     );
 };
-let gray = "#f6f6f6";
+
 let slate = "#0f172a";
-let golden = "#FFD700";
-let orange = "#f59e0b";
 const styles = StyleSheet.create({
     loginTitle: {
         fontSize: 30,

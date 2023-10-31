@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import BottomBar from './../components/bottomBar';
 import GymPanel from './../components/subComponents/account/gymPanel';
-import InstructorPanel from './subComponents/account/instructorPanel';
+import InstructorPanel from './subComponents/account/instructor/InstructorPanel';
 
 const Account = ({ route, navigation }) => {
     const [instructorPanelModal, setInstructorPanel] = useState(false);
@@ -38,15 +38,16 @@ const Account = ({ route, navigation }) => {
                 return;
             }
             const urlId = id.replace(/"/g, "");
+           
             let url = `https://ejercitatebackend-production.up.railway.app/auth/user/${urlId}`;
 
             const response = await fetch(url);
             if (response.status === 200) {
                 const data = await response.json();
                 const userInfo = data['user_found'];
+                console.log(data);
                 setUserInfo(userInfo);
                 const {gym, instructor} = data;
-                
                 if(instructor) {
                     setInstructor(instructor);           
                 }
@@ -74,7 +75,7 @@ const Account = ({ route, navigation }) => {
     }
     
     useEffect(() => {
-        handleUserData();
+        handleUserData()
     }, [])
 
     return (

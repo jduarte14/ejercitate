@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, TextInput, Pressable, ScrollView } from "react-native";
+import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, TextInput, Pressable, ScrollView, Alert } from "react-native";
 import { useState, useEffect } from 'react';
 
 import Activities from './modifyComponents/Activities';
@@ -23,7 +23,7 @@ const GymModify = ({ gym, handleModal }) => {
         threeDays: prices.threeDays || '',
         twoDays: prices.twoDays || '',
     });
-   
+
 
     const handlePriceChange = (priceType, value) => {
         setStatePrices(prevPrices => ({
@@ -98,8 +98,8 @@ const GymModify = ({ gym, handleModal }) => {
                 gymData[`sports[${sport}]`] = "true";
             });
         }
-        if(statePrices) {
-            Object.keys(statePrices).forEach((priceType,value)=>{
+        if (statePrices) {
+            Object.keys(statePrices).forEach((priceType, value) => {
                 gymData.append(`prices[${priceType}]`, `UYU ${value}`)
             })
         }
@@ -116,7 +116,17 @@ const GymModify = ({ gym, handleModal }) => {
     const submitEdition = async () => {
         try {
             const response = await fetchHelper(`https://ejercitatebackend-production.up.railway.app/api/gyms/${gym._id}`, "PUT", createFormData());
-            console.log(response);
+            if(response.ok){
+                Alert.alert(
+                    'Se ha modificado el gimnasio',
+                    '',
+                    [
+                      {
+                        text: 'Se ha modificado el gimnasio',
+                      },
+                    ],
+                  );
+            }
         }
         catch (error) {
             console.error(error.message);
@@ -135,7 +145,7 @@ const GymModify = ({ gym, handleModal }) => {
                         {gym.name}
                     </Text>
                     <Pressable style={styles.panelRow} onPress={() => { handlePopUp('info') }}>
-                        <Image style={styles.icon} source={require('./../../../../img/debit-card.png')} />
+                        <Image style={styles.icon} source={require('./../../../../img/description.png')} />
                         <Text style={styles.subText}>
                             Modificar descripcion y logisticas
                         </Text>
@@ -147,13 +157,13 @@ const GymModify = ({ gym, handleModal }) => {
                         </Text>
                     </Pressable>
                     <Pressable style={styles.panelRow} onPress={() => { handlePopUp('gallery') }}>
-                        <Image style={styles.icon} source={require('./../../../../img/debit-card.png')} />
+                        <Image style={styles.icon} source={require('./../../../../img/gallery.png')} />
                         <Text style={styles.subText}>
                             Modificar imagenes
                         </Text>
                     </Pressable>
                     <Pressable style={styles.panelRow} onPress={() => { handlePopUp('activities') }}>
-                        <Image style={styles.icon} source={require('./../../../../img/debit-card.png')} />
+                        <Image style={styles.icon} source={require('./../../../../img/settings.png')} />
                         <Text style={styles.subText}>
                             Modificar facilidades y actividades
                         </Text>
@@ -190,10 +200,17 @@ const GymModify = ({ gym, handleModal }) => {
                 }
 
                 {
-                    popup === "gallery" ? <Gallery images={images} setImages={setImages} handlePopUp={handlePopUp} /> : null
+                    popup === "gallery" ?
+                        <Gallery
+                            images={images}
+                            imagen1={imagen}
+                            imagen2={imagen2}
+                            imagen3={imagen3}
+                            imagen4={imagen4}
+                            imagen5={imagen5}
+                            setImages={setImages}
+                            handlePopUp={handlePopUp} /> : null
                 }
-
-
             </ScrollView>
 
             <View style={styles.buttonRow}>
@@ -222,6 +239,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom:20,
     },
     text: {
         fontSize: 20,
@@ -232,6 +250,7 @@ const styles = StyleSheet.create({
         color: slate,
         fontWeight: 'bold',
         paddingBottom: 50,
+        paddingTop:50,
     },
     subTitle: {
         fontSize: 25,

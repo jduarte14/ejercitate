@@ -13,8 +13,6 @@ import setLoggedSession from './../../helpers/setLoggedSession';
 
 const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, schedules, gymName, address, description, images, setUserLog, userId, navigation }) => {
    
-
-
     const gym = {
         prices,
         schedules,

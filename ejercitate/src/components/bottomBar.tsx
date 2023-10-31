@@ -1,7 +1,7 @@
 import styles from '../styles';
 import { View, Text, ScrollView, Image, Pressable } from 'react-native';
 
-const BottomBar = ({navigation,instructors}) => {
+const BottomBar = ({navigation}) => {
 
     
     return (

@@ -1,7 +1,11 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import styles from './../styles';
+import { useGymContext } from '../context/gymContext';
 
-const Posts = ({ gyms }) => {
+
+const Posts = () => {
+    const { gyms } = useGymContext();
+    
     return (
         <>
             {
@@ -9,7 +13,7 @@ const Posts = ({ gyms }) => {
                     <Text style={styles.postsTitle}> Gimnasios cerca de ti </Text>
                     <ScrollView horizontal>
                         <TouchableOpacity style={styles.gymContainer}>
-                            
+
                             {
                                 gyms[0].imagen ? <Image style={styles.gymImages} source={{ uri: gyms[0].imagen }} /> : null
                             }
