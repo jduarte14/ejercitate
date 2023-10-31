@@ -6,10 +6,11 @@ import { useState, useEffect } from 'react';
 import BottomBar from './../components/bottomBar';
 import GymPanel from './../components/subComponents/account/gymPanel';
 import InstructorPanel from './subComponents/account/instructor/InstructorPanel';
-import { useInstructorContext } from '../context/instructorContext';
+import { useUserContext } from '../context/userContext';
 
 const Account = ({ route, navigation }) => {
-    const { handleSingleInstructor } = useInstructorContext();
+    const { getSingleUser } = useUserContext();
+
     const [instructorPanelModal, setInstructorPanel] = useState(false);
     const [user, setUserInfo] = useState('');
     const [owner, setOwner] = useState(false);
@@ -39,7 +40,7 @@ const Account = ({ route, navigation }) => {
             return;
         }
         const urlId = id.replace(/"/g, "");
-        const data = await handleSingleInstructor(urlId);
+        const data = await getSingleUser(urlId);
         const userInfo = data['user_found'];
         setUserInfo(userInfo);
 
