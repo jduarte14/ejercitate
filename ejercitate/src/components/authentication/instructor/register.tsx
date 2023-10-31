@@ -126,7 +126,7 @@ const Register = ({ navigation, route }) => {
                 </View>
             </View>
             {
-                modal ? <Description  id={id} setUserLog={setUserLog} hideModal={hideModal} username={username} email={email} password={password} avatar={avatar}/> : null
+                modal ? <Description  avatar={avatar} id={id} setUserLog={setUserLog} hideModal={hideModal} username={username} email={email} password={password} avatar={avatar}/> : null
             }
 
         </>
