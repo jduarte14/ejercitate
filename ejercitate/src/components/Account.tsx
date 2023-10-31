@@ -6,16 +6,18 @@ import { useState, useEffect } from 'react';
 import BottomBar from './../components/bottomBar';
 import GymPanel from './../components/subComponents/account/gymPanel';
 import InstructorPanel from './subComponents/account/instructor/InstructorPanel';
+import { useInstructorContext } from '../context/instructorContext';
 
 const Account = ({ route, navigation }) => {
+    const { handleSingleInstructor } = useInstructorContext();
     const [instructorPanelModal, setInstructorPanel] = useState(false);
     const [user, setUserInfo] = useState('');
     const [owner, setOwner] = useState(false);
     const [instructor, setInstructor] = useState(false);
     const [gymModal, setGymModal] = useState(false);
 
-    const { setUserLog } = route.params;    
-    
+    const { setUserLog } = route.params;
+
     const showInstructorModal = () => {
         setInstructorPanel(true);
     }
@@ -23,44 +25,30 @@ const Account = ({ route, navigation }) => {
         setInstructorPanel(false);
     }
 
-    const hideGymModal=()=>{
+    const hideGymModal = () => {
         setGymModal(false);
     }
 
-    const showGymModal =()=>{
+    const showGymModal = () => {
         setGymModal(true);
     }
 
-    const handleUserData = async () => {
-        try {
-            const id = (await AsyncStorage.getItem('id'));
-            if (!id) {
-                return;
-            }
-            const urlId = id.replace(/"/g, "");
-           
-            let url = `https://ejercitatebackend-production.up.railway.app/auth/user/${urlId}`;
-
-            const response = await fetch(url);
-            if (response.status === 200) {
-                const data = await response.json();
-                const userInfo = data['user_found'];
-                console.log(data);
-                setUserInfo(userInfo);
-                const {gym, instructor} = data;
-                if(instructor) {
-                    setInstructor(instructor);           
-                }
-                if(gym){
-                    setOwner(gym);                  
-                }
-            }   
-            else {
-                console.error("Hubo un error con la peticion");
-            }
+    const getId = async () => {
+        const id = (await AsyncStorage.getItem('id'));
+        if (!id) {
+            return;
         }
-        catch (error) {
-            console.error("Falta informacion del usuario");
+        const urlId = id.replace(/"/g, "");
+        const data = await handleSingleInstructor(urlId);
+        const userInfo = data['user_found'];
+        setUserInfo(userInfo);
+
+        const { gym, instructor } = data;
+        if (instructor) {
+            setInstructor(instructor);
+        }
+        if (gym) {
+            setOwner(gym);
         }
     }
 
@@ -73,9 +61,9 @@ const Account = ({ route, navigation }) => {
             console.error('Error al eliminar el elemento:', error);
         }
     }
-    
+
     useEffect(() => {
-        handleUserData()
+        getId();
     }, [])
 
     return (
@@ -129,7 +117,7 @@ const Account = ({ route, navigation }) => {
                                             </Text>
                                         </Pressable>
                                     ) : null}
-                                { owner ?
+                                {owner ?
                                     (
                                         <Pressable style={styles.buttonRow} onPress={showGymModal}>
                                             <Image style={styles.icon} source={require('./../img/entrenador.png')} />
