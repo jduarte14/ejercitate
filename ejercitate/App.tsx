@@ -25,6 +25,7 @@ function App() {
   const Stack = createNativeStackNavigator();
   const [userLogged, setUserLog] = useState(false);
   const [userData, setUserData] = useState(null);
+  
 
   const handleUser = async () => {
     try {

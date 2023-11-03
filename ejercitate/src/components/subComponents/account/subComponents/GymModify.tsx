@@ -108,7 +108,6 @@ const GymModify = ({ gym, handleModal }) => {
         images[2] ? gymData.append("imagen", images[2]) : gymData.append("imagen", imagen3);
         images[3] ? gymData.append("imagen", images[3]) : gymData.append("imagen", imagen4);
         images[4] ? gymData.append("imagen", images[4]) : gymData.append("imagen", imagen5);
-        console.log(gymData);
         return gymData;
     }
 
@@ -214,7 +213,7 @@ const GymModify = ({ gym, handleModal }) => {
             </ScrollView>
 
             <View style={styles.buttonRow}>
-                <Pressable onPress={handleModal} style={styles.button}>
+                <Pressable onPress={()=> handleModal('')} style={styles.button}>
                     <Text style={styles.whiteText}>
                         Volver
                     </Text>

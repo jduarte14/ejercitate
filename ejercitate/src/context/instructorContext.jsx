@@ -24,11 +24,9 @@ export const InstructorProvider = ({ children }) => {
     }
     const handleSingleInstructor = async (id) => {
         try {
-            const response = await fetch(`https://ejercitatebackend-production.up.railway.app/auth/user/${id}`);
+            const response = await fetch(`https://ejercitatebackend-production.up.railway.app/api/instructors/${id}`);
             const data = await response.json();
-           if(data.response === "success") {
-                return data;
-           }
+            if(data.status === "success") return data;
         }
         catch (error) {
             console.error("There was an error on the request");

@@ -1,12 +1,16 @@
 import { ScrollView, View, Text, Image, Modal, Pressable } from 'react-native';
 import styles from './../styles';
 import Articles from './subComponents/articles/Articles';
-import { useState } from 'react';
+import { useInstructorContext } from '../context/instructorContext';
+import { useState, useEffect } from 'react';
 
 const InstructorPage = ({ hideInstructorPage, instructor }) => {
-    const { name, mail, phone, avatar, specialty, description, articles } = instructor;
+    const { handleSingleInstructor } = useInstructorContext();
+    const { name, mail, phone, avatar, specialty, description, _id } = instructor;
+
     const { calisthenic, weightlifting, boxing, bjj, mma, pilates, yoga, wrestling, nutritionist } = specialty;
     const [modal, setModal] = useState(false);
+    const [articlesById, setArticlesById] = useState();
     const showModal = () => {
         setModal(true);
     }
@@ -14,6 +18,19 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
     const hideModal = () => {
         setModal(false);
     }
+    const getId = async () => {
+        try {
+            const response = await handleSingleInstructor(_id);
+            setArticlesById(response.instructor['articles']);
+        } catch (error) {
+            console.error("Error al realizar la petición:", error.message);
+        }
+    }
+    console.log(articlesById, 'por id')
+    useEffect(() => {
+        getId();
+    }, [])
+
 
     return (
         <Modal visible={true} animationType="slide">
@@ -28,7 +45,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                         {description}
                     </Text>
 
-                    {calisthenic  ? <View style={styles.whiteContainer}>
+                    {calisthenic ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/calisthenic.png')} />
                             <Text style={styles.sportTitle}>
@@ -36,7 +53,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {mma  ? <View style={styles.whiteContainer}>
+                    {mma ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/mma.png')} />
                             <Text style={styles.sportTitle}>
@@ -44,7 +61,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {bjj  ? <View style={styles.whiteContainer}>
+                    {bjj ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/bjj.png')} />
                             <Text style={styles.sportTitle}>
@@ -52,7 +69,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {boxing  ? <View style={styles.orangeContainer}>
+                    {boxing ? <View style={styles.orangeContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/boxing.png')} />
                             <Text style={styles.sportTitleWhite}>
@@ -69,7 +86,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {yoga  ? <View style={styles.orangeContainer}>
+                    {yoga ? <View style={styles.orangeContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/yoga.png')} />
                             <Text style={styles.sportTitleWhite}>
@@ -77,7 +94,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {weightlifting  ? <View style={styles.grayContainer}>
+                    {weightlifting ? <View style={styles.grayContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/weightlifter.png')} />
                             <Text style={styles.sportTitle}>
@@ -85,7 +102,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                             </Text>
                         </View>
                     </View> : null}
-                    {wrestling  ? <View style={styles.whiteContainer}>
+                    {wrestling ? <View style={styles.whiteContainer}>
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/wrestling.png')} />
                             <Text style={styles.sportTitle}>
@@ -122,7 +139,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                         </Text>
                     </Pressable>
                     {
-                        articles[0] ? <Pressable style={styles.button} onPress={showModal}>
+                        articlesById != undefined ? <Pressable style={styles.button} onPress={showModal}>
                             <Text style={styles.buttonText}>
                                 Ver rutinas
                             </Text>
@@ -131,7 +148,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                 </View>
             </ScrollView>
             {
-                modal ? <Articles hideModal={hideModal} articles={articles} /> : null
+                modal ? <Articles hideModal={hideModal} articles={articlesById} /> : null
             }
         </Modal>
     )

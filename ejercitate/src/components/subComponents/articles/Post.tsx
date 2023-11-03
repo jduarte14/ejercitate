@@ -1,7 +1,11 @@
 import { StyleSheet, Text, Pressable, ScrollView, Image, Modal, View } from 'react-native';
-
+import { useState } from 'react';
+import Step from './Step';
 const Post = ({ article, handlePostModal }) => {
-    console.log(article);
+    const [stepModal, setStepModal] = useState('');
+    const handleModal = (step) => {
+        setStepModal(step);
+    }
 
     return (
         <Modal visible={true} animationType='slide'>
@@ -10,14 +14,36 @@ const Post = ({ article, handlePostModal }) => {
                     <Text style={styles.title}>
                         {article.title}
                     </Text>
+                    <View style={styles.description}>
+                        <Text style={styles.text}>
+                            {article.content}
+                        </Text>
+                    </View>
+                </View>
+                <View style={styles.imageContainer}>
+                    <ScrollView horizontal>
+                        {
+                            article.images.map((image, index) => {
+                                return <Image key={index} source={{ uri: image }} style={styles.image} />
+                            })
+                        }
+                    </ScrollView>
                 </View>
                 <View style={styles.buttonsRow}>
                     <Pressable style={styles.button} onPress={handlePostModal}>
                         <Text style={styles.whiteText}>Volver</Text>
                     </Pressable>
+                    <Pressable style={styles.button} onPress={()=> handleModal('1')}>
+                        <Text style={styles.whiteText}>Next step</Text>
+                    </Pressable>
                 </View>
-
             </ScrollView>
+            {
+                stepModal ?
+                    <Step stepModal={stepModal} setStepModal={setStepModal} article={article.steps} handleModal={handleModal} currentStep={parseInt(stepModal)} />
+                    : null
+            }
+             
         </Modal>
     )
 }
@@ -32,6 +58,31 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    imageContainer: {
+        marginLeft: 15,
+        marginTop: 30,
+    },
+    description: {
+        margin: 15,
+    },
+    image: {
+        width: 320,
+        height: 170,
+        borderRadius: 5,
+        marginRight: 10,
+    },
+    text: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: slate,
+        lineHeight: 28,
+    },
+    stepText: {
+        fontSize: 25,
+        fontWeight: "bold",
+        color: slate,
+        textAlign: "center",
     },
     title: {
         fontSize: 30,
@@ -54,12 +105,12 @@ const styles = StyleSheet.create({
     whiteText: {
         color: "white",
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 16,
     },
     button: {
         backgroundColor: slate,
         paddingVertical: 13,
-        paddingHorizontal: 90,
+        paddingHorizontal: 50,
         margin: 20,
         borderRadius: 20,
         textAlign: "center",
@@ -68,7 +119,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
-        marginTop: 10,
+        marginTop: 50,
         marginBottom: 10,
     },
     routineContainer: {

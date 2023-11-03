@@ -12,6 +12,7 @@ const Account = ({ route, navigation }) => {
     const { getSingleUser } = useUserContext();
 
     const [instructorPanelModal, setInstructorPanel] = useState(false);
+    const [gymInstructors, setGymInstructors] = useState(null);
     const [user, setUserInfo] = useState('');
     const [owner, setOwner] = useState(false);
     const [instructor, setInstructor] = useState(false);
@@ -47,10 +48,12 @@ const Account = ({ route, navigation }) => {
         const { gym, instructor } = data;
         if (instructor) {
             setInstructor(instructor);
+           
         }
         if (gym) {
             setOwner(gym);
-        }
+            setGymInstructors(gym.instructors);
+        }       
     }
 
     const handleLogout = async () => {
@@ -144,7 +147,7 @@ const Account = ({ route, navigation }) => {
                 instructorPanelModal ? <InstructorPanel instructor={instructor} hideInstructorModal={hideInstructorModal} /> : null
             }
             {
-                gymModal ? <GymPanel owner={owner} hideGymModal={hideGymModal} /> : null
+                gymModal ? <GymPanel owner={owner} gymInstructors={gymInstructors} hideGymModal={hideGymModal} /> : null
             }
 
         </View>
@@ -152,7 +155,6 @@ const Account = ({ route, navigation }) => {
 }
 let slate = "#0f172a";
 let gray = "#f7f7f7";
-let red = "#dc2626";
 let solidGray = "#d6d3d1";
 const styles = StyleSheet.create({
     container: {

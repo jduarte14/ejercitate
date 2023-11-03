@@ -22,10 +22,10 @@ const Register = ({ navigation, route }) => {
     const registerUser = async () => {
         try {
             const formData = await new FormData();
-            formData.append("email", email);
-            formData.append("password", password);
+            formData.append("email", email.toLocaleLowerCase());
+            formData.append("password", password.toLocaleLowerCase());
             formData.append("avatar", {uri:avatar,type:'image/jpeg',name:'avatar.jpg'});
-            formData.append("username", username);
+            formData.append("username", username.toLocaleLowerCase());
             const url = 'https://ejercitatebackend-production.up.railway.app/auth/user';
             const response = await axios.post(url, formData, {
                 headers: {

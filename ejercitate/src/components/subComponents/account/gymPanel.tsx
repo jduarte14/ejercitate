@@ -1,12 +1,21 @@
 import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, Pressable } from "react-native";
-import {useState} from 'react';
+import { useState } from 'react';
 import GymModify from './subComponents/GymModify';
+import InstructorList from "./subComponents/instructorsList";
+const GymPanel = ({ hideGymModal, owner, gymInstructors }) => {
+    const { name } = owner;
+    const [modalVisible, setModalVisible] = useState('');
 
-const GymPanel = ({ hideGymModal, owner }) => {
-    const {name} = owner;
-    const [modalVisible, setModalVisible] = useState(false);
-    const handleModal =()=>{
-        modalVisible ? setModalVisible(false) : setModalVisible(true);
+    const handleModal = (type) => {
+        switch (type) {
+            case "instructorsPage":
+                setModalVisible(type)
+                break;
+            case "gymModify":
+                setModalVisible(type);
+                break;
+            default: setModalVisible('');
+        }
     }
     return (
         <Modal visible={true} animationType="slide">
@@ -15,13 +24,13 @@ const GymPanel = ({ hideGymModal, owner }) => {
                     {name}
                 </Text>
 
-                <Pressable style={styles.panelRow} onPress={handleModal}>
+                <Pressable style={styles.panelRow} onPress={() => handleModal('gymModify')}>
                     <Image style={styles.icon} source={require('./../../../img/gym_location.png')} />
                     <Text style={styles.subText}>
                         Modificar Gimnasio
                     </Text>
                 </Pressable>
-                <Pressable style={styles.panelRow}>
+                <Pressable style={styles.panelRow} onPress={() => handleModal('instructorsPage')}>
                     <Image style={styles.icon} source={require('./../../../img/gym_avatar.png')} />
                     <Text style={styles.subText}>
                         Gestionar instructores
@@ -35,9 +44,11 @@ const GymPanel = ({ hideGymModal, owner }) => {
                 </Pressable>
             </View>
             {
-                modalVisible ? <GymModify gym={owner} handleModal={handleModal}/> :null
+                modalVisible === "gymModify" ? <GymModify gym={owner} handleModal={handleModal} /> : null
             }
-     
+            {
+                modalVisible === "instructorsPage" ? <InstructorList instructors={gymInstructors} handleModal={handleModal}/> : null
+            }
             <View style={styles.buttonRow}>
                 <TouchableOpacity onPress={hideGymModal} style={styles.button}>
                     <Text style={styles.whiteTextCentered}>Cerrar</Text>
@@ -57,11 +68,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: slate,
     },
-    title:{
-        fontSize:30,
-        color:slate,
-        fontWeight:'bold',
-        paddingBottom:50, 
+    title: {
+        fontSize: 30,
+        color: slate,
+        fontWeight: 'bold',
+        paddingBottom: 50,
     },
     whiteText: {
         fontSize: 20,
@@ -106,7 +117,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        width:350,
+        width: 350,
     },
     icon: {
         width: 35,

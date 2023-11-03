@@ -21,11 +21,23 @@ export const GymProvider = ({ children }) => {
             console.error("There was an error on the request");
         }
     }
+    const handleSingleGym = async (id) => {
+        try {
+            const response = await fetch(`https://ejercitatebackend-production.up.railway.app/auth/gym/${id}`);
+            const data = await response.json();
+           if(data.response === "success") {
+                return data;
+           }
+        }
+        catch (error) {
+            console.error("There was an error on the request");
+        }
+    }
 
     useEffect(() => {
         handleGyms();
     }, [])
     return (
-        <GymContext.Provider value={{ gyms, setGyms }}>{children}</GymContext.Provider>
+        <GymContext.Provider value={{ gyms, setGyms, handleSingleGym }}>{children}</GymContext.Provider>
     )
 }
