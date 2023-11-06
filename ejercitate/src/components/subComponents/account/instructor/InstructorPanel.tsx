@@ -3,17 +3,16 @@ import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, Pressable } fro
 import Activities from './subComponents/activities';
 import Clients from './subComponents/clients';
 import Description from './subComponents/description';
-import Routines from './subComponents/routines';
+import RoutinesPanel from './subComponents/routinesPanel';
 
 
 const InstructorPanel = ({ hideInstructorModal, instructor }) => {
     const { name, phone, specialty, email } = instructor;
-    console.log(instructor);
     const [popup, setPopUp] = useState('');
     const [stateDescription, setStateDescription] = useState('');
     const [stateActivities, setStateActivities] = useState(specialty);
     const [stateRoutines, setStateRoutines] = useState([]);
-    
+
     const handleActivtiesOnPress = (activity) => {
         setStateActivities(prevActivity => {
             const updatedActivity = { ...prevActivity };
@@ -25,7 +24,7 @@ const InstructorPanel = ({ hideInstructorModal, instructor }) => {
             return updatedActivity;
         });
     };
-   
+
     const handlePopUp = (type) => {
         switch (type) {
             case "description":
@@ -53,7 +52,7 @@ const InstructorPanel = ({ hideInstructorModal, instructor }) => {
                     {name}
                 </Text>
 
-                <Pressable style={styles.panelRow}>
+                <Pressable style={styles.panelRow} onPress={() => handlePopUp("routines")}>
                     <Image style={styles.icon} source={require('./../../../../img/notes.png')} />
                     <Text style={styles.subText}>
                         Gestionar rutinas
@@ -65,7 +64,7 @@ const InstructorPanel = ({ hideInstructorModal, instructor }) => {
                         Gestionar clientes
                     </Text>
                 </Pressable>
-                <Pressable style={styles.panelRow} onPress={()=> handlePopUp('activities')}>
+                <Pressable style={styles.panelRow} onPress={() => handlePopUp('activities')}>
                     <Image style={styles.icon} source={require('./../../../../img/sports/crossfit.png')} />
                     <Text style={styles.subText}>
                         Gestiona tus actividades
@@ -84,17 +83,18 @@ const InstructorPanel = ({ hideInstructorModal, instructor }) => {
                 </TouchableOpacity>
             </View>
             {
-                popup === 'activities' ? <Activities handlePopUp={handlePopUp} setStateActivities={setStateActivities} stateActivities={stateActivities} handleActivtiesOnPress={handleActivtiesOnPress} /> : null
+                popup === 'activities' ? <Activities handlePopUp={handlePopUp} stateActivities={stateActivities} handleActivtiesOnPress={handleActivtiesOnPress} /> : null
             }
             {
                 popup === 'description' ? <Description handlePopUp={handlePopUp} description={stateDescription} setDescription={setStateDescription} /> : null
             }
             {
-                popup === 'routines' ? <Routines /> : null
+                popup === 'routines' ? <RoutinesPanel handlePopUp={handlePopUp} instructor={instructor} /> : null
             }
             {
                 popup === 'clients' ? <Clients /> : null
             }
+               
         </Modal>
     )
 }
