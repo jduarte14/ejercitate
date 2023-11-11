@@ -4,6 +4,8 @@ import Step from './step';
 
 const createRoutine = ({ handleRoutinePopUp }) => {
     const [stepModal, setStepModal] = useState();
+    const [stepsObject, setStepsObject] = useState([]);
+    const [postObject, setPostObject] = useState([]);
     const handleStepModal = () => {
         stepModal ? setStepModal(false) :
             setStepModal(true);
@@ -26,7 +28,7 @@ const createRoutine = ({ handleRoutinePopUp }) => {
                     </TouchableOpacity>
                 </View>
                 {
-                    stepModal ? <Step /> : null
+                    stepModal ? <Step setStepsObject={setStepsObject} stepsObject={stepsObject} setPostObject={setPostObject} postObject={postObject} handleStepModal={handleStepModal}/> : null
                 }
 
             </View>
