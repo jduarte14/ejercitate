@@ -20,12 +20,13 @@ import Account from './src/components/Account';
 import { UserProvider } from './src/context/userContext';
 import { GymProvider } from './src/context/gymContext';
 import { InstructorProvider } from './src/context/instructorContext';
+import { ProductProvider } from './src/context/productContext';
 
 function App() {
   const Stack = createNativeStackNavigator();
   const [userLogged, setUserLog] = useState(false);
   const [userData, setUserData] = useState(null);
-  
+
 
   const handleUser = async () => {
     try {
@@ -55,25 +56,27 @@ function App() {
     <UserProvider>
       <GymProvider>
         <InstructorProvider>
-          <NavigationContainer>
-            <Stack.Navigator>
-              {userLogged ? (
-                <>
-                  <Stack.Screen name="Home" component={HomeContent} options={{ headerShown: false }} />
-                  <Stack.Screen name="Instructores" component={InstructorsCatalog} options={{ headerShown: false }} />
-                  <Stack.Screen name="Account" component={Account} options={{ headerShown: false }} initialParams={{ userLogged, userData, setUserData, setUserLog: setUserLog }} />
+          <ProductProvider>
+            <NavigationContainer>
+              <Stack.Navigator>
+                {userLogged ? (
+                  <>
+                    <Stack.Screen name="Home" component={HomeContent} options={{ headerShown: false }} />
+                    <Stack.Screen name="Instructores" component={InstructorsCatalog} options={{ headerShown: false }} />
+                    <Stack.Screen name="Account" component={Account} options={{ headerShown: false }} initialParams={{ userLogged, userData, setUserData, setUserLog: setUserLog }} />
+                  </>
+                ) : (<>
+                  <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
+                  <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
+                  <Stack.Screen name="OwnerLogin" component={OwnerLogin} options={{ headerShown: false }} />
+                  <Stack.Screen name="OwnerRegistrarion" component={OwnerRegistration} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
+                  <Stack.Screen name="InstructorLogin" component={InstructorLogin} options={{ headerShown: false }} />
+                  <Stack.Screen name="InstructorRegister" component={InstructorRegister} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
                 </>
-              ) : (<>
-                <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
-                <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
-                <Stack.Screen name="OwnerLogin" component={OwnerLogin} options={{ headerShown: false }} />
-                <Stack.Screen name="OwnerRegistrarion" component={OwnerRegistration} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
-                <Stack.Screen name="InstructorLogin" component={InstructorLogin} options={{ headerShown: false }} />
-                <Stack.Screen name="InstructorRegister" component={InstructorRegister} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />
-              </>
-              )}
-            </Stack.Navigator>
-          </NavigationContainer>
+                )}
+              </Stack.Navigator>
+            </NavigationContainer>
+          </ProductProvider>
         </InstructorProvider>
       </GymProvider>
     </UserProvider>

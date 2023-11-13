@@ -2,16 +2,19 @@ import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, Pressable } fro
 import { useState } from 'react';
 import GymModify from './subComponents/GymModify';
 import InstructorList from "./subComponents/instructorsList";
+import StoreDashboard from "./owner/products/storeDashboard";
 const GymPanel = ({ hideGymModal, owner, gymInstructors }) => {
     const { name } = owner;
     const [modalVisible, setModalVisible] = useState('');
-
     const handleModal = (type) => {
         switch (type) {
             case "instructorsPage":
                 setModalVisible(type)
                 break;
             case "gymModify":
+                setModalVisible(type);
+                break;
+            case "storeDashboard":
                 setModalVisible(type);
                 break;
             default: setModalVisible('');
@@ -27,19 +30,25 @@ const GymPanel = ({ hideGymModal, owner, gymInstructors }) => {
                 <Pressable style={styles.panelRow} onPress={() => handleModal('gymModify')}>
                     <Image style={styles.icon} source={require('./../../../img/gym_location.png')} />
                     <Text style={styles.subText}>
-                        Modificar Gimnasio
+                        Modify Gym
                     </Text>
                 </Pressable>
                 <Pressable style={styles.panelRow} onPress={() => handleModal('instructorsPage')}>
                     <Image style={styles.icon} source={require('./../../../img/gym_avatar.png')} />
                     <Text style={styles.subText}>
-                        Gestionar instructores
+                        Manage instructors
                     </Text>
                 </Pressable>
                 <Pressable style={styles.panelRow}>
                     <Image style={styles.icon} source={require('./../../../img/debit-card.png')} />
                     <Text style={styles.subText}>
-                        Configuracion de pagos
+                        Payment settings
+                    </Text>
+                </Pressable>
+                <Pressable style={styles.panelRow} onPress={()=>handleModal('storeDashboard')}>
+                    <Image style={styles.icon} source={require('./../../../img/debit-card.png')} />
+                    <Text style={styles.subText}>
+                        Manage store products
                     </Text>
                 </Pressable>
             </View>
@@ -47,7 +56,10 @@ const GymPanel = ({ hideGymModal, owner, gymInstructors }) => {
                 modalVisible === "gymModify" ? <GymModify gym={owner} handleModal={handleModal} /> : null
             }
             {
-                modalVisible === "instructorsPage" ? <InstructorList instructors={gymInstructors} handleModal={handleModal}/> : null
+                modalVisible === "instructorsPage" ? <InstructorList instructors={gymInstructors} handleModal={handleModal} /> : null
+            }
+            {
+                modalVisible === "storeDashboard" ? <StoreDashboard storeId={owner._id} handleModal={handleModal} /> : null
             }
             <View style={styles.buttonRow}>
                 <TouchableOpacity onPress={hideGymModal} style={styles.button}>
