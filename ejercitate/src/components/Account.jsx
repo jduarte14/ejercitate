@@ -3,9 +3,14 @@ import { useRoute } from '@react-navigation/native';
 import { View, Text, ScrollView, StyleSheet, Image, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
-import BottomBar from './../components/bottomBar';
-import GymPanel from './../components/subComponents/account/gymPanel';
+import BottomBar from './bottomBar';
+import GymPanel from './subComponents/account/gymPanel';
 import InstructorPanel from './subComponents/account/instructor/InstructorPanel';
+import AccountAvatar from './subComponents/account/accountAvatar';
+import AccountEmail from './subComponents/account/accountEmail';
+import AccountPassword from './subComponents/account/accountPassword';
+import AccountPayment from './subComponents/account/accountPayment';
+
 import { useUserContext } from '../context/userContext';
 
 const Account = ({ route, navigation }) => {
@@ -17,6 +22,50 @@ const Account = ({ route, navigation }) => {
     const [owner, setOwner] = useState(false);
     const [instructor, setInstructor] = useState(false);
     const [gymModal, setGymModal] = useState(false);
+    const [userId, setUserId] = useState('');
+
+    //User Patch values
+    const [accountPopUp, setAccountPopUp] = useState('');
+    const [userAvatar, setUserAvatar] = useState();
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+
+    const patchData = async () => {
+        try {
+            const userData = new FormData();
+            userEmail != '' ? userData.append("email", userEmail.toLocaleLowerCase()) : null
+            userPassword != '' ? userData.append("password", userPassword.toLocaleLowerCase()) : null
+            userAvatar ? userData.append("avatar", { uri: userAvatar, type: 'image/jpeg', name: 'avatar.jpg' }) : null
+            let url =`https://ejercitatebackend-production.up.railway.app/auth/user/${userId}`;
+            const response = await fetch(url, {
+                method: "PATCH",
+                body: userData,
+            });
+            if(response.ok) {
+                console.log("Solicitud enviada correctamente");
+            }
+            const data = await response.json();
+            console.log(data, url);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleUserModal = (type) => {
+        switch (type) {
+            case "user_password":
+                setAccountPopUp(type)
+                break;
+            case "user_email":
+                setAccountPopUp(type);
+                break;
+            case "user_avatar":
+                setAccountPopUp(type);
+                break;
+            default: setAccountPopUp('');
+        }
+    }
 
     const { setUserLog } = route.params;
 
@@ -41,6 +90,7 @@ const Account = ({ route, navigation }) => {
             return;
         }
         const urlId = id.replace(/"/g, "");
+        setUserId(urlId);
         const data = await getSingleUser(urlId);
         const userInfo = data['user_found'];
         setUserInfo(userInfo);
@@ -48,12 +98,12 @@ const Account = ({ route, navigation }) => {
         const { gym, instructor } = data;
         if (instructor) {
             setInstructor(instructor);
-           
+
         }
         if (gym) {
             setOwner(gym);
             setGymInstructors(gym.instructors);
-        }       
+        }
     }
 
     const handleLogout = async () => {
@@ -84,23 +134,22 @@ const Account = ({ route, navigation }) => {
 
                                 <View style={styles.userInfo}>
                                     <Text style={styles.text}>{user.username}</Text>
-                                    <Text style={styles.email}>{user.email}</Text>
                                 </View>
                             </View>
                             <View style={styles.buttonsContainer}>
-                                <Pressable style={styles.buttonRow}>
+                                <Pressable style={styles.buttonRow} onPress={() => handleUserModal("user_email")}>
                                     <Image style={styles.icon} source={require('./../img/mail.png')} />
                                     <Text style={styles.subText}>
                                         Cambiar Email
                                     </Text>
                                 </Pressable>
-                                <Pressable style={styles.buttonRow}>
+                                <Pressable style={styles.buttonRow} onPress={() => handleUserModal("user_password")}>
                                     <Image style={styles.icon} source={require('./../img/password.png')} />
                                     <Text style={styles.subText}>
                                         Cambiar contrasena
                                     </Text>
                                 </Pressable>
-                                <Pressable style={styles.buttonRow}>
+                                <Pressable style={styles.buttonRow} onPress={() => handleUserModal("user_avatar")}>
                                     <Image style={styles.icon} source={require('./../img/avatar.png')} />
                                     <Text style={styles.subText}>
                                         Cambiar Avatar
@@ -149,7 +198,15 @@ const Account = ({ route, navigation }) => {
             {
                 gymModal ? <GymPanel owner={owner} gymInstructors={gymInstructors} hideGymModal={hideGymModal} /> : null
             }
-
+            {
+                accountPopUp === "user_password" ? <AccountPassword handleUserModal={handleUserModal} userPassword={userPassword} setUserPassword={setUserPassword} patchData={patchData} /> : null
+            }
+            {
+                accountPopUp === "user_email" ? <AccountEmail handleUserModal={handleUserModal} patchData={patchData} setUserEmail={setUserEmail} userEmail={userEmail}/> : null
+            }
+            {
+                accountPopUp === "user_avatar" ? <AccountAvatar handleUserModal={handleUserModal} patchData={patchData} setUserAvatar={setUserAvatar} prevAvatar={user.avatar} userAvatar={userAvatar}/> : null
+            }
         </View>
     )
 }
