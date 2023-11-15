@@ -1,28 +1,32 @@
 import styles from '../styles';
-import { View, Text, ScrollView, Image, Pressable } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
 
 const BottomBar = ({navigation}) => {
-
-    
     return (
         <>
             <View style={styles.bottomBarRow}>
                 <Pressable style={styles.bottomBarIconContainer}  onPress={() => navigation.navigate('Home')}>
                     <Image style={styles.bottomBarIcon} source={require('./../img/sports/weight_icon.png')} />
                     <Text style={styles.bottomBarText}>
-                        Gimnasios
+                        Gyms
                     </Text>
                 </Pressable>
                 <Pressable style={styles.bottomBarIconContainer} onPress={() => navigation.navigate('Instructores')}>
                     <Image style={styles.bottomBarIcon} source={require('./../img/entrenador-card.png')} />
                     <Text style={styles.bottomBarText}>
-                        Instructores
+                        Instructors
+                    </Text>
+                </Pressable>
+                <Pressable style={styles.bottomBarIconContainer} onPress={() => navigation.navigate('Stores')}>
+                    <Image style={styles.bottomBarIcon} source={require('./../img/cart.png')} />
+                    <Text style={styles.bottomBarText}>
+                        Stores
                     </Text>
                 </Pressable>
                 <Pressable style={styles.bottomBarIconContainer} onPress={() => navigation.navigate('Account')}>
                     <Image style={styles.bottomBarIcon} source={require('./../img/user.png')} />
                     <Text style={styles.bottomBarText}>
-                        Cuenta
+                        Account
                     </Text>
                 </Pressable>
             </View>

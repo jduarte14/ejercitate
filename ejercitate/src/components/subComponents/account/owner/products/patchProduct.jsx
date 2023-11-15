@@ -88,7 +88,7 @@ const PatchProduct = ({ handleModal, storeId, selectedProduct }) => {
     return (
         <Modal visible={true} animationType='slide'>
             <Text style={styles.title}>
-                Create your product
+                Modify the product
             </Text>
             <View style={styles.container}>
                 <ScrollView>

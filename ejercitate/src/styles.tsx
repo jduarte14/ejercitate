@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         color: "black",
         fontSize: 20,
     },
+    
 
     whiteText: {
         fontWeight: "bold",
@@ -628,7 +629,8 @@ const styles = StyleSheet.create({
     bottomBarText :{
         color:slate,
         fontWeight:"bold",
-        fontSize:15,
+        fontSize:14,
+        paddingTop:5,
     },
     bottomBarIcon :{
         width:35,

@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
         paddingHorizontal: 5,
         paddingVertical: 5,
+        textTransform:"uppercase",
     },
     modifyButton: {
         color: gray,

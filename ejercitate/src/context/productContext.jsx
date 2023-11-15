@@ -14,7 +14,7 @@ export const ProductProvider = ({ children }) => {
         try {
             const response = await fetch(`https://ejercitatebackend-production.up.railway.app/api/products/`);
             const data = await response.json();
-            setProducts(data);
+            setProducts(data.products);
         }
         catch (error) {
             console.error("There was an error on the request");

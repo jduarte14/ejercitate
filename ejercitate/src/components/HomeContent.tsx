@@ -1,5 +1,5 @@
 import styles from '../styles';
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { useState } from 'react';
 import Categories from './Categories';
 import Posts from './Posts';
@@ -8,9 +8,6 @@ import SearchTrigger from './SearchTrigger';
 import BottomBar from './bottomBar';
 
 const HomeContent = ({ navigation }) => {
-
-    const [gyms, setGymsData] = useState('');
-    const [instructors, setInstructorsData] = useState('');
     const [mapComponent, setMapComponent] = useState(false);
 
     const handleMapBox = () => {

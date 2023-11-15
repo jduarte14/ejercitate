@@ -8,7 +8,6 @@ import InstructorPage from './instructorPage';
 const Instructors = ({ instructors, handleInstructorModal }) => {
     const [instructorPage, setInstructorPage] = useState(false);
     const [selectedInstructor, setSelectedInstructor] = useState(null);
-    console.log(instructors);
 
     const showInstructorPage = (instructorId) => {
         setSelectedInstructor(instructors.find(instructor => instructor._id === instructorId));

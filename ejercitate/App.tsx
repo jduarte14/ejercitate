@@ -15,6 +15,7 @@ import OwnerRegistration from './src/components/authentication/owner/register';
 import InstructorLogin from './src/components/authentication/instructor/login';
 import InstructorRegister from './src/components/authentication/instructor/register';
 import Account from './src/components/Account';
+import Stores from './src/components/Stores';
 
 //Providers 
 import { UserProvider } from './src/context/userContext';
@@ -64,6 +65,7 @@ function App() {
                     <Stack.Screen name="Home" component={HomeContent} options={{ headerShown: false }} />
                     <Stack.Screen name="Instructores" component={InstructorsCatalog} options={{ headerShown: false }} />
                     <Stack.Screen name="Account" component={Account} options={{ headerShown: false }} initialParams={{ userLogged, userData, setUserData, setUserLog: setUserLog }} />
+                    <Stack.Screen name="Stores" component={Stores} options={{ headerShown: false }} />
                   </>
                 ) : (<>
                   <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} initialParams={{ userLogged: userLogged, setUserLog: setUserLog }} />

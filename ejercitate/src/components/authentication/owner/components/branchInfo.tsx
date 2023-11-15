@@ -18,7 +18,7 @@ const BranchInfo = ({ hideInfoModal, gymName, selectedFacilities, selectedSports
                 aspect: [4, 3],
                 quality: 1,
             });
-            
+
             if (!result.cancelled) {
                 const updatedImages = [...images];
                 updatedImages[index] = result.assets[0].uri;
@@ -284,18 +284,18 @@ const styles = StyleSheet.create({
         height: 60,
         paddingLeft: 20,
         paddingRight: 20,
-        width:350,
+        width: 350,
     },
     iconContainer: {
         backgroundColor: gray,
         borderRadius: 50,
         padding: 15,
         margin: 5,
-        width:45,
-        height:45,
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
+        width: 45,
+        height: 45,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     slateContainer: {
         backgroundColor: slate,
