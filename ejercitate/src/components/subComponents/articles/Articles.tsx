@@ -17,7 +17,7 @@ const Articles = ({ articles, hideModal }) => {
             <ScrollView>
                 <View style={styles.container}>
                     <Text style={styles.title}>
-                        Rutinas:
+                        Routines:
                     </Text>
                     <ScrollView>
                         {
@@ -41,7 +41,7 @@ const Articles = ({ articles, hideModal }) => {
                 <View style={styles.buttonsRow}>
                     <Pressable style={styles.button} onPress={hideModal}>
                         <Text style={styles.whiteText}>
-                            Cerrar
+                            Close
                         </Text>
                     </Pressable>
                 </View>

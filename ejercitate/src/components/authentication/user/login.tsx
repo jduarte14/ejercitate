@@ -78,7 +78,7 @@ const Login = ({ navigation, route }) => {
                     </Pressable>
                     <Pressable style={styles.slateButton} onPress={() => navigation.navigate('OwnerRegistrarion')}>
                         <Text style={styles.buttonBottomText}>
-                            Registra tu gimnasio
+                            Sign up your gym
                         </Text>
                     </Pressable>
 
@@ -86,7 +86,7 @@ const Login = ({ navigation, route }) => {
                 <View style={styles.buttonRow}>
                     <Pressable style={styles.slateButton} onPress={() => navigation.navigate('InstructorRegister')}>
                         <Text style={styles.buttonBottomText}>
-                            Registrate como instructor
+                            Sign up your instructor
                         </Text>
                     </Pressable>
                 </View>

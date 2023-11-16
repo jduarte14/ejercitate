@@ -36,12 +36,12 @@ const Account = ({ route, navigation }) => {
             userEmail != '' ? userData.append("email", userEmail.toLocaleLowerCase()) : null
             userPassword != '' ? userData.append("password", userPassword.toLocaleLowerCase()) : null
             userAvatar ? userData.append("avatar", { uri: userAvatar, type: 'image/jpeg', name: 'avatar.jpg' }) : null
-            let url =`https://ejercitatebackend-production.up.railway.app/auth/user/${userId}`;
+            let url = `https://ejercitatebackend-production.up.railway.app/auth/user/${userId}`;
             const response = await fetch(url, {
                 method: "PATCH",
                 body: userData,
             });
-            if(response.ok) {
+            if (response.ok) {
                 console.log("Solicitud enviada correctamente");
             }
             const data = await response.json();
@@ -140,25 +140,25 @@ const Account = ({ route, navigation }) => {
                                 <Pressable style={styles.buttonRow} onPress={() => handleUserModal("user_email")}>
                                     <Image style={styles.icon} source={require('./../img/mail.png')} />
                                     <Text style={styles.subText}>
-                                        Cambiar Email
+                                        Change Email
                                     </Text>
                                 </Pressable>
                                 <Pressable style={styles.buttonRow} onPress={() => handleUserModal("user_password")}>
                                     <Image style={styles.icon} source={require('./../img/password.png')} />
                                     <Text style={styles.subText}>
-                                        Cambiar contrasena
+                                        Change password
                                     </Text>
                                 </Pressable>
                                 <Pressable style={styles.buttonRow} onPress={() => handleUserModal("user_avatar")}>
                                     <Image style={styles.icon} source={require('./../img/avatar.png')} />
                                     <Text style={styles.subText}>
-                                        Cambiar Avatar
+                                        Change Avatar
                                     </Text>
                                 </Pressable>
                                 <Pressable style={styles.buttonRow}>
                                     <Image style={styles.icon} source={require('./../img/debit-card.png')} />
                                     <Text style={styles.subText}>
-                                        Configuracion de pagos
+                                        Payment settings
                                     </Text>
                                 </Pressable>
                                 {instructor ?
@@ -166,7 +166,7 @@ const Account = ({ route, navigation }) => {
                                         <Pressable style={styles.buttonRow} onPress={showInstructorModal}>
                                             <Image style={styles.icon} source={require('./../img/entrenador.png')} />
                                             <Text style={styles.subText}>
-                                                Panel de instructor
+                                                Instructor panel
                                             </Text>
                                         </Pressable>
                                     ) : null}
@@ -175,19 +175,19 @@ const Account = ({ route, navigation }) => {
                                         <Pressable style={styles.buttonRow} onPress={showGymModal}>
                                             <Image style={styles.icon} source={require('./../img/entrenador.png')} />
                                             <Text style={styles.subText}>
-                                                Panel del gimnasio
+                                                Gym Panel
                                             </Text>
                                         </Pressable>
                                     ) : null}
                             </View>
                             <Pressable style={styles.logoutContainer} onPress={handleLogout}>
                                 <Text style={styles.logoutText}>
-                                    Cerrar sesión
+                                        Logout
                                 </Text>
                             </Pressable>
 
                         </>) :
-                        (<Text style={styles.text}>Cargando...</Text>)}
+                        (<Text style={styles.text}>Loading...</Text>)}
                 </View>
 
             </ScrollView>
@@ -202,10 +202,10 @@ const Account = ({ route, navigation }) => {
                 accountPopUp === "user_password" ? <AccountPassword handleUserModal={handleUserModal} userPassword={userPassword} setUserPassword={setUserPassword} patchData={patchData} /> : null
             }
             {
-                accountPopUp === "user_email" ? <AccountEmail handleUserModal={handleUserModal} patchData={patchData} setUserEmail={setUserEmail} userEmail={userEmail}/> : null
+                accountPopUp === "user_email" ? <AccountEmail handleUserModal={handleUserModal} patchData={patchData} setUserEmail={setUserEmail} userEmail={userEmail} /> : null
             }
             {
-                accountPopUp === "user_avatar" ? <AccountAvatar handleUserModal={handleUserModal} patchData={patchData} setUserAvatar={setUserAvatar} prevAvatar={user.avatar} userAvatar={userAvatar}/> : null
+                accountPopUp === "user_avatar" ? <AccountAvatar handleUserModal={handleUserModal} patchData={patchData} setUserAvatar={setUserAvatar} prevAvatar={user.avatar} userAvatar={userAvatar} /> : null
             }
         </View>
     )

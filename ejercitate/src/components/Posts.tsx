@@ -10,7 +10,7 @@ const Posts = () => {
         <>
             {
                 gyms ? <>
-                    <Text style={styles.postsTitle}> Gimnasios cerca de ti </Text>
+                    <Text style={styles.postsTitle}> Gyms near you </Text>
                     <ScrollView horizontal>
                         <TouchableOpacity style={styles.gymContainer}>
 
@@ -37,7 +37,7 @@ const Posts = () => {
                         </TouchableOpacity>
 
                     </ScrollView>
-                </> : <Text style={styles.title}>Cargando.. </Text>
+                </> : <Text style={styles.title}>Loading.. </Text>
             }
 
         </>

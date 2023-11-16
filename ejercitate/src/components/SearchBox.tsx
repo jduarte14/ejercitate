@@ -9,12 +9,12 @@ const SearchBox = () => {
         <TouchableOpacity style={styles.searchContainer}>
             <TextInput
                 style={styles.searchBar}
-                placeholder="Busca tu gimnasio"
+                placeholder="Search for a gym"
                 placeholderTextColor="black"
 
             />
             <Pressable style={styles.searchBtn} >
-                <Text style={styles.searchText}>Buscar</Text>
+                <Text style={styles.searchText}>Search</Text>
             </Pressable>
         </TouchableOpacity>
     )

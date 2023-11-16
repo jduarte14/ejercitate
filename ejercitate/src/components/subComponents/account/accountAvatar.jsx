@@ -35,7 +35,7 @@ const AccountAvatar = ({ handleUserModal, patchData, setUserAvatar, userAvatar, 
                             <Image style={styles.imagePreview} source={{ uri: userAvatar }} />
                         ) : <Image style={styles.imagePreview} source={{ uri: prevAvatar }} />}
                         <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
-                            <Text style={styles.buttonText}>Imagen </Text>
+                            <Text style={styles.buttonText}>Image </Text>
 
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.removeImageButton} onPress={() => removeImage()}>
@@ -47,10 +47,10 @@ const AccountAvatar = ({ handleUserModal, patchData, setUserAvatar, userAvatar, 
             </View>
             <View style={styles.buttonRow}>
                 <TouchableOpacity style={styles.button} onPress={() => handleUserModal('')}>
-                    <Text style={styles.whiteTextCentered}>Cerrar</Text>
+                    <Text style={styles.whiteTextCentered}>Close</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={patchData}>
-                    <Text style={styles.whiteTextCentered}>Confirmar</Text>
+                    <Text style={styles.whiteTextCentered}>Confirm</Text>
                 </TouchableOpacity>
             </View>
         </Modal>

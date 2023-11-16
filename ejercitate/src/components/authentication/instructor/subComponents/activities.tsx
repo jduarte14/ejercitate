@@ -32,10 +32,10 @@ const Activities = ({ hideActivitiesModal, username, email, password, avatar, ph
             <Modal animationType="slide">
                 <View style={styles.container}>
                     <Text style={styles.title}>
-                        Selecciona las actividades que puedes instruir:
+                        Select the activities you can instruct:
                     </Text>
                     <Text style={styles.subTitle}>
-                        Culturismo:
+                        Body-building
                     </Text>
                     <ScrollView>
                         <View style={styles.sportsContainer}>
@@ -44,27 +44,20 @@ const Activities = ({ hideActivitiesModal, username, email, password, avatar, ph
                                 ]} onPress={() => handleSports('weightlifting')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/weightlifter.png')} />
                                     <Text style={styles.text}>
-                                        Alterofilia
+                                        Weightlifting
                                     </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.sport, selectedSports.includes('calisthenic') && styles.selectedFacility
                                 ]} onPress={() => handleSports('calisthenic')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/calisthenic.png')} />
                                     <Text style={styles.text}>
-                                        Calistenia
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[styles.sport, selectedSports.includes('calisthenic') && styles.selectedFacility
-                                ]} onPress={() => handleSports('calisthenic')}>
-                                    <Image style={styles.icon} source={require('./../../../../img/sports/calisthenic.png')} />
-                                    <Text style={styles.text}>
-                                        Calistenia
+                                        Calisthenic
                                     </Text>
                                 </TouchableOpacity>
                             </ScrollView>
                         </View>
                         <Text style={styles.subTitle}>
-                            Relajacion:
+                            Stretches:
                         </Text>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
@@ -86,14 +79,14 @@ const Activities = ({ hideActivitiesModal, username, email, password, avatar, ph
                                 ]} onPress={() => handleSports('calisthenic')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/calisthenic.png')} />
                                     <Text style={styles.text}>
-                                        Calistenia
+                                        Calisthenic
                                     </Text>
                                 </TouchableOpacity>
                             </ScrollView>
 
                         </View>
                         <Text style={styles.subTitle}>
-                            Artes marciales:
+                            Martial arts:
                         </Text>
                         <View style={styles.sportsContainer}>
                             <ScrollView horizontal>
@@ -108,21 +101,21 @@ const Activities = ({ hideActivitiesModal, username, email, password, avatar, ph
                                 ]} onPress={() => handleSports('wrestling')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/wrestling.png')} />
                                     <Text style={styles.text}>
-                                        Lucha grecoromana
+                                        Wrestling
                                     </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.sport, selectedSports.includes('bjj') && styles.selectedFacility
                                 ]} onPress={() => handleSports('bjj')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/bjj.png')} />
                                     <Text style={styles.text}>
-                                        Brazilian Jiujitsu
+                                        Brazilian 
                                     </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.sport, selectedSports.includes('boxing') && styles.selectedFacility
                                 ]} onPress={() => handleSports('boxing')}>
                                     <Image style={styles.icon} source={require('./../../../../img/sports/boxing.png')} />
                                     <Text style={styles.text}>
-                                        Boxeo
+                                        Boxing
                                     </Text>
                                 </TouchableOpacity>
                             </ScrollView>

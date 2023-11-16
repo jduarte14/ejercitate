@@ -49,7 +49,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/calisthenic.png')} />
                             <Text style={styles.sportTitle}>
-                                Calistenia
+                                Calisthenic
                             </Text>
                         </View>
                     </View> : null}
@@ -73,7 +73,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/boxing.png')} />
                             <Text style={styles.sportTitleWhite}>
-                                Boxeo
+                                Boxing
                             </Text>
                         </View>
                     </View> : null}
@@ -98,7 +98,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/weightlifter.png')} />
                             <Text style={styles.sportTitle}>
-                                Levantamiento de pesas
+                                Weightlifting
                             </Text>
                         </View>
                     </View> : null}
@@ -106,7 +106,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/sports/wrestling.png')} />
                             <Text style={styles.sportTitle}>
-                                Lucha Grecoromana
+                                Wrestling
                             </Text>
                         </View>
                     </View> : null}
@@ -114,7 +114,7 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                         <View style={styles.sportRow}>
                             <Image style={styles.sportImage} source={require('./../img/facilities/cantina.png')} />
                             <Text style={styles.sportTitleWhite}>
-                                Nutricionista
+                                Nutritionist
                             </Text>
                         </View>
                     </View> : null}
@@ -135,13 +135,13 @@ const InstructorPage = ({ hideInstructorPage, instructor }) => {
                 <View style={styles.buttonsRow}>
                     <Pressable style={styles.button} onPress={hideInstructorPage}>
                         <Text style={styles.buttonText}>
-                            Cerrar
+                            Close
                         </Text>
                     </Pressable>
                     {
                         articlesById != undefined ? <Pressable style={styles.button} onPress={showModal}>
                             <Text style={styles.buttonText}>
-                                Ver rutinas
+                                See routines
                             </Text>
                         </Pressable> : null
                     }

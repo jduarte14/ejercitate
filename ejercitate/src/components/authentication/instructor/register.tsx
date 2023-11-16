@@ -73,7 +73,7 @@ const Register = ({ navigation, route }) => {
                     <Image style={styles.logo} source={require('./../../../img/ejercitate_logo.png')} />
                 </View>
                 <Text style={styles.loginTitle}>
-                    Registrate
+                    Sign up
                 </Text>
                 <TextInput
                     placeholder="Username"
@@ -111,7 +111,7 @@ const Register = ({ navigation, route }) => {
                         </Pressable>
                         <Pressable style={styles.slateButton} onPress={() => navigation.navigate('OwnerRegistrarion')}>
                             <Text style={styles.buttonBottomText}>
-                                Registra tu gimnasio
+                                Sign up your gym
                             </Text>
                         </Pressable>
 
@@ -119,7 +119,7 @@ const Register = ({ navigation, route }) => {
                     <View style={styles.buttonRow}>
                         <Pressable style={styles.slateButton}>
                             <Text style={styles.buttonBottomText}>
-                                Registrate como instructor
+                                Sing up as a instructor
                             </Text>
                         </Pressable>
                     </View>

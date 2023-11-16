@@ -35,7 +35,7 @@ const Instructors = ({ instructors, handleInstructorModal }) => {
                                 </View>
                                 <View>
                                     <Pressable style={styles.instructorBtn} onPress={() => showInstructorPage(_id)}>
-                                        <Text style={styles.whitePhoneText}> Ver mas </Text>
+                                        <Text style={styles.whitePhoneText}> See more </Text>
                                     </Pressable>
                                 </View>
                             </View>
@@ -44,7 +44,7 @@ const Instructors = ({ instructors, handleInstructorModal }) => {
                     <View style={styles.buttonsRow}>
                         <Pressable style={styles.button} onPress={handleInstructorModal}>
                             <Text style={styles.buttonText}>
-                                Cerrar
+                                Close
                             </Text>
                         </Pressable>
                     </View>

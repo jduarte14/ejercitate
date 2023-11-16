@@ -32,7 +32,7 @@ const AccountPassword = ({ handleUserModal, setUserPassword, userPassword, patch
             </View>
             <View style={styles.buttonRow}>
                 <TouchableOpacity style={styles.button} onPress={() => handleUserModal('')}>
-                    <Text style={styles.whiteTextCentered}>Cerrar</Text>
+                    <Text style={styles.whiteTextCentered}>Close</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={patchData}>
                     <Text style={styles.whiteTextCentered}>Confirm</Text>

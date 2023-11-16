@@ -71,7 +71,7 @@ const Register = ({ navigation, route }) => {
                     <Image style={styles.logo} source={require('./../../../img/ejercitate_logo.png')} />
                 </View>
                 <Text style={styles.loginTitle}>
-                    Registrate
+                    Sign up
                 </Text>
                 <TextInput
                     placeholder="Username"
@@ -94,22 +94,22 @@ const Register = ({ navigation, route }) => {
                 />
                 {avatar && <Image source={{ uri: avatar }} style={{ width: 100, height: 100, marginBottom: 20, borderRadius: 200, borderWidth: 2, borderColor: slate, }} />}
                 <Pressable style={styles.imageButton} onPress={pickImage}>
-                    <Text style={styles.buttonText}> Agrega tu avatar </Text>
+                    <Text style={styles.buttonText}> Add avatar </Text>
                 </Pressable>
 
                 <View style={styles.buttonRow}>
                     <Pressable style={styles.button} onPress={registerUser}>
-                        <Text style={styles.buttonText}>Registrarse</Text>
+                        <Text style={styles.buttonText}>Sign up</Text>
                     </Pressable>
                 </View>
                 <View>
                     <View style={styles.buttonRow}>
                         <Pressable style={styles.slateButton} onPress={() => navigation.navigate('Login')}>
-                            <Text style={styles.buttonBottomText} >Loguea tu gimnasio</Text>
+                            <Text style={styles.buttonBottomText} >Sign in gym</Text>
                         </Pressable>
                         <Pressable style={styles.slateButton} onPress={() => navigation.navigate('OwnerRegistrarion')}>
                             <Text style={styles.buttonBottomText}>
-                                Registra tu gimnasio
+                                Sign up gym
                             </Text>
                         </Pressable>
 
@@ -117,7 +117,7 @@ const Register = ({ navigation, route }) => {
                     <View style={styles.buttonRow}>
                         <Pressable style={styles.slateButton}>
                             <Text style={styles.buttonBottomText}>
-                                Registrate como instructor
+                               Sign up as a instructor
                             </Text>
                         </Pressable>
                     </View>

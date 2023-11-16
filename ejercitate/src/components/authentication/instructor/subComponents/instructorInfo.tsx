@@ -57,10 +57,10 @@ const InstructorInfo = ({ hideModal, email, phone, selectedSports, description, 
             <View style={styles.registrationRow}>
                 <Pressable style={styles.direction} onPress={hideModal} >
                     <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
-                    <Text style={styles.whiteText}>Anterior</Text>
+                    <Text style={styles.whiteText}>Previous</Text>
                 </Pressable>
                 <Pressable style={styles.direction} onPress={sendData}>
-                    <Text style={styles.whiteText}>Confirmar</Text>
+                    <Text style={styles.whiteText}>Confirm</Text>
                     <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
                 </Pressable>
             </View>

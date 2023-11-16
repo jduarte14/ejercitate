@@ -31,7 +31,7 @@ const Post = ({ article, handlePostModal }) => {
                 </View>
                 <View style={styles.buttonsRow}>
                     <Pressable style={styles.button} onPress={handlePostModal}>
-                        <Text style={styles.whiteText}>Volver</Text>
+                        <Text style={styles.whiteText}>Back</Text>
                     </Pressable>
                     <Pressable style={styles.button} onPress={()=> handleModal('1')}>
                         <Text style={styles.whiteText}>Next step</Text>

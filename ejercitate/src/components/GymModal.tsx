@@ -45,7 +45,7 @@ const GymModal = ({ handleGymModal, selectedGym }) => {
                             {selectedGym.description}
                         </Text>
                         <Text style={styles.directionText}>
-                            Direccion:
+                            Address:
                         </Text>
                         <View style={styles.directionInfo}>
                             <Image style={styles.gymIcon} source={require('./../img/gym_location.png')} />
@@ -56,7 +56,7 @@ const GymModal = ({ handleGymModal, selectedGym }) => {
 
                     </View>
                     <Text style={styles.gymSubText}>
-                        Actividades:
+                        Activities:
                     </Text>
                     {
                         sports ? <Activities sports={sports} /> : null

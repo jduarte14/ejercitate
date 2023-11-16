@@ -10,7 +10,7 @@ const SearchTrigger = ({ handleMapBox }) => {
                 <Pressable style={styles.searchTriggerWrapper} onPress={handleMapBox}>
                     <Image style={styles.loupeImage} source={require('./../img/loupe.png')} />
                     <Text style={styles.searchTriggerText}>
-                        Busca tu gimnasio
+                        Search your gym
                     </Text>
                 </Pressable>
             </View>

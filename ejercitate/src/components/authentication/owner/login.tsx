@@ -40,14 +40,14 @@ const Login = ({ navigation }) => {
                     </Pressable>
                     <Pressable style={styles.slateButton} onPress={() => navigation.navigate('OwnerRegistration')}>
                         <Text style={styles.buttonBottomText}>
-                            Registra tu gimnasio
+                            Sing up your gym
                         </Text>
                     </Pressable>
                 </View>
                 <View style={styles.buttonRow}>
                     <Pressable style={styles.slateButton}>
                         <Text style={styles.buttonBottomText} onPress={() => navigation.navigate('InstructorLogin')}>
-                            Registrate como instructor
+                            Sign up as a instructor
                         </Text>
                     </Pressable>
                 </View>

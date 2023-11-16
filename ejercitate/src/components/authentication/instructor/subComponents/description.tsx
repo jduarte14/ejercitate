@@ -28,7 +28,7 @@ const Description = ({ hideModal, username, email, password, avatar, setUserLog,
                                     <Image style={styles.icon} source={require('./../../../../img/entrenador-card.png')} />
                                 </View>
                                 <TextInput style={styles.minTextArea}
-                                    placeholder="Agrega tu nombre completo"
+                                    placeholder="Add name"
                                     placeholderTextColor="white"
                                     onChangeText={setName}
                                     value={name} />
@@ -46,7 +46,7 @@ const Description = ({ hideModal, username, email, password, avatar, setUserLog,
 
                             <View>
                                 <TextInput style={styles.textArea}
-                                    placeholder="Agrega la descripcion de tu gimnasio"
+                                    placeholder="Add description"
                                     placeholderTextColor="white"
                                     onChangeText={setDescription}
                                     value={description}
@@ -59,7 +59,7 @@ const Description = ({ hideModal, username, email, password, avatar, setUserLog,
                                     <Image style={styles.icon} source={require('./../../../../img/whatsapp.png')} />
                                 </View>
                                 <TextInput style={styles.minTextArea}
-                                    placeholder="Agrega tu celular"
+                                    placeholder="Add phone"
                                     placeholderTextColor="white"
                                     onChangeText={setPhone}
                                     value={phone}
@@ -73,10 +73,10 @@ const Description = ({ hideModal, username, email, password, avatar, setUserLog,
                 <View style={styles.registrationRow}>
                     <Pressable style={styles.direction} onPress={hideModal}>
                         <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
-                        <Text style={styles.whiteText}>Anterior</Text>
+                        <Text style={styles.whiteText}>Previous</Text>
                     </Pressable>
                     <Pressable style={styles.direction} onPress={showActivitiesModal} >
-                        <Text style={styles.whiteText}>Siguiente</Text>
+                        <Text style={styles.whiteText}>Next</Text>
                         <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
                     </Pressable>
                 </View>
