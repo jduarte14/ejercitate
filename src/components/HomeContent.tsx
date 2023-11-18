@@ -6,7 +6,6 @@ import Posts from './Posts';
 import MapGym from './MapGym';
 import SearchTrigger from './SearchTrigger';
 import BottomBar from './bottomBar';
-
 const HomeContent = ({ navigation }) => {
     const [mapComponent, setMapComponent] = useState(false);
 

@@ -86,12 +86,12 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     button: {
-        backgroundColor: slate,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        margin: 20,
-        borderRadius: 20,
-        width:300,
+        marginRight: 10,
+        borderRadius: 10,
+        paddingLeft: 40,
+        paddingRight: 40,
+        paddingTop: 10,
+        paddingBottom: 10,
     },
     buttonText: {
         color: 'white',

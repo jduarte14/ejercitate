@@ -5,6 +5,7 @@ import Activities from './modifyComponents/Activities';
 import GymInfo from './modifyComponents/GymInfo';
 import Gallery from './modifyComponents/Gallery';
 import Prices from './modifyComponents/Prices';
+import WarnPopUp from './../../../../helpers/warnPopUp';
 
 import { fetchHelper } from "../../../authentication/helpers/fetchHelper";
 
@@ -12,6 +13,8 @@ const GymModify = ({ gym, handleModal }) => {
     const { address, description, facilities, imagen, imagen2, imagen3, imagen4, imagen5, prices, schedules, sports } = gym;
     const { days, hours } = schedules;
     const [popup, setPopUp] = useState('');
+    const [updatedText, setUpdatedText] = useState('');
+    const [warnPopup, setWarnPopUp] = useState(false);
     const [stateAddress, setStateAddress] = useState(address);
     const [stateDescription, setStateDescription] = useState(description);
     const [stateDays, setStateDays] = useState(days);
@@ -31,6 +34,10 @@ const GymModify = ({ gym, handleModal }) => {
             [priceType]: value
         }));
     };
+
+    const handleWarnPopUp =()=>{
+        warnPopup ? setWarnPopUp(false) : setWarnPopUp(true);
+    }
 
     const handlePopUp = (type) => {
         switch (type) {
@@ -114,17 +121,13 @@ const GymModify = ({ gym, handleModal }) => {
 
     const submitEdition = async () => {
         try {
-            const response = await fetchHelper(`https://ejercitatebackend-production.up.railway.app/api/gyms/${gym._id}`, "PUT", createFormData());
-            if(response.ok){
-                Alert.alert(
-                    'Se ha modificado el gimnasio',
-                    '',
-                    [
-                      {
-                        text: 'Se ha modificado el gimnasio',
-                      },
-                    ],
-                  );
+            let url = `https://ejercitatebackend-production.up.railway.app/api/gyms/${gym._id}`;
+            const response = await fetchHelper(url, "PATCH", createFormData());
+            if(response.status === "success") {
+                setUpdatedText("You modified your gym data");
+                setTimeout(()=>{
+                    setWarnPopUp(false);
+                },400)
             }
         }
         catch (error) {
@@ -143,19 +146,19 @@ const GymModify = ({ gym, handleModal }) => {
                     <Text style={styles.title}>
                         {gym.name}
                     </Text>
-                    <Pressable style={styles.panelRow} onPress={() => { handlePopUp('info') }}>
+                    <Pressable  style={styles.panelRow}  onPress={() => { handlePopUp('info') }}>
                         <Image style={styles.icon} source={require('./../../../../img/description.png')} />
                         <Text style={styles.subText}>
                            Modify descriptions and logistics
                         </Text>
                     </Pressable>
-                    <Pressable style={styles.panelRow} onPress={() => { handlePopUp('prices') }}>
+                    <Pressable  style={styles.panelRow}  onPress={() => { handlePopUp('prices') }}>
                         <Image style={styles.icon} source={require('./../../../../img/debit-card.png')} />
                         <Text style={styles.subText}>
                             Modify prices
                         </Text>
                     </Pressable>
-                    <Pressable style={styles.panelRow} onPress={() => { handlePopUp('gallery') }}>
+                    <Pressable  style={styles.panelRow}  onPress={() => { handlePopUp('gallery') }}>
                         <Image style={styles.icon} source={require('./../../../../img/gallery.png')} />
                         <Text style={styles.subText}>
                             Modify images
@@ -218,14 +221,16 @@ const GymModify = ({ gym, handleModal }) => {
                         Volver
                     </Text>
                 </Pressable>
-                <Pressable style={styles.button} onPress={submitEdition} >
+                <Pressable style={styles.button} onPress={handleWarnPopUp} >
                     <Text style={styles.whiteText}>
                         Confirmar
                     </Text>
                 </Pressable>
             </View>
 
-
+                {
+                    warnPopup ? <WarnPopUp title={"Sent modified data"} message={"You will confirm the new changes on your gym"} firstButton={submitEdition} secondButton={handleWarnPopUp}/>:null
+                }
         </Modal>
     )
 }
@@ -288,7 +293,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     panelRow: {
-        backgroundColor: "white",
         paddingVertical: 15,
         paddingLeft: 10,
         marginTop: 20,

@@ -110,15 +110,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: "row",
     },
-    button: {
+     button: {
         backgroundColor: slate,
-        width: 160,
-        height: 50,
-        borderRadius: 20,
-        marginHorizontal: 20,
-        display: "flex",
-        marginBottom: 20,
-        justifyContent: "center",
+        marginRight: 10,
+        borderRadius: 10,
+        paddingLeft: 40,
+        paddingRight: 40,
+        paddingTop: 10,
+        paddingBottom: 10,
+        margin:20,
     },
     whiteTextCentered: {
         fontSize: 18,
