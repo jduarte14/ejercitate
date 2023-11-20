@@ -35,7 +35,7 @@ const GymName = ({ navigation, setUserLog, hideModal, userId }) => {
                 />
                 <View style={styles.buttonRow}>
                     <Pressable style={styles.button} onPress={handleModal}>
-                        <Text style={styles.buttonText}>Registrar gimnasio</Text>
+                        <Text style={styles.buttonText}>Save gym title</Text>
                     </Pressable>
                 </View>
                 <View style={styles.registrationRow}>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: slate,
         marginRight: 10,
-        borderRadius: 10,
+        borderRadius: 30,
         paddingLeft: 40,
         paddingRight: 40,
         paddingTop: 10,

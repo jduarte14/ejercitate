@@ -1,4 +1,5 @@
 import { Modal, ScrollView, View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { useState } from 'react';
 import axios from 'axios';
 
 import Activities from './subComponents/activities';
@@ -6,13 +7,16 @@ import Prices from './subComponents/prices';
 import Facilities from './subComponents/facilities';
 import Logistics from './subComponents/logistics';
 import Gallery from './subComponents/gallery';
-import { useAuthContext } from './../../../../authProvider';
+import WarnPopUp from '../../../../helpers/warnPopUp';
 //Helper
-import setLoggedSession from './../../helpers/setLoggedSession';
+import setLoggedSession from '../../helpers/setLoggedSession';
 
 
 const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, schedules, gymName, address, description, images, setUserLog, userId, navigation }) => {
-   
+    const [popup, setPopUp] = useState(false);
+    const handlePopUp = () => {
+        popup ? setPopUp(false) : setPopUp(true);
+    }
     const gym = {
         prices,
         schedules,
@@ -75,7 +79,10 @@ const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, sc
                 setLoggedSession(userId, 'id');
                 setLoggedSession(ownerId, 'ownerId');
                 setLoggedSession('loggedUser', 'logged');
-                setUserLog(true);
+                setTimeout(() => {
+                    setPopUp(false);
+                    setUserLog(true);
+                }, 100)
             }
             else {
                 console.error("Hubo un problema con el registro del gimnasio");
@@ -100,12 +107,17 @@ const GymInfo = ({ hideInfoModal, prices, selectedSports, selectedFacilities, sc
                         <Image style={styles.directionIcon} source={require('./../../../../img/prev.png')} />
                         <Text style={styles.whiteText}>Anterior</Text>
                     </Pressable>
-                    <Pressable style={styles.direction} onPress={sendData}>
+                    <Pressable style={styles.direction} onPress={handlePopUp}>
                         <Text style={styles.whiteText}>Confirmar</Text>
                         <Image style={styles.directionIcon} source={require('./../../../../img/next.png')} />
                     </Pressable>
                 </View>
+
             </ScrollView>
+            {
+                popup ? <WarnPopUp title={"You want to confirm?"} message={"By confirming your gym you be available on the app"} firstButton={sendData} secondButton={handlePopUp} /> : null
+            }
+
         </Modal >
     )
 }
