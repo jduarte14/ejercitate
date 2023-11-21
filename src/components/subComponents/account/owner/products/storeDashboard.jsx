@@ -1,14 +1,17 @@
 import { useProductContext } from './../../../../../context/productContext';
 import { useState, useEffect } from 'react';
-import { View, Modal, ScrollView, Image, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Modal, ScrollView, Image, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import CreateProduct from './createProduct';
 import PatchProduct from './patchProduct';
+import WarnPopUp from '../../../../../helpers/warnPopUp';
 
 const StoreDashboard = ({ storeId, handleModal }) => {
     const { getProductsByGym } = useProductContext();
     const [productData, setProductData] = useState();
     const [productPopup, setProductPopUp] = useState('');
+    const [productId, setProductId] = useState();
     const [selectedProduct, setSelectedProduct] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
     const handlePopUp = (type) => {
         switch (type) {
@@ -26,12 +29,42 @@ const StoreDashboard = ({ storeId, handleModal }) => {
     }
 
     const getId = async () => {
+        setIsLoading(true);
         const data = await getProductsByGym(storeId);
-        setProductData(data.products);
+        if (data.products[0]) {
+            setProductData(data.products);
+            setIsLoading(false);
+        }
+        else {
+            setTimeout(()=>{
+                setIsLoading(false);
+            },200)
+        }
+    }
+
+    const getProductId = (productId) => {
+        setProductId(productId);
+        setProductPopUp("delete_product");
+    }
+
+    const deleteProduct = async () => {
+        try {
+            const response = await fetch(`https://ejercitatebackend-production.up.railway.app/api/products/${productId}`, { method: "DELETE" });
+
+            const data = await response.json();
+            if (data.status === "success") {
+                setTimeout(() => {
+                    setProductPopUp("");
+                }, 200)
+            }
+        }
+        catch (error) {
+            console.error(error.message);
+        }
     }
 
     const patchProductId = (product) => {
-         setSelectedProduct(product) 
+        setSelectedProduct(product)
         handlePopUp("patch_product");
     }
 
@@ -43,8 +76,12 @@ const StoreDashboard = ({ storeId, handleModal }) => {
         <Modal visible={true} animationType='slide'>
             <ScrollView>
                 <View style={styles.container}>
-                    {
-                        productData ? productData.map(product => {
+                    {isLoading ? (
+                        <View style={styles.loader}>
+                            <ActivityIndicator size="large" color="#0f172a" />
+                        </View>
+                    ) : productData && productData.length > 0 ? (
+                        productData.map(product => {
                             return (<TouchableOpacity key={product._id} style={styles.panelRow}>
                                 <Image style={styles.icon} source={{ uri: product.image }} />
                                 <View>
@@ -60,9 +97,12 @@ const StoreDashboard = ({ storeId, handleModal }) => {
                                         <Text style={styles.brandText}>
                                             {product.brand}
                                         </Text>
-                                        <Text style={styles.modifyButton} onPress={() => { patchProductId(product) }}>
-                                            Modify
-                                        </Text>
+                                        <TouchableOpacity style={styles.modifyButton} onPress={() => { patchProductId(product) }}>
+                                        <Image style={styles.editIcon} source={require('./../../../../../img/pen.png')}/>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.modifyButton} onPress={() => { getProductId(product._id) }}>
+                                            <Image style={styles.deleteIcon} source={require('./../../../../../img/delete.png')}/>
+                                        </TouchableOpacity>
                                     </View>
 
                                 </View>
@@ -70,8 +110,15 @@ const StoreDashboard = ({ storeId, handleModal }) => {
                             </TouchableOpacity>)
 
 
-                        }) : null
-                    }
+                        })
+                    ) : (
+                        <View style={styles.emptyProduct}>
+                            <Image source={require('./../../../../../img/empty_box.png')} style={styles.icon} />
+                            <Text style={styles.emptyText}>
+                                You don't have any product on your store. Create and manage your products here.
+                            </Text>
+                        </View>
+                    )}
                 </View>
             </ScrollView>
             <View style={styles.buttonRow}>
@@ -88,7 +135,17 @@ const StoreDashboard = ({ storeId, handleModal }) => {
             {
                 productPopup === "patch_product" && selectedProduct ? <PatchProduct storeId={storeId} selectedProduct={selectedProduct} handleModal={handleModal} /> : null
             }
-            {}
+            {
+                productPopup === "delete_product" ?
+                    <WarnPopUp
+                        title={"Are you sure you want delete the product?"}
+                        message={"By confirming you will delete this product"}
+                        firstButton={deleteProduct}
+                        secondButton={handlePopUp} />
+                    : null
+            }
+
+
         </Modal>
     )
 }
@@ -100,6 +157,30 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    loader: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        display: "flex",
+        marginTop: "100%",
+    },
+    icon: {
+        width: 80,
+        height: 80,
+        marginBottom: 10,
+    },
+    emptyProduct: {
+        borderWidth: 2,
+        borderColor: slate,
+        padding: 10,
+        margin: 15,
+        marginTop: 50,
+        borderRadius: 10,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+    },
     productRow: {
         alignItems: "center",
         flexDirection: "row",
@@ -110,7 +191,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: "row",
     },
-     button: {
+    button: {
         backgroundColor: slate,
         marginRight: 10,
         borderRadius: 10,
@@ -118,7 +199,7 @@ const styles = StyleSheet.create({
         paddingRight: 40,
         paddingTop: 10,
         paddingBottom: 10,
-        margin:20,
+        margin: 20,
     },
     whiteTextCentered: {
         fontSize: 18,
@@ -153,6 +234,16 @@ const styles = StyleSheet.create({
         fontSize: 17,
         paddingHorizontal: 5,
         paddingVertical: 5,
+        lineHeight: 25,
+    },
+    emptyText: {
+        color: slate,
+        fontWeight: "bold",
+        fontSize: 17,
+        paddingHorizontal: 5,
+        paddingVertical: 10,
+        lineHeight: 25,
+        textAlign: "center",
     },
     brandText: {
         color: gray,
@@ -160,21 +251,23 @@ const styles = StyleSheet.create({
         fontSize: 17,
         paddingHorizontal: 5,
         paddingVertical: 5,
-        textTransform:"uppercase",
+        textTransform: "uppercase",
     },
     modifyButton: {
-        color: gray,
-        fontWeight: "bold",
-        fontSize: 17,
-        paddingHorizontal: 8,
-        paddingTop: 7,
-        paddingBottom: 6,
-        borderWidth: 2,
-        borderColor: gray,
-        borderRadius: 10,
-        textAlign: "center",
-        marginLeft: "auto",
-        marginTop: 5,
+      marginHorizontal:10,
+      display:"flex",
+      justifyContent:"center",
+      alignItems:"center"
+    },
+    deleteIcon :{
+        width: 30,
+        height: 30,
+        marginBottom: 10,
+    },
+    editIcon:{
+        width: 30,
+        height: 30,
+        marginBottom: 10,
     },
 })
 

@@ -1,6 +1,7 @@
 import { ScrollView, Modal, View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
+import WarnPopUp from '../../../../../helpers/warnPopUp';
 
 const PatchProduct = ({ handleModal, storeId, selectedProduct }) => {
     const [name, setName] = useState(selectedProduct.name);
@@ -12,6 +13,11 @@ const PatchProduct = ({ handleModal, storeId, selectedProduct }) => {
     const [subCategory, setSubCategory] = useState(selectedProduct.subCategory);
     const [characteristics, setCharacteristics] = useState(selectedProduct.characteristics);
     const [images, setImages] = useState([]);
+    const [popup, setPopUp] = useState(false);
+
+    const handlePopUp = () => {
+        popup ? setPopUp(false) : setPopUp(true);
+    }
 
     useEffect(() => {
         const cleanedImages = [
@@ -66,7 +72,7 @@ const PatchProduct = ({ handleModal, storeId, selectedProduct }) => {
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
-                aspect: [4, 4],
+                aspect: [4, 2],
                 quality: 1,
             });
 
@@ -173,15 +179,20 @@ const PatchProduct = ({ handleModal, storeId, selectedProduct }) => {
             </View>
 
             <View style={styles.buttonRow}>
-                <TouchableOpacity style={styles.button} onPress={patchProduct}>
+                <TouchableOpacity style={styles.button} onPress={handlePopUp}>
                     <Text style={styles.whiteTextCentered}>Confirm product</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleModal('')} style={styles.button}>
                     <Text style={styles.whiteTextCentered}>Close</Text>
                 </TouchableOpacity>
             </View>
+            {
+                popup ? <WarnPopUp title={"Confirm changes"} message={"By confirming the changes will be applied on the product"} firstButton={patchProduct} secondButton={handlePopUp} /> : null
+            }
         </Modal>
+
     )
+
 }
 
 let slate = "#0f172a";
