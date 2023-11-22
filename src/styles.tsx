@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     category: {
         backgroundColor: "white",
         borderRadius: 5,
-        width: 170,
-        hegiht: 170,
+        paddingHorizontal:20,
+        paddingVertical:20,
         margin: 10,
         padding: 15,
         display: "flex",
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         lineHeight:22,
         paddingBottom:15,
-        width:200,
     },
     gymContainer: {
         height: 200,
@@ -139,44 +138,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         display:"flex",
     },
-    searchBtn: {
-        backgroundColor: "black",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "row",
-        padding: 10,
-        borderTopRightRadius: 15,
-        borderBottomRightRadius: 15,
-    },
-    searchText: {
-        fontWeight: "bold",
-        color: "white",
-    },
-    searchBar: {
-        height: 40,
-        borderWidth: 2,
-        borderColor: slate,
-        borderTopLeftRadius: 15,
-        borderBottomLeftRadius: 15,
-        width: 300,
-        paddingLeft: 20,
-        paddingRight: 20,
-        color: "black",
-    },
-    searchContainer: {
-        backgroundColor: gray,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "row",
-        height: 70,
-    },
     breadCumbText: {
         color: "black",
         fontWeight: "bold",
-
-
     },
     breadcumb: {
         padding: 5,
@@ -600,9 +564,8 @@ const styles = StyleSheet.create({
         marginRight:30,
     },
     mapIcon:{
-        width:28,
-        height:28,
-      
+        height:25,
+        width:25,
     },
     searchTriggerDirectionText:{
         color:slate,

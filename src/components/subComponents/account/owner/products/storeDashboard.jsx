@@ -1,9 +1,12 @@
 import { useProductContext } from './../../../../../context/productContext';
 import { useState, useEffect } from 'react';
-import { View, Modal, ScrollView, Image, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Modal, ScrollView, Image, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
 import CreateProduct from './createProduct';
 import PatchProduct from './patchProduct';
 import WarnPopUp from '../../../../../helpers/warnPopUp';
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+
+const screenWidth = Dimensions.get('window').width;
 
 const StoreDashboard = ({ storeId, handleModal }) => {
     const { getProductsByGym } = useProductContext();
@@ -12,6 +15,7 @@ const StoreDashboard = ({ storeId, handleModal }) => {
     const [productId, setProductId] = useState();
     const [selectedProduct, setSelectedProduct] = useState();
     const [isLoading, setIsLoading] = useState(true);
+
 
     const handlePopUp = (type) => {
         switch (type) {
@@ -36,9 +40,9 @@ const StoreDashboard = ({ storeId, handleModal }) => {
             setIsLoading(false);
         }
         else {
-            setTimeout(()=>{
+            setTimeout(() => {
                 setIsLoading(false);
-            },200)
+            }, 200)
         }
     }
 
@@ -83,7 +87,7 @@ const StoreDashboard = ({ storeId, handleModal }) => {
                     ) : productData && productData.length > 0 ? (
                         productData.map(product => {
                             return (<TouchableOpacity key={product._id} style={styles.panelRow}>
-                                <Image style={styles.icon} source={{ uri: product.image }} />
+                                <Image style={styles.productImage} source={{ uri: product.image }} />
                                 <View>
                                     <View style={styles.productRow}>
                                         <Text style={styles.subText}>
@@ -97,13 +101,17 @@ const StoreDashboard = ({ storeId, handleModal }) => {
                                         <Text style={styles.brandText}>
                                             {product.brand}
                                         </Text>
-                                        <TouchableOpacity style={styles.modifyButton} onPress={() => { patchProductId(product) }}>
-                                        <Image style={styles.editIcon} source={require('./../../../../../img/pen.png')}/>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={styles.modifyButton} onPress={() => { getProductId(product._id) }}>
-                                            <Image style={styles.deleteIcon} source={require('./../../../../../img/delete.png')}/>
-                                        </TouchableOpacity>
                                     </View>
+                                    <View style={styles.buttonsActions}>
+                                            <TouchableOpacity style={styles.editButton} onPress={() => { patchProductId(product) }}>
+                                                <Feather name="edit" size={20} color="white" />
+                                                <Text style={styles.whiteText}> Edit </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={styles.deleteButton} onPress={() => { getProductId(product._id) }}>
+                                                <MaterialCommunityIcons name="delete-outline" size={20} color="white" />
+                                                <Text style={styles.whiteText}>Delete</Text>
+                                            </TouchableOpacity>
+                                        </View>
 
                                 </View>
 
@@ -151,6 +159,7 @@ const StoreDashboard = ({ storeId, handleModal }) => {
 }
 let slate = "#0f172a";
 let gray = "#4b5563";
+let red = "#ef4444";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -164,10 +173,15 @@ const styles = StyleSheet.create({
         display: "flex",
         marginTop: "100%",
     },
-    icon: {
-        width: 80,
-        height: 80,
-        marginBottom: 10,
+    productImage :{
+        width:145,
+        height:95,
+        marginRight:10,
+        borderRadius:5,
+    },
+    buttonsActions: {
+        marginLeft: "auto",
+        flexDirection: "row",
     },
     emptyProduct: {
         borderWidth: 2,
@@ -221,7 +235,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        width: 350,
+        width:screenWidth - 25,
         marginBottom: 10,
     },
     icon: {
@@ -232,6 +246,14 @@ const styles = StyleSheet.create({
         color: slate,
         fontWeight: "bold",
         fontSize: 17,
+        paddingHorizontal: 5,
+        paddingVertical: 5,
+        lineHeight: 25,
+    },
+    whiteText: {
+        color: 'white',
+        fontWeight: "bold",
+        fontSize: 14,
         paddingHorizontal: 5,
         paddingVertical: 5,
         lineHeight: 25,
@@ -253,18 +275,32 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         textTransform: "uppercase",
     },
-    modifyButton: {
-      marginHorizontal:10,
-      display:"flex",
-      justifyContent:"center",
-      alignItems:"center"
+    editButton: {
+        backgroundColor:slate,
+        borderRadius:15,
+        padding:5,
+        paddingLeft:7,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection:"row",
     },
-    deleteIcon :{
+    deleteButton: {
+        backgroundColor:red,
+        borderRadius:15,
+        padding:5,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection:"row",
+        marginLeft:10,
+    },
+    deleteIcon: {
         width: 30,
         height: 30,
         marginBottom: 10,
     },
-    editIcon:{
+    editIcon: {
         width: 30,
         height: 30,
         marginBottom: 10,

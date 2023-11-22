@@ -6,9 +6,9 @@ const SearchHistoryComponent = () => {
         <View style={styles.searchHistoryColumn}>
             <Pressable style={styles.searchHistoryDirectionFirstChild}>
                 <View style={styles.mapIconContainer}>
-                <Image style={styles.mapIcon} source={require('./../img/map-black.png')}/>
+                    <Image style={styles.mapIcon} source={require('./../img/map-black.png')} />
                 </View>
-           
+
                 <View>
                     <Text style={styles.searchTriggerDirectionText}>
                         360 Training
@@ -20,9 +20,9 @@ const SearchHistoryComponent = () => {
             </Pressable>
             <Pressable style={styles.searchHistoryDirection}>
                 <View style={styles.mapIconContainer}>
-                <Image style={styles.mapIcon} source={require('./../img/map-black.png')}/>
+                    <Image style={styles.mapIcon} source={require('./../img/map-black.png')} />
                 </View>
-           
+
                 <View>
                     <Text style={styles.searchTriggerDirectionText}>
                         360 Training

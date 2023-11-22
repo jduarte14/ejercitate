@@ -11,7 +11,7 @@ const HomeContent = ({ navigation }) => {
 
     const handleMapBox = () => {
         mapComponent ? setMapComponent(false) :
-        setMapComponent(true);
+            setMapComponent(true);
     }
 
     return (
@@ -23,8 +23,9 @@ const HomeContent = ({ navigation }) => {
                 <SearchTrigger handleMapBox={handleMapBox} />
                 <Categories />
                 <Posts />
-                <BottomBar navigation={navigation} />
+
             </ScrollView>
+            <BottomBar navigation={navigation} />
         </View>
     )
 }

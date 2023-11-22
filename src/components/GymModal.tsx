@@ -16,9 +16,9 @@ import styles from './../styles';
 const GymModal = ({ handleGymModal, selectedGym }) => {
     const [pricesModal, setPricesModal] = useState(false);
     const [instructorModal, setInstructorModal] = useState(false);
-    const { reviews, sports, schedules, facilities, prices, imagen, imagen2, imagen3, imagen4, imagen5, _id } = selectedGym;      
-    const {instructors} = useInstructorContext();
- 
+    const { reviews, sports, schedules, facilities, prices, imagen, imagen2, imagen3, imagen4, imagen5, _id } = selectedGym;
+    const { instructors } = useInstructorContext();
+
 
     const handleInstructorModal = () => {
         instructorModal === true ?
@@ -81,18 +81,6 @@ const GymModal = ({ handleGymModal, selectedGym }) => {
                     <Schedules schedules={schedules} />
                     {reviews ? <Reviews reviews={reviews} /> : null}
                 </View>
-                <View style={styles.buttonsRow}>
-                    <Pressable style={styles.button} onPress={handleGymModal}>
-                        <Text style={styles.buttonText}>
-                            Cerrar
-                        </Text>
-                    </Pressable>
-                    <Pressable style={styles.button} onPress={handlePricesModal}>
-                        <Text style={styles.buttonText} >
-                            Reservar
-                        </Text>
-                    </Pressable>
-                </View>
                 {
                     instructorModal ? <Instructors handleInstructorModal={handleInstructorModal} instructors={instructors} /> : null
                 }
@@ -102,6 +90,18 @@ const GymModal = ({ handleGymModal, selectedGym }) => {
                 }
 
             </ScrollView>
+            <View style={styles.buttonsRow}>
+                <Pressable style={styles.button} onPress={handleGymModal}>
+                    <Text style={styles.buttonText}>
+                        Cerrar
+                    </Text>
+                </Pressable>
+                <Pressable style={styles.button} onPress={handlePricesModal}>
+                    <Text style={styles.buttonText} >
+                        Reservar
+                    </Text>
+                </Pressable>
+            </View>
         </Modal>
     )
 }
