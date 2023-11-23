@@ -1,5 +1,6 @@
 import { ScrollView, Modal, View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { useState, useEffect } from 'react';
+import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import WarnPopUp from '../../../../../helpers/warnPopUp';
 const CreateProduct = ({ handleModal, storeId }) => {
@@ -36,8 +37,8 @@ const CreateProduct = ({ handleModal, storeId }) => {
             productData.append("shortDescription", shortDescription.toLocaleLowerCase());
             productData.append("brand", brand.toLocaleLowerCase());
             productData.append("price", price.toLocaleLowerCase());
-            productData.append("category", category.toLocaleLowerCase());
-            productData.append("subCategory", subCategory.toLocaleLowerCase());
+            productData.append("category", category);
+            productData.append("subCategory", subCategory);
             productData.append("characteristics", characteristics.toLocaleLowerCase());
             productData.append("gymId", storeId);
             images[0] ? productData.append("image", { uri: images[0], type: 'image/jpeg', name: "image.jpg" }) : null;
@@ -57,6 +58,7 @@ const CreateProduct = ({ handleModal, storeId }) => {
             });
 
             const data = await response.json();
+            console.log(data);
             setTimeout(() => {
                 handlePopUp('');
                 handleModal('');
@@ -65,6 +67,10 @@ const CreateProduct = ({ handleModal, storeId }) => {
             console.log(error.message);
         }
     };
+
+    const getSubCategory = () => {
+        console.log(subCategory);
+    }
 
 
     const removeImage = (index) => {
@@ -91,6 +97,36 @@ const CreateProduct = ({ handleModal, storeId }) => {
         }
     };
 
+
+    const SupplementPicker = () => (
+        <Picker selectedValue={subCategory} onValueChange={(itemValue, itemIndex) => setSubCategory(itemValue)}>
+            <Picker.Item label="You must choose a category" value="" />
+            <Picker.Item label="Protein" value="Protein" />
+            <Picker.Item label="Weight Gainers" value="Weight Gainers" />
+            <Picker.Item label="Vitamins and Minerals" value="Vitamins and Minerals" />
+            <Picker.Item label="Energy and Recovery Supplements" value="Energy and Recovery Supplements" />
+        </Picker>
+    );
+
+    const EquipmentPicker = () => (
+        <Picker selectedValue={subCategory} onValueChange={(itemValue, itemIndex) => setSubCategory(itemValue)}>
+            <Picker.Item label="You must choose a category" value="" />
+            <Picker.Item label="Free Weights" value="Free Weights" />
+            <Picker.Item label="Strength Training Machines" value="Strength Training Machines" />
+            <Picker.Item label="Training Accessories" value="Training Accessories" />
+            <Picker.Item label="Functional Training Equipment" value="Functional Training Equipment" />
+        </Picker>
+    );
+
+    const ClothingPicker = () => (
+        <Picker selectedValue={subCategory} onValueChange={(itemValue, itemIndex) => setSubCategory(itemValue)}>
+            <Picker.Item label="You must choose a category" value="" />
+            <Picker.Item label="Yoga and Pilates Wear" value="Yoga and Pilates Wear" />
+            <Picker.Item label="Running Gear" value="Running Gear" />
+            <Picker.Item label="Compression Wear" value="Compression Wear" />
+            <Picker.Item label="Apparel Accessories" value="Apparel Accessories" />
+        </Picker>
+    );
     return (
         <Modal visible={true} animationType='slide'>
             <Text style={styles.title}>
@@ -129,24 +165,35 @@ const CreateProduct = ({ handleModal, storeId }) => {
                             value={price}
                             style={styles.input}
                         />
-                        <TextInput
-                            placeholder="Add category"
-                            onChangeText={setCategory}
-                            value={category}
-                            style={styles.input}
-                        />
-                        <TextInput
-                            placeholder="Add subCategory"
-                            onChangeText={setSubCategory}
-                            value={subCategory}
-                            style={styles.input}
-                        />
+                        <View style={styles.input}>
+                            <Picker selectedValue={category} onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}>
+                                {
+                                    category === "" ?
+                                        <Picker.Item label="You must add a category" value="" /> : null
+                                }
+                                <Picker.Item label="Supplements" value="Supplements" />
+                                <Picker.Item label="Equipment" value="Equipment" />
+                                <Picker.Item label="Clothing" value="Clothing" />
+                            </Picker>
+                        </View>
+                        <View style={styles.input}>
+                            {category === "Supplements" && <SupplementPicker />}
+                            {category === "Equipment" && <EquipmentPicker />}
+                            {category === "Clothing" && <ClothingPicker />}
+                            {category === "" && (
+                                <Picker selectedValue={subCategory} onValueChange={(itemValue, itemIndex) => setSubCategory(itemValue)}>
+                                    <Picker.Item label="You must choose a category" value="" />
+                                </Picker>
+                            )}
+                        </View>
                         <TextInput
                             placeholder="Add characteristics"
                             onChangeText={setCharacteristics}
                             value={characteristics}
                             style={styles.input}
                         />
+
+
                     </View>
                     <View style={styles.container}>
                         <TouchableOpacity onPress={pickImage} style={styles.button}>
@@ -158,7 +205,7 @@ const CreateProduct = ({ handleModal, storeId }) => {
                                     return (
                                         <View>
                                             {
-                                                image ? <Image key={index} source={{ uri: image }} style={{ width: 200, height: 100, marginBottom: 20, marginRight:10, borderRadius: 10 }} /> : null
+                                                image ? <Image key={index} source={{ uri: image }} style={{ width: 200, height: 100, marginBottom: 20, marginRight: 10, borderRadius: 10 }} /> : null
                                             }
 
                                             {image ?
@@ -187,7 +234,7 @@ const CreateProduct = ({ handleModal, storeId }) => {
                             <Text style={styles.whiteTextCentered}>Confirm product</Text>
                         </TouchableOpacity>
                 }
-                <TouchableOpacity onPress={() => handleModal('')} style={styles.button}>
+                <TouchableOpacity onPress={()=>{handleModal('')}} style={styles.button}>
                     <Text style={styles.whiteTextCentered}>Close</Text>
                 </TouchableOpacity>
             </View>
@@ -254,6 +301,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginBottom: 15,
     },
+    option: {
+        color: slate,
+        fontWeight: "bold",
+    },
     title: {
         fontWeight: "bold",
         color: slate,
@@ -283,6 +334,21 @@ const styles = StyleSheet.create({
         fontSize: 11,
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    picker: {
+        height: 50,
+        width: 200,
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderColor: '#000000',
+        borderRadius: 8,
+        marginBottom: 10,
+        paddingHorizontal: 10,
+    },
+    pickerItem: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'blue',
     },
 })
 

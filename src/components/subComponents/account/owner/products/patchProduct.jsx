@@ -2,6 +2,7 @@ import { ScrollView, Modal, View, Text, Image, TouchableOpacity, StyleSheet, Tex
 import { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import WarnPopUp from '../../../../../helpers/warnPopUp';
+import { Picker } from '@react-native-picker/picker'; 
 
 const PatchProduct = ({ handleModal, storeId, selectedProduct }) => {
     const [name, setName] = useState(selectedProduct.name);
@@ -91,6 +92,57 @@ const PatchProduct = ({ handleModal, storeId, selectedProduct }) => {
         setImages(updatedImages);
     };
 
+    const CategoryPicker = () => (
+        <Picker selectedValue={category} onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}>
+            <Picker.Item label="Supplements" value="Supplements" />
+            <Picker.Item label="Equipment" value="Equipment" />
+            <Picker.Item label="Clothing" value="Clothing" />
+        </Picker>
+    );
+    const SupplementPicker = () => (
+        <Picker selectedValue={subCategory} onValueChange={(itemValue, itemIndex) => setSubCategory(itemValue)}>
+            <Picker.Item label="Protein" value="Protein" />
+            <Picker.Item label="Weight Gainers" value="Weight Gainers" />
+            <Picker.Item label="Vitamins and Minerals" value="Vitamins and Minerals" />
+            <Picker.Item label="Energy and Recovery Supplements" value="Energy and Recovery Supplements" />
+        </Picker>
+    );
+
+    const EquipmentPicker = () => (
+        <Picker selectedValue={subCategory} onValueChange={(itemValue, itemIndex) => setSubCategory(itemValue)}>
+            <Picker.Item label="Free Weights" value="Free Weights" />
+            <Picker.Item label="Strength Training Machines" value="Strength Training Machines" />
+            <Picker.Item label="Training Accessories" value="Training Accessories" />
+            <Picker.Item label="Functional Training Equipment" value="Functional Training Equipment" />
+        </Picker>
+    );
+
+    const ClothingPicker = () => (
+        <Picker selectedValue={subCategory} onValueChange={(itemValue, itemIndex) => setSubCategory(itemValue)}>
+            <Picker.Item label="Yoga and Pilates Wear" value="Yoga and Pilates Wear" />
+            <Picker.Item label="Running Gear" value="Running Gear" />
+            <Picker.Item label="Compression Wear" value="Compression Wear" />
+            <Picker.Item label="Apparel Accessories" value="Apparel Accessories" />
+        </Picker>
+    );
+
+    const renderSubCategoryPicker = () => {
+        switch (category) {
+            case "Supplements":
+                return <SupplementPicker />;
+            case "Equipment":
+                return <EquipmentPicker />;
+            case "Clothing":
+                return <ClothingPicker />;
+            default:
+                return (
+                    <Picker selectedValue={subCategory} onValueChange={(itemValue, itemIndex) => setSubCategory(itemValue)}>
+                        <Picker.Item label="You must choose a category" value="" />
+                    </Picker>
+                );
+        }
+    };
+
     return (
         <Modal visible={true} animationType='slide'>
             <Text style={styles.title}>
@@ -130,18 +182,12 @@ const PatchProduct = ({ handleModal, storeId, selectedProduct }) => {
                             style={styles.input}
                             keyboardType="numeric"
                         />
-                        <TextInput
-                            placeholder="Add category"
-                            onChangeText={setCategory}
-                            value={category}
-                            style={styles.input}
-                        />
-                        <TextInput
-                            placeholder="Add subCategory"
-                            onChangeText={setSubCategory}
-                            value={subCategory}
-                            style={styles.input}
-                        />
+                        <View style={styles.input}>
+                            <CategoryPicker />
+                        </View>
+                        <View style={styles.input}>
+                            {renderSubCategoryPicker()}
+                        </View>
                         <TextInput
                             placeholder="Add characteristics"
                             onChangeText={setCharacteristics}
