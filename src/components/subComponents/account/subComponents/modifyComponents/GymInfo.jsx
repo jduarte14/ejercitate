@@ -1,5 +1,5 @@
-import { StyleSheet, View, TextInput, Image, Text, Modal, Pressable, ScrollView } from "react-native";
-
+import { StyleSheet, View, TextInput, Image, Text, Modal, Pressable, ScrollView, Dimensions } from "react-native";
+const screenWidth = Dimensions.get('screen').width;
 const GymInfo = ({ setStateAddress, setStateDescription, setStateHours, setStateDays, stateDescription, stateAddress, stateHours, stateDays, handlePopUp }) => {
     return (
         <Modal  visible={true} animationType="slide">
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         height: 50,
         margin: 12,
         padding: 10,
-        minWidth:250,
+        width: screenWidth - 40,
         borderRadius: 10,
         backgroundColor: 'white',
         color: slate,

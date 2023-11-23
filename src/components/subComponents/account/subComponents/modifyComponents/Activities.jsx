@@ -1,8 +1,10 @@
-import { StyleSheet, Image, Text, TouchableOpacity, ScrollView, Modal, View, Pressable } from "react-native";
+import { StyleSheet, Image, Text, TouchableOpacity, ScrollView, Modal, View, Pressable, Dimensions } from "react-native";
+
+const screenWidth = Dimensions.get('screen').width;
+const screenHeight = Dimensions.get('screen').height;
 
 const Activities = ({ selectedFacilities, selectedSports, handleSportsOnPress, handleFacilitiesOnPress, handlePopUp }) => {
-  
-
+    console.log(screenHeight / 13);
     return (
         <Modal visible={true} animationType="slide">
             <View style={styles.container}>
@@ -177,14 +179,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 15,
         backgroundColor: slate,
-        width: 150,
+        width: screenWidth - 235,
+        minHeight: screenHeight / 13,
         borderRadius: 10,
         margin: 10,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 25,
+
     },
     subTitle: {
         fontWeight: "bold",
@@ -208,7 +211,7 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: slate,
-        width: 150,
+        width: screenWidth - 235,
         height: 50,
         borderRadius: 20,
         marginHorizontal: 5,

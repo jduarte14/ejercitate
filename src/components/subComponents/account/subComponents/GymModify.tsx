@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Modal, View, Text, TouchableOpacity, TextInput, Pressable, ScrollView, Alert } from "react-native";
+import { StyleSheet, Image, Modal, View, Text, Dimensions, Pressable, ScrollView } from "react-native";
 import { useState, useEffect } from 'react';
 
 import Activities from './modifyComponents/Activities';
@@ -8,12 +8,12 @@ import Prices from './modifyComponents/Prices';
 import WarnPopUp from './../../../../helpers/warnPopUp';
 
 import { fetchHelper } from "../../../authentication/helpers/fetchHelper";
+const screenWidth = Dimensions.get('screen').width;
 
 const GymModify = ({ gym, handleModal }) => {
     const { address, description, facilities, imagen, imagen2, imagen3, imagen4, imagen5, prices, schedules, sports } = gym;
     const { days, hours } = schedules;
     const [popup, setPopUp] = useState('');
-    const [updatedText, setUpdatedText] = useState('');
     const [warnPopup, setWarnPopUp] = useState(false);
     const [stateAddress, setStateAddress] = useState(address);
     const [stateDescription, setStateDescription] = useState(description);
@@ -134,7 +134,6 @@ const GymModify = ({ gym, handleModal }) => {
             console.error(error.message);
         }
     }
-
     useEffect(() => {
         createFormData()
     }, [])
@@ -293,6 +292,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     panelRow: {
+        backgroundColor: "white",
         paddingVertical: 15,
         paddingLeft: 10,
         marginTop: 20,
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        width: 350,
+        width: screenWidth - 40,
     },
     icon: {
         width: 35,
