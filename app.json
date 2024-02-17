@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ejercitate",
-    "slug": "ejercitate",
+    "slug": "gym-shark",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -33,7 +33,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "63d77f1c-1cc1-462e-b4ba-f17c531620df"
+        "projectId": "97d71565-27ca-4a6f-abfe-b0a93c5f903a"
       }
     },
     "owner": "jduartecfr"
